@@ -1,0 +1,99 @@
+#include "NXCDefs.h"
+
+bool dir ;
+mutex motor;
+
+
+void copen(int n)
+{
+while(n-->0) {
+   OnFwd(OUT_A,20);
+   Wait(500);
+   OnFwd(OUT_A,-20);
+   Wait(500);
+   }
+   OnFwd(OUT_A,20);
+   Wait(500);
+}
+
+task claw()
+{
+  while(true) {
+     while (SENSOR_1 != 1) ;
+     Acquire(motor);
+     Off(OUT_BC);
+     OnFwd(OUT_A,-70);
+     Wait(500);
+     Off(OUT_A);
+     Wait(2000);
+     Release(motor);
+     }
+}
+
+
+task radar()
+{
+int i=0;
+while(true) {
+   while (SensorUS(IN_4) > 12)
+   //NumOut(10,LCD_LINE5,SensorUS(IN_4));
+      ;
+   Acquire(motor);
+   Off(OUT_BC);
+   copen(5);
+   //Wait(10000);
+   Release(motor);
+   }
+}
+
+
+task light()
+{
+bool black=true;
+//change dir if black to white transition
+while (true) {
+      //NumOut(10,LCD_LINE5,SENSOR_3);
+      if (SENSOR_3 > 55) {
+         if (black) {
+               black=false;
+               dir = ! dir;
+               }
+         }
+      else
+          black=true;
+      }
+}
+
+task follow ()
+{
+  while (true)
+        if (dir) {
+           Acquire(motor);
+           OnFwd (OUT_C, 70);
+           OnFwd (OUT_B, 10);
+           //Float(OUT_B);
+           Release(motor);
+        }
+        else {
+           Acquire(motor);
+           OnFwd (OUT_B, 70);
+           OnFwd (OUT_C, 10);
+           //Float(OUT_C);
+           Release(motor);
+        }
+}
+
+
+task main()
+{
+dir=true;
+TextOut(10, LCD_LINE1, "rp/lgm V0.3");
+SetSensorTouch(IN_1);
+SetSensorLight(IN_3);
+SetSensorLowspeed(IN_4);
+Precedes(follow, light, radar, claw);
+}
+
+
+
+

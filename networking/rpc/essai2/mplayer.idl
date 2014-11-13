@@ -1,0 +1,18 @@
+/* interface pour player mp3 distant
+ *
+ * Mon Feb 10 11:37:23 CET 2003 RP
+ *	- version initale
+ */
+
+typedef string FileName<MAXFILENAMELEN>;
+struct File {
+       FileName name;
+       opaque data<>;
+   };
+
+
+program mplayer {
+  version LGM {
+   void mplay(File f) = 1;
+  } = 1;
+} = 1234567;

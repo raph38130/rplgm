@@ -1,0 +1,5 @@
+CC=/disk/c68k/m68k-coff/bin/gcc -m68040 -msoft-float
+LD=/disk/c68k/m68k-coff/bin/ld
+essai: essai.o
+	$(LD) essai.o -o essai -L /disk/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3 -lgcc \
+	-oformat srec

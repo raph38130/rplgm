@@ -1,0 +1,138 @@
+                     
+                     ; DEFAULTING TO A390 MODE
+                     ;* 
+                     ;* ven jan 21 13:01:12 UTC 2005 RP
+                     ;* - overflow flag needs to be cleared
+                     ;* 
+                     ;* 
+                     $include(tini_400.inc)
+                     $include(ds80c400.inc)
+                     $include(tinimacro.inc)
+                     $include(apiequ.inc)
+                     
+                     Native_Init:
+00000F: E4             clr a
+000010: 22             ret
+                     
+                     Native_readT2:
+                     ; TH2 TL2  
+000011: E5 CD          mov a,0CDh
+000013: F5 01          mov 01h,a                            
+000015: E5 CC          mov a,0CCh            
+000017: F5 00          mov 00h,a                
+000019: E4             clr a
+00001A: F5 03          mov 03h,a           
+00001C: F5 02          mov 02h,a          
+00001E: 22             ret 
+                     
+                     Native_startCountT2:
+00001F: 74 01           mov a,#01h    ;DCEN=1
+000021: F5 C9           mov 0C9h,a    
+000023: 74 06           mov a,#06h    ;C/T2=1 TR2=1
+000025: F5 C8           mov 0C8h,a    
+000027: 74 80           mov a,#080h
+000029: F5 CD           mov 0CDh,a
+00002B: E4              clr a
+00002C: F5 CC           mov 0CCh,a
+00002E: 22              ret
+                                                  
+                      
+                     
+00002F:              END
+
+
+Code Statistics (count):
+========================
+
+The following section is included to detect operations
+that consume more code space than necessary.
+
+Optimizations recommended:
+lcalls       -> acalls (within 512k boundaries)
+ljmps        -> ajmps (within 512k boundaries)
+mov a, #0    -> clr a
+xrl a, #0    -> REMOVE, DOES NOTHING USEFUL
+xrl a, #0ffh -> cpl a
+
+
+Module Statistics: code bytes, lcalls,  ljmps, mov a, #0, xrl a, #0, xrl a, #0ffh
+=================================================================================
+             timerT2:       0,      0,      0,         0,         0,            0
+                      -----------------------------------------------------------
+               Total:       0,      0,      0,         0,         0,            0
+
+
+Symbols (hex value: decimal value):
+================================
+                                       ET0: 0x0000A9:      169
+                                       ET1: 0x0000AB:      171
+                                       ET2: 0x0000AD:      173
+                                         B: 0x0000F0:      240
+                                         P: 0x0000D0:      208
+                                       IT0: 0x000088:      136
+                                       IT1: 0x00008A:      138
+                                       RB8: 0x00009A:      154
+                                        AC: 0x0000D6:      214
+                                      TMOD: 0x000089:      137
+                                       EX0: 0x0000A8:      168
+                                       EX1: 0x0000AA:      170
+                       NATIVE_STARTCOUNTT2: 0x00001F:       31
+                                        CY: 0x0000D7:      215
+                                        F0: 0x0000D5:      213
+                                        EA: 0x0000AF:      175
+                                       REN: 0x00009C:      156
+                                      PCON: 0x000087:      135
+                                        ES: 0x0000AC:      172
+                                        IE: 0x0000A8:      168
+                                        IP: 0x0000B8:      184
+                                       RL2: 0x0000C8:      200
+                                      SBUF: 0x000099:      153
+                                      RCLK: 0x0000CD:      205
+                                     T2CON: 0x0000C8:      200
+                                      EXF2: 0x0000CE:      206
+                                        P0: 0x000080:      128
+                                        P1: 0x000090:      144
+                                        P2: 0x0000A0:      160
+                                        P3: 0x0000B0:      176
+                                        OV: 0x0000D2:      210
+                                        PS: 0x0000BC:      188
+                                       RS0: 0x0000D3:      211
+                                       RS1: 0x0000D4:      212
+                                        RI: 0x000098:      152
+                                     EXEN2: 0x0000CB:      203
+                                        SP: 0x000081:      129
+                                        TI: 0x000099:      153
+                                      SCON: 0x000098:      152
+                                      TCLK: 0x0000CC:      204
+                             NATIVE_READT2: 0x000011:       17
+                                       SM0: 0x00009F:      159
+                                       SM1: 0x00009E:      158
+                                       SM2: 0x00009D:      157
+                                      TCON: 0x000088:      136
+                                       TB8: 0x00009B:      155
+                               NATIVE_INIT: 0x00000F:       15
+                                       TF0: 0x00008D:      141
+                                       TF1: 0x00008F:      143
+                                       TF2: 0x0000CF:      207
+                                       TH0: 0x00008C:      140
+                                       TH1: 0x00008D:      141
+                                       TH2: 0x0000CD:      205
+                                    RCAP2H: 0x0000CB:      203
+                                    RCAP2L: 0x0000CA:      202
+                                       DPH: 0x000083:      131
+                                       DPL: 0x000082:      130
+                                       TL0: 0x00008A:      138
+                                       TL1: 0x00008B:      139
+                                       TL2: 0x0000CC:      204
+                                       ACC: 0x0000E0:      224
+                                       IE0: 0x000089:      137
+                                       IE1: 0x00008B:      139
+                                       TR0: 0x00008C:      140
+                                       TR1: 0x00008E:      142
+                                       TR2: 0x0000CA:      202
+                                       PT0: 0x0000B9:      185
+                                       PT1: 0x0000BB:      187
+                                       PT2: 0x0000BD:      189
+                                       PSW: 0x0000D0:      208
+                                       PX0: 0x0000B8:      184
+                                       PX1: 0x0000BA:      186

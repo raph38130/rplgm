@@ -1,0 +1,30 @@
+projet Système 1998
+ 
+ 
+MEMORY MAP (adresses physiques)
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+0000 0000	16xBug (buffer) + vecteurs exceptions 			16 pages
+0001 0000	kernel e2s						4 pages
+ 
+0001 4000	kernel e2s accessible en mode U 	 		1 page
+ 
+0001 5000	code des applis chargé lors d'un load			N pages
+ 			pas plus d'une appli par page
+			une appli peut faire N pages
+			
+0040 0000	1 page avant pour la pile e2s
+
+---- ----	
+FF00 0000	à partir d'ici, accessible en mode transparant	
+FFE0 0000	SRAM : tables de descripteurs mémoire virtuelle)	32 pages
+ 		16xBug modifie 8kO lors d'un reset (offset C000)
+ 
+FF80 0000	16xBug (code, devices...)
+ 
+POUR CHAQUE PROCESS (adresses virtuelles)
+-=-=-=-=-=-=-=-=-=-
+8000 0000	n pages de code
+FE00 0000	1 page avant pour les 2 piles
+ 
+ 
+ 

@@ -1,0 +1,4 @@
+interface Sample1
+{
+	void function1();
+};

@@ -1,0 +1,33 @@
+<!-- $Id: DeploymentDescriptor.xml,v 1.2 2002/05/15 14:43:21 raph Exp $
+Soap2TangoServer DeploymentDescriptor
+$Header: /opt2/cvs//TANGO/Soap/DeploymentDescriptor.xml,v 1.2 2002/05/15 14:43:21 raph Exp $
+ESRF/LGM project 
+CLASSPATH for catalina.sh
+export CLASSPATH=$CLASSPATH:/opt2/soap-2_2/lib/mail.jar:/opt2/soap-2_2/lib/activation.jar 
+export CLASSPATH=$CLASSPATH:/disk/removable/projet2/TANGO/java/Tango.jar:/disk/removable/projet2/TANGO/java/OB.jar
+export CLASSPATH=$CLASSPATH:/disk/removable/projet2/Soap/
+
+
+	RP Thu May 24 20:40:43 CEST 2001
+		- got a good comprehension of attribute serialisation
+	RP Tue Dec 12 09:58:35 CET 2000
+		- initial work
+USAGE :
+java 								\
+	org.apache.soap.server.ServiceManagerClient 		\
+		http://localhost:8080/soap/servlet/rpcrouter 	\
+		deploy DeploymentDescriptor.xml
+-->
+<isd:service
+	xmlns:isd="http://xml.apache.org/xml-soap/deployment"
+	id="urn:Soap2TangoProxy">
+  	<isd:provider
+		type="java" 
+                scope="Session"
+                methods="	command_list_query command_inout
+			">
+				<!--get_attribute_config read_attributes-->
+  		<isd:java class="Soap2Tango" static="false"/>
+  	</isd:provider>   
+</isd:service>
+

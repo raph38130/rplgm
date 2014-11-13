@@ -1,0 +1,67 @@
+Archive member included       because of file (symbol)
+
+LINK/lib68k.a(func.o)         samples/process4.o (open)
+LINK/lib68k.a(writeln.o)      samples/process4.o (writeln)
+LINK/lib68k.a(strlen.s.o)     LINK/lib68k.a(writeln.o) (strlen)
+LINK/lib68k.a(strcpy.s.o)     LINK/lib68k.a(writeln.o) (strcpy)
+LINK/lib68k.a(strcat.o)       LINK/lib68k.a(writeln.o) (strcat)
+
+Memory Configuration
+
+Name             Origin             Length            
+ramuser          0x80000000         0x00001000
+
+Linker script and memory map
+
+
+.text           0x80000000      0x488
+ *(.text)
+ .text          0x80000000        0xc LINK/crt0user.o
+ .text          0x8000000c       0x56 samples/process4.o
+                0x80000016                start
+ *fill*         0x80000062        0x2
+ .text          0x80000064      0x250 LINK/lib68k.a(func.o)
+                0x800001b6                _getpid
+                0x800000cc                ioctl
+                0x800001d0                chprio
+                0x80000100                sdelete
+                0x80000238                malloc
+                0x8000021e                sleep
+                0x800001ea                suspend
+                0x800000b2                write
+                0x8000014e                kill
+                0x800002a0                end
+                0x80000134                wait
+                0x8000026c                getfreemem
+                0x8000011a                signal
+                0x80000098                read
+                0x8000019c                getprio
+                0x80000182                create
+                0x80000168                resume
+                0x800000e6                screate
+                0x80000064                open
+                0x80000286                load
+                0x80000204                status
+                0x8000007e                close
+                0x80000252                free
+ .text          0x800002b4       0x5a LINK/lib68k.a(writeln.o)
+                0x800002b8                writeln
+ *fill*         0x8000030e        0x2
+ .text          0x80000310       0xea LINK/lib68k.a(strlen.s.o)
+                0x80000310                strlen
+ *fill*         0x800003fa        0x2
+ .text          0x800003fc       0x48 LINK/lib68k.a(strcpy.s.o)
+                0x800003fc                strcpy
+ .text          0x80000444       0x44 LINK/lib68k.a(strcat.o)
+                0x80000444                strcat
+
+.data           0x80000488        0x0
+ *(.data)
+
+.bss            0x80000488        0x0
+ *(.bss)
+ *(COMMON)
+LOAD LINK/crt0user.o
+LOAD samples/process4.o
+LOAD LINK/lib68k.a
+OUTPUT(/tftpboot/process4 binary)

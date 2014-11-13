@@ -1,0 +1,45 @@
+<!--	form.html
+		method : POST/GET 
+		action : C/bash
+	RP Thu Oct 25 12:11:41 CEST 2001 
+		- initial revision
+		
+        Options Indexes +FollowSymLinks +Includes MultiViews ExecCGI
+	ScriptAlias /CGI/ "/opt2/COURS/NETWORK/HTML/samples/"
+-->
+<HTML>
+<BODY>
+<CENTER><B><FONT COLOR="#FF0000"><FONT SIZE=+4>Formulaire POST / CGI en C</FONT></FONT></B></CENTER>
+<FORM action="http://localhost/CGI/mycgi"
+      method="post">
+<P>What is your name?&nbsp;<INPUT type="text" name="name">
+<BR>What is your passwd?<INPUT type="password" name="passwd">
+<BR><INPUT type="submit" value="Send"><INPUT type="reset">
+</FORM>
+
+<CENTER><B><FONT COLOR="#FF0000"><FONT SIZE=+4>Formulaire GET / CGI en C</FONT></FONT></B></CENTER>
+<FORM action="http://localhost/CGI/mycgi"
+      method="get">
+<P>What is your name?&nbsp;<INPUT type="text" name="name">
+<BR>What is your passwd?<INPUT type="password" name="passwd">
+<BR><INPUT type="submit" value="Send"><INPUT type="reset">
+</FORM>
+
+<CENTER><B><FONT COLOR="#FF0000"><FONT SIZE=+4>Formulaire POST / CGI en bash</FONT></FONT></B></CENTER>
+<FORM action="http://localhost/CGI/mycgi.sh"
+      method="post">
+<P>What is your name?&nbsp;<INPUT type="text" name="name">
+<BR>What is your passwd?<INPUT type="password" name="passwd">
+<BR><INPUT type="submit" value="Send"><INPUT type="reset">
+</FORM>
+
+<CENTER><B><FONT COLOR="#FF0000"><FONT SIZE=+4>Formulaire GET / CGI en bash</FONT></FONT></B></CENTER>
+<FORM action="http://localhost/CGI/mycgi.sh"
+      method="get">
+<P>What is your name?&nbsp;<INPUT type="text" name="name">
+<BR>What is your passwd?<INPUT type="password" name="passwd">
+<BR><INPUT type="submit" value="Send"><INPUT type="reset">
+</FORM>
+
+</BODY>
+</HTML>

@@ -1,0 +1,29 @@
+;
+;
+;reccopie de la valeur du potentiometre sur les led
+;
+	.input "d:\st6tools\st626x.def"
+STA	.def 5
+EOC	.def 6
+PDS	.def 4
+
+	.org 0400h
+
+	;init PB0-PB4 PA6
+	ldi DRB,00011001b 	; pour tout éteindre
+	ldi DDRB,00011111b
+	ldi OPRB,0
+
+	ldi DDRA,0		; PA4 potentiometre en entrée de can
+	ldi OPRA,00010000b
+	ldi DRA, 00010000b
+	
+	set PDS,ADCR		;mise en route du can
+	nop
+	nop
+conv	set STA,ADCR
+loop	jrr EOC,ADCR,loop
+	ld a, ADR
+	ld DRB,a
+	jp conv
+

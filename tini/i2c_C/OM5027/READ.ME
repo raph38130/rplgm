@@ -1,0 +1,101 @@
+                                OM5027
+                     LOW POWER, LOW VOLTAGE, I2C BUS
+                            EVALUATION BOARD
+
+OM5027 Manual Erratum.
+
+1.      General Notes on the I2C Evaluation Board (page 21)
+
+        For default operation the DIP switches for the P82B715 I2C Bus
+        Extender Module should be turned off the bus as this device may
+        cause bus corruption when the board is operated below the
+        P82B715's minimum Vdd level of 4.5 volts.
+
+
+ 2.     Page 23 should read :
+
+        Alter Date Mode
+        PB2 Increment   Months
+        PB3 Increament  Days
+        PB6 Decrement   Months
+        PB7 Decrement   Days
+
+3.      DIP Switch Assignments are as follows:
+
+        POWER AND IIC DIP SWITCHES',CR,LF,LF
+
+                Switch number:        1       2       3       4
+                Function:            SDA     SCL     VDD     GND
+
+
+        RS232 DIP SWITCHES',CR,LF,LF
+
+                Switch number:        1       2       3       4
+                Function:            CTS     RTS     TXD     RXD
+
+
+CONTENTS OF FLOPPY DISK:
+
+                OM5027 DEMONSTRATION SOFTWARE SOURCE CODE
+
+                             REVISION 1.2
+
+                          20 December, 1994.
+
+******************************************************************************
+*                                                                            *
+*                          REVISION HISTORY                                  *
+*                                                                            *
+******************************************************************************
+
+REVSION         DATE                  MODIFICATION
+
+1.0             5 August, 1994        1st release
+
+1.1             9 September, 1994     1) Clk_init was modified to corrected bug:
+                                         "clock chip reset to 1 January after
+                                         powerup if day greater than 20th".
+
+                                      2) Musicmode now has a new tune.
+
+                                      3) Uart_isr has been modified to include
+                                         a menu with options:
+                                                       Module information,
+                                                       OM5027 remote control,
+                                                       Production information
+
+1.2            15 December, 1994      1) Allow calibration of lcd voltage at
+                                         power up. Invoke setup mode by
+                                         grounding p3.7. Use PB2/PB5 to set
+                                         optimum contrast. Use PB8 to save
+                                         and exit. The calibration offset is
+                                         stored in the EEPROM and read on
+                                         power up. The Calibrate_PWM routine
+                                         has been added to ADC&PWM.INC with
+                                         slight adjustments to PWM_init and
+                                         getPWM. PWMtbl.ref has an extra entry.
+
+The source code was produced for the METALINK ASSEMBLER and is segmented
+into 16 files. The main program file is OM5027.asm.
+
+        OM5027.asm             - main program (this file)
+        general.inc            - general and program flow routines
+        clk.inc                - clock peripheral routines
+        keys.inc               - keyboard peripheral routines
+        adc&pwm.inc            - 80CL580 adc and pwm routines
+        atod.inc               - ADC/DAC peripheral routines
+        dtmf.inc               - dtmf peripheral routines
+        moduleIn.inc           - module information mode routines
+        help.inc               - help routines
+        lcd1.inc               - lcd1 display driver routines
+        lcd2.inc               - lcd2 display driver routines
+        580iic.inc             - 80CL580 iic interface driver routines
+        uart.inc               - uart demonstration routines
+        OM5027.ref             - Vdd scaling reference table
+        temptbl.ref            - temperature scaling reference table
+        pwmtbl.ref             - pwm/contrast reference table
+        PCF8581.inc            - EEPROM driver routine
+
+Also included are the files modcl580, and OM5027.hex which is the assembled
+Intel Hex file to be programmed into the EPROM.
+

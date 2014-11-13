@@ -1,0 +1,11 @@
+mmu.c :  MapEspaceVirtuel() mais aussi PrintTablePages() pour faire une trace
+	de l';arbre des tables de pages. Pour limiter la sortie qui peut etre
+	grosse, il y a deux parametres deb et fin. Pour dumper tout un arbre
+	PrintTablePages(arbre, 0 , 127)
+
+exception: routine qui dumpe en clair la pile quand il y a eu une exception
+	d'erreur d'adressage si le MMU est mal configure.  tres pratique, c'est
+	comme ca que j'ai trouve un bug de conf.
+
+testadr : realise un PTEST pour comprendre ce qui s'est passe apres une
+	 exception d'erreur d'adressage.

@@ -1,0 +1,51 @@
+;RP 10/98
+;
+;compte les rebonds du bouton poussoir+
+;visualise le résultat en deux étapes :
+;	poids faible
+;	poids fort si appui sur poussoir-
+;pb4 = led1 = bit de poids fort
+;
+	.input "d:\st6tools\st626x.def"
+GEN	.def 4
+	.org 0400h
+
+	;init PB0-PB4
+	;+ PB5 - PB6
+debut	ldi DRB, 00011111b 	; pour tout éteindre et entrées avec pull up avec it
+	ldi DDRB,00011111b
+	ldi OPRB,00100000b	; seul + genere des it 
+	set GEN,IOR
+	;init IT
+	reti			; passer en mode normal
+	ldi v,0
+
+	;main loop
+loop	;print low bits
+	jrr 6,DRB,suite
+	ld a,v
+	com a
+	andi a,00001111b
+	ld DRB,a
+	jp loop
+suite	;print high bits
+	ld a,v
+	rlc a
+	rlc a
+	rlc a
+	rlc a
+	rlc a
+	com a
+	andi a,00001111b
+	ld DRB,a
+	jp loop
+
+handler 
+	inc v
+	reti
+
+	.org 0FF6h
+int1	jp handler
+
+  	.org 0ffeh
+reset jp debut

@@ -1,0 +1,47 @@
+#!/bins/bash
+
+#mise en oeuvre
+
+#Implementation Repositery
+#start IMR
+cd ~/IMR
+/usr/local/OB-4.1.1/ob/bin/imr -a (using default port 9999)
+#enregistrement d'un POA avec 	- imradmin :
+#				- Java GUI
+/usr/local/OB-4.1.1/ob/bin/imradmin -ORBInitRef IMR=corbaloc::localhost:9999/IMR
+	--set-server test args "-ORBInitRef IMR=corbaloc::localhost:9999/IMR"
+
+
+#start GUI
+export CLASSPATH=/usr/local/JOB-4.1.1/lib/OBnaming.jar:/usr/local/JOB-4.1.1/lib/OBIMR.jar:/usr/local/JOB-4.1.1/lib/OBUtil.jar
+java 	-Xbootclasspath/p:/usr/local/JOB-4.1.1/lib/OB.jar \
+	-Dooc.orb.service.IMR=corbaloc::localhost:9999/IMR \
+	com.ooc.IMRConsole.Main
+#then	
+#start server (only once to create ref file used by client : see /tmp/.ref)
+#delete entry in IMR if exists
+./server -ORBregister test -ORBInitRef IMR=corbaloc::localhost:9999/IMR
+#start client
+ ./client 
+
+# .ref is for IMR only, not for POA 
+/usr/local/OB-4.1.1/ob/bin/iordump -f /tmp/Hello.ref 
+IOR #1:
+byteorder: little endian
+type_id: IDL:Hello:1.0
+Profile #1: iiop
+iiop_version: 1.2
+host: 172.16.0.3
+port: 9998
+object_key: (42)
+171 172 171  48  95  82 111 111 "...0_Roo"
+116  80  79  65   0 102 111 114 "tPOA.for"
+119  97 114 100   0   0 171 172 "ward...."
+ 
+ 
+ 
+#Naming service
+#start service
+java -Xbootclasspath/p:/usr/local/JOB-4.1.1/lib/OB.jar com.ooc.CosNaming.Server --ior
+#start console (port given by iordump)
+java -Xbootclasspath/p:/usr/local/JOB-4.1.1/lib/OB.jar -Dooc.orb.service.NameService=corbaloc::localhost:32975/NameService    com.ooc.CosNamingConsole.Main

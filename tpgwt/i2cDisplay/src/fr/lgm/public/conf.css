@@ -1,0 +1,28 @@
+body {
+  background-image: url("s3kit.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat; 
+}
+
+.h-Button {
+	background-image: url("h.GIF");
+	width: 120px;
+	border: 0;
+}
+.v-Button {
+	background-image: url("v.GIF");
+	height: 125px;
+	border: 0;
+}
+.h0-Button  {
+	background-image: url("h0.GIF");
+	width: 120px;
+	border: 0;
+}
+.v0-Button {
+	background-image: url("v0.GIF");
+	height: 125px;
+	border: 0;
+}
+

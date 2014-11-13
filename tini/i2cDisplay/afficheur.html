@@ -1,0 +1,170 @@
+<style>
+.divH{
+	width:40px;
+	height:10px;
+	background-color:#cccccc;
+	border-width:1px;
+	border-style:solid;
+	position:absolute;
+	cursor:pointer;
+}
+.divV{
+	position:absolute;
+	width:10px;
+	height:40px;
+	background-color:#cccccc;
+	border-width:1px;
+	border-style:solid;
+	cursor:pointer;
+}
+.point{
+	position:absolute;
+	width:10px;
+	height:10px;
+	background-color:#cccccc;
+	border-width:1px;
+	border-style:solid;
+	cursor:pointer;
+}
+</style>
+<script language="javascript">
+function changeCouleur(nomId){
+	var obj = document.getElementById(nomId)
+	if (obj.style.backgroundColor == "red"){
+		obj.style.backgroundColor = "cccccc";
+		return;
+	}
+	obj.style.backgroundColor = "red";
+}
+
+
+function envoiInfo(form){
+	var obj1 = document.getElementsByName('1');
+	var aff1 =""
+	for(var i = 0; i < 7; i++){
+		if(obj1[i].style.backgroundColor == "red"){
+			aff1 = aff1 +"1"
+		}else{
+			aff1 = aff1 +"0"
+		} 
+	}
+	
+	obj1 = document.getElementsByName('2');
+	var aff2 =""
+	for(var i = 0; i < 7; i++){
+		if(obj1[i].style.backgroundColor == "red"){
+			aff2 = aff2 +"1"
+		}else{
+			aff2 = aff2 +"0"
+		} 
+	}
+	
+	obj1 = document.getElementsByName('3');
+	var aff3 =""
+	for(var i = 0; i < 7; i++){
+		if(obj1[i].style.backgroundColor == "red"){
+			aff3 = aff3 +"1"
+		}else{
+			aff3 = aff3 +"0"
+		} 
+	}
+	
+	obj1 = document.getElementsByName('4');
+	var aff4 =""
+	for(var i = 0; i < 7; i++){
+		if(obj1[i].style.backgroundColor == "red"){
+			aff4 = aff4 +"1"
+		}else{
+			aff4 = aff4 +"0"
+		} 
+	}
+	document.getElementById("aff1").value = aff1;
+	document.getElementById("aff2").value = aff2;
+	document.getElementById("aff3").value = aff3;
+	document.getElementById("aff4").value = aff4;
+	form.submit();
+
+}
+</script>
+
+<html >
+	<head>
+	<title>Controle Afficheur</title>
+	
+	</head>
+
+	<body>
+	<center>
+	<table cellpadding="5" cellspacing="5">
+	<tr><td><br><br></td></tr>
+		<tr>
+			<td>
+			<div style="position:relative; width:100px">
+				<div class="divH" name="1" id="11" style=" left:10; top:60;" onClick="changeCouleur('11');"></div>
+				<div class="divV" name="1" id="12" style=" left:50; top:15;" onClick="changeCouleur('12');"></div>
+				<div class="divV" name="1" id="13" style=" left:50; top:75;" onClick="changeCouleur('13');"></div>
+				<div class="divH" name="1" id="14" style=" left:10; top:120;" onClick="changeCouleur('14');"></div>
+				<div class="divV" name="1" id="15" style=" left:0; top:75;" onClick="changeCouleur('15');"></div>
+				<div class="divV" name="1" id="16" style=" left:0; top:15;" onClick="changeCouleur('16');"></div>
+				<div class="divH" name="1" id="17" style=" left:10; top:0;"onClick="changeCouleur('17');"></div>
+				<div class="point" name="1" id="18" style=" left:70; top:120;" onClick="changeCouleur('18');"></div>
+			</div>
+			
+			</td>
+			<td>
+			<div style="position:relative; width:100px ">
+				<div class="divH" name="2" id="21" style=" left:10; top:60;" onClick="changeCouleur('21');"></div>
+				<div class="divV" name="2" id="22" style=" left:50; top:15;" onClick="changeCouleur('22');"></div>
+				<div class="divV" name="2" id="23" style=" left:50; top:75;" onClick="changeCouleur('23');"></div>
+				<div class="divH" name="2" id="24" style=" left:10; top:120;" onClick="changeCouleur('24');"></div>
+				<div class="divV" name="2" id="25" style=" left:0; top:75;" onClick="changeCouleur('25');"></div>
+				<div class="divV" name="2" id="26" style=" left:0; top:15;" onClick="changeCouleur('26');"></div>
+				<div class="divH" name="2" id="27" style=" left:10; top:0;" onClick="changeCouleur('27');"></div>
+				<div class="point" name="2" id="28" style=" left:70; top:120;" onClick="changeCouleur('28');"></div>
+				
+
+			</div>
+			</td>
+			</td>
+			<td>
+			<div style="position:relative; width:100px ">
+				<div class="divH" name="3" id="31" style=" left:10; top:60;" onClick="changeCouleur('31');"></div>
+				<div class="divV" name="3" id="32" style=" left:50; top:15;" onClick="changeCouleur('32');"></div>
+				<div class="divV" name="3" id="33" style=" left:50; top:75;" onClick="changeCouleur('33');"></div>
+				<div class="divH" name="3" id="34" style=" left:10; top:120;" onClick="changeCouleur('34');"></div>
+				<div class="divV" name="3" id="35" style=" left:0; top:75;" onClick="changeCouleur('35');"></div>
+				<div class="divV" name="3" id="36" style=" left:0; top:15;" onClick="changeCouleur('36');"></div>
+				<div class="divH" name="3" id="37" style=" left:10; top:0;" onClick="changeCouleur('37');"></div>
+				<div class="point" name="3" id="38" style=" left:70; top:120;" onClick="changeCouleur('38');"></div>
+			</div>
+			</td>
+			</td>
+			<td>
+			<div style="position:relative; width:100px ">
+				<div class="divH" name="4" id="41" style=" left:10; top:60;" onClick="changeCouleur('41');"></div>
+				<div class="divV" name="4" id="42" style=" left:50; top:15;" onClick="changeCouleur('42');"></div>
+				<div class="divV" name="4" id="43" style=" left:50; top:75;" onClick="changeCouleur('43');"></div>
+				<div class="divH" name="4" id="44" style=" left:10; top:120;" onClick="changeCouleur('44');"></div>
+				<div class="divV" name="4" id="45" style=" left:0; top:75;" onClick="changeCouleur('45');"></div>
+				<div class="divV" name="4" id="46" style=" left:0; top:15;" onClick="changeCouleur('46');"></div>
+				<div class="divH" name="4" id="47" style=" left:10; top:0;" onClick="changeCouleur('47');"></div>
+				<div class="point" name="4" id="48" style=" left:70; top:120;" onClick="changeCouleur('48');"></div>
+				
+			
+			</div>
+			</td>
+		</tr>
+		<tr><td colspan="4"><br><br><br><br><br><br><br>
+		<form name="envoi" action="Active7Seg" ENCTYPE="application/x-www-form-urlencoded" method="post">
+			<input type="hidden" name="aff1" id="aff1" value="0000000">
+			<input type="hidden" name="aff2" id="aff2" value="0000000">
+			<input type="hidden" name="aff3" id="aff3" value="0000000">
+			<input type="hidden" name="aff4" id="aff4" value="0000000">
+			<input type="button" value="ok" onclick="envoiInfo(this.form);">
+		</form>
+		</td></tr>
+	</table>
+	</center>
+	</body>
+</html>
+

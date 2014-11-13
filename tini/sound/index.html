@@ -1,0 +1,89 @@
+<html>
+<head>
+<title>TINI Remote Audio Example</title>
+</head>
+<body>
+
+<center><img src="logo.gif"></center>
+
+<hr>
+
+<table width="100%" border="0">
+  <tr width="100%">
+    <td width="1%">
+     
+    </td>
+
+    <td width="38%" bgcolor="#DDDDDD">
+      <center>
+        <h1>TINI Audio Control</h1>
+        <br>
+        <FORM METHOD="POST" ACTION="PlayPostedAudio">
+          Play which message?<br><br>
+          <SELECT name="access">
+            <OPTION value="0"> TINI Rocks
+            <OPTION value="1"> Ta-Da
+            <OPTION value="2"> Chimes
+            <OPTION value="3"> Simple ding
+            <OPTION value="4"> Drum
+            <OPTION value="5"> Marimba
+            <OPTION value="6"> Phone ring
+            <OPTION value="7"> SELL
+            <OPTION value="8"> Gig 'em
+            <OPTION value="9"> Clayton Ware...
+            <OPTION value="10"> Dallas Semiconductor
+            <OPTION value="11"> Horns
+            <OPTION value="12"> The Last Demo
+            <OPTION value="13"> Invalid Entry
+            <OPTION value="14"> Invalid Entry
+            <OPTION value="15"> Invalid Entry
+          </SELECT>
+          <INPUT TYPE="submit" VALUE="PLAY IT">
+        </FORM>
+        <br>
+        <br>
+        <img src="ds80c400.gif">
+      </center>
+    </td>
+
+    <td width="3%">
+     
+    </td>
+
+    <td width="57%">
+
+      <p>
+        This demonstration program shows a standard TINIm400 and TINIs400 pair with no 
+        modifications being used to serve up a web page and respond to HTTP POST's
+        by playing simple canned audio messages.  This example could be a
+        starting point for a full networked public address system.
+      </p>
+
+      <p>
+        The HTTP server is the standard example server that comes with the TINI Java
+        software development kit.  A little native code has been written to wiggle 
+        some port pins at 11KHz (sufficient speed for voice audio) that talk to a
+        MAX542 (a 16-bit DAC) which is configured to produce line level output
+        for a pair of amplified computer speakers.
+      </p>
+    
+      <center>
+        <img src="micro4.gif"> 
+      </center>
+    </td>
+
+    <td width="1%">
+     
+    </td>
+
+  </tr>
+</table>
+
+<hr>
+
+<center>
+  <a href="www.maxim-ic.com">Maxim Website</a>
+</center>
+
+</body>
+</html>

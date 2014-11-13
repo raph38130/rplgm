@@ -1,0 +1,26 @@
+POST /tango2-jaxrpc/tango2 HTTP/1.1
+Content-Type: text/xml; charset="utf-8"
+Content-Length: 654
+SOAPAction: ""
+User-Agent: Java/1.4.1_01
+Host: localhost:8080
+Accept: text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2
+Connection: keep-alive
+
+<?xml version="1.0" encoding="UTF-8"?>
+<env:Envelope 
+xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:enc="http://schemas.xmlsoap.org/soap/encoding/" 
+xmlns:ns0="http://lgm.ac-grenoble.fr/wsdl/Tango2" 
+xmlns:ns1="http://lgm.ac-grenoble.fr/types/Tango2" 
+env:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+<env:Body>
+<ns0:commandinout>
+	<String_1 xsi:type="xsd:string">lgm/screen/1</String_1>
+	<String_2 xsi:type="xsd:string">SetText</String_2>
+	<String_3 xsi:type="xsd:string">HELLO !!!</String_3>
+</ns0:commandinout>
+</env:Body>
+</env:Envelope>

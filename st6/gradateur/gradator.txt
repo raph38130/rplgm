@@ -1,0 +1,101 @@
+;;;;;;;;;;;;;;;;
+;RP 18 / 11 / 98
+;
+;
+;GRADATEUR ST6
+;
+;l'intensité lumineuse des leds varie
+;en fonction de la valeur du potentiometre
+;appui sur + allume
+;appui sur - éteind
+;
+;principe : le rapport cyclique du signal de commande varie
+;		ART utilisé en PWM
+;		Port B en sortie
+;		PB5,PB6 entrée avec it
+
+	.input "d:\st6tools\st626x.def"
+;
+; initialisation des devices
+;
+	.org 0100h
+debut	;mise en route du can
+	ldi ADCR,00010000b	;PDS	
+	;PB0-PB4 en sortie open drain
+	;PB5 PB6 en entrée avec pull up avec it
+	ldi DRB,00011111b
+	ldi DDRB,00011111b
+	ldi OPRB,01100000b
+	;PA4 potentiometre en entrée de can
+	ldi DDRA,0		
+	ldi OPRA,00010000b
+	ldi DRA,00010000b
+	;ART PWM mode
+	ldi ARMC,01001100b	;TEN CPIE OVIE
+	ldi ARSC1,11100101b	;/128 rising Fint/3
+	ldi ARRC,0
+	ldi ARCP,0
+	;gestion des IT
+	ldi IOR,00010000b
+	reti			;pour sortir du mode NMI
+
+main	
+	set 5,ADCR		;STA
+loop	jrr 6,ADCR,loop		;EOC
+	ld a,ADR
+	ld ARCP,a
+	jp main
+
+;fin
+
+;
+;handler AR TIMER
+;
+arthandler:
+	jrs 0,ARSC0,allume	;OVF
+	jrs 1,ARSC0,eteind	;CPF
+	jp endart
+allume	ldi DRB,00000000b
+	jp endart
+eteind	ldi DRB,00011111b
+endart	ldi ARSC0,0		;it ack
+	reti
+
+;
+;handler PORT B
+;
+pbhandler:
+	jrr 5,DRB,plus
+	jrr 6,DRB,moins
+	jp endpb
+plus	ldi DDRB,00011111b
+	jp endpb
+moins	ldi DDRB,00000000b
+endpb	reti
+
+
+;
+;vecteur d'interruptions
+;
+	;adc
+	.org 0FF0h
+	reti
+
+	;art
+	.org 0FF2h
+	jp arthandler
+
+	;spi
+	.org 0FF4h
+	reti
+
+	;portB
+	.org 0FF6h
+	jp pbhandler
+
+	;reset
+	.org 0FFEh
+	jp debut
+
+;fin du programme
+;;;;;;;;;;;;;;;;;

@@ -1,0 +1,15 @@
+case "$1" in
+	LGM)
+		echo "lgm"
+		export LD_LIBRARY_PATH=../../lib/suse72:/disk/ooc/lib
+		export TANGO_HOST=172.16.104.63:20000
+		;;
+	*)
+		echo "rp"
+		export LD_LIBRARY_PATH=../../TANGO/lib/suse72:/home/raph/ooc/lib
+		export TANGO_HOST=localhost:20000
+		;;
+esac
+./PCITOR48 pcitorserver -v4 -OAnumeric
+#./Horloge serv -v4 -nodb
+

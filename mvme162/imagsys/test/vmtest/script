@@ -1,0 +1,41 @@
+OUTPUT_FORMAT("binary")
+OUTPUT_ARCH(m68k)
+
+
+DEBUT =	0x10000 ; 	 /* start of E2S */
+TAILLE = 0x5000 ; 	 /* zone mémoire de DEBUT, TAILLE mémoire S */
+USER = 0x15000 ;
+
+/* il semblerait qu'on ne puisse pas mettre de variable là dessous */
+MEMORY {
+  ramsuper : ORIGIN = 0x10000, LENGTH =  2*4096 
+}
+
+SECTIONS
+{
+        /* le code du noyau de E2S */
+
+        .text  DEBUT :
+        {
+                *(.text)
+        } > ramsuper
+
+        .data :
+        {
+                *(.data)
+        } > ramsuper
+       
+	.bss :
+	{
+		*(.bss)
+		*(COMMON)
+	} > ramsuper
+
+	/* le code des process utilisateurs */
+	.user  USER :
+	{
+	LONG(0x12345678); /*juste pour forcer le remplissage jusquà cette adresse */
+	___init = . ;
+	} 
+} 
+

@@ -1,0 +1,10 @@
+/* interface pour convertisseur analogique numérique
+ *
+ * Mon Feb 10 11:37:23 CET 2003 RP
+ *	- version initale
+ */
+program CAN {
+  version LGM {
+    float lireCAN(int voie) = 1;
+  } = 1;
+} = 1234567;

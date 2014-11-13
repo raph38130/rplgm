@@ -1,0 +1,893 @@
+$BEGIN_MODULE(audioplayer)
+; DEFAULTING TO A390 MODE
+;****************************************************************************
+;*
+;*  Copyright (C) 2004 Dallas Semiconductor Corporation. 
+;*  All rights Reserved. Printed in U.S.A.
+;*  This software is protected by copyright laws of
+;*  the United States and of foreign countries.
+;*  This material may also be protected by patent laws of the United States 
+;*  and of foreign countries.
+;*  This software is furnished under a license agreement and/or a
+;*  nondisclosure agreement and may only be used or copied in accordance
+;*  with the terms of those agreements.
+;*  The mere transfer of this software does not imply any licenses
+;*  of trade secrets, proprietary technology, copyrights, patents,
+;*  trademarks, maskwork rights, or any other form of intellectual
+;*  property whatsoever. Dallas Semiconductor retains all ownership rights.
+;*
+;*     Module Name: AudioPlayer
+;*
+;*     Description: Plays canned audio messages from a memory address
+;*
+;*        Filename: audioplayer.a51
+;*
+;* Dependant Files: tini.inc, ds80c390.inc, tinimacro.inc apiequ.inc
+;*
+;*          Author: KLA
+;*
+;*           Tools: macro + a390
+;*
+;*         Version: 0.01 
+;*
+;*         Created: 03/25/2004
+;*
+;*           Notes: Native library rules:
+;*                  - No ACalls or AJmps -> this module can span segments.
+;*                  - The module must be contiguous. No ORG statements
+;*                    allowed. The module offsets are automatically
+;*                    set to zero by the assembler.
+;*                  - There are absolutely no directs that persist
+;*                    across method calls. Certain ranges of directs are
+;*                    reserved for global system variables. You can be
+;*                    process swapped at any time. Touch them and you
+;*                    scrog the system!!!
+;*                    At the time this was written this includes 
+;*                    20h-21h and 68h and above.
+;*                    All other directs MUST be returned to the
+;*                    state that they were in before the method was called.
+;*                  - Indirects are reserved for system use only. Touch them
+;*                    and you scrog the system!!! As of release 1.02 a handful
+;*                    of "indirects" have been reserved for native libraries.
+;*                    See Native_Methods.txt for details.
+;*                  - Register banks 0, 1 and 3 are free for library use.
+;*                    Register bank 2 can only be used after method
+;*                    parameters are removed from the Java stack.
+;*                  - The file tini.inc contains the address of all
+;*                    exported systems functions. These are static linkages
+;*                    that are tied to a specific firmware release. Your
+;*                    module MUST be reassembled for other firmware revisions.
+;*                  - The file apiequ.inc contains the numbers that represent
+;*                    exceptions and class numbers. These are static linkages
+;*                    tied to a specific firmware release. Your module MUST
+;*                    be reassembled with this file for each release.
+;*                  - Threads in native methods are not automatically
+;*                    swapped by the thread scheduler. Details on swapping
+;*                    from native methods are contained in Native_Methods.txt. 
+;*                  - We reserve the right to change these rules in future
+;*                    releases.
+;*                  - See the native method Readme file in the distribution
+;*                    for more details.
+;*
+;****************************************************************************
+$include(tini_400.inc)
+$include(ds80c400.inc)
+$include(tinimacro.inc)
+$include(apiequ.inc)
+
+
+;
+; Should this be 1338?
+;
+
+
+  
+     
+
+
+;;; TIMER DEFINITIONS *****************************************************
+;
+; We are using timer 3 for the 11.025 KHz clock
+;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;;; DAC SIGNALING *****************************************************
+
+
+
+
+
+
+
+
+
+;
+; Turns DAC chip select ON
+;
+
+
+;
+; Turns DAC chip select OFF
+;
+
+
+;
+; Turns LoadDAC signal OFF
+;
+
+
+;
+; Turns LoadDAC signal ON
+;
+
+
+;;; (IN)DIRECT MEMORY ALLOCATIONS *****************************************
+
+
+
+
+
+ 
+
+
+
+
+; select data pointer 2 (pointer 3 of 4) for auto-inc
+   
+
+;
+;***************************************************************************
+;*
+;* Function Name: audioplayer_Init
+;*
+;*   Description: Initialization routine
+;*
+;*      Input(s): None
+;*
+;*    Outputs(s): A - 0 if success
+;*                
+;*         Notes: Every TINI library is required to have an initialization
+;*                function and the initialization routine MUST be located
+;*                at offset zero into the file. This function is called at the
+;*                end of the Java load/loadLibrary method invocation. If
+;*                this init routine returns with any non-zero value in ACC
+;*                the load will fail with an UnsatisfiedLinkError. This 
+;*                function should be used to malloc memory and/or initialize
+;*                data/hardware.
+;*                This function will be called each time load/loadLibrary
+;*                is called. State should be checked in order to determine
+;*                whether or not initialization is required.
+;*
+;*                The minimum init routine must include:
+;*                  clr a
+;*                  ret
+;*
+;* *** This routine must exist ***
+;* *** This routine must exist ***
+;* *** This routine must exist ***
+;* *** This routine must be at offset 0 ***
+;* *** This routine must be at offset 0 ***
+;* *** This routine must be at offset 0 ***
+;*
+;****************************************************************************
+audioplayer_Init:
+    ;
+    ; Install our interrupt handler.  Copy 'ljmp MY_INTERRUPT_HANDLER' 
+    ; to the proper vector.
+    ;
+    mov     dptr,#INT_HANDLER
+    movx    a,@dptr
+    inc     dptr
+    mov     r0,a
+    movx    a,@dptr
+    inc     dptr
+    mov     r1,a
+    movx    a,@dptr
+    inc     dptr
+    mov     r2,a
+    movx    a,@dptr
+    inc     dptr
+    mov     r3,a
+
+    mov     093h,#00h
+    mov     dph,#00h
+    mov     dpl,#04Bh                ; address for timer 1 interrupt vector
+
+
+    ;
+    ; Now copy the handler...
+    ;
+    mov     a,r0
+    movx    @dptr,a
+    inc     dptr
+    mov     a,r1
+    movx    @dptr,a
+    inc     dptr
+    mov     a,r2
+    movx    @dptr,a
+    inc     dptr
+    mov     a,r3
+    movx    @dptr,a
+    inc     dptr
+
+    mov     0FEh,#020h               ; setup up serial port 2 for mode 0, divide by 4
+    anl     0FEh,#0FDh              ; clear the ti2 bit
+
+    ;
+    ; make sure timer 3 starts disabled
+    ;
+    
+; Begin Macro DISABLE_TIMER_INTERRUPT
+  clr 0E9h                        ; disable timer 3 interrupt
+; End Macro DISABLE_TIMER_INTERRUPT
+    ;
+    ; make sure timer 3 runs as high priority
+    ;
+    
+; Begin Macro TIMER_PRIORITY_HIGH
+  setb 0F9h                       ; set timer 3 priority high
+; End Macro TIMER_PRIORITY_HIGH
+
+    ;
+    ; Make sure DAC signals are in a known state
+    ;
+    
+; Begin Macro SELECT_CHIP_OFF
+;   setb     P1.0
+   orl 0A1h, #080h
+; End Macro SELECT_CHIP_OFF
+    
+; Begin Macro LOADDAC_OFF
+;   setb     P1.1
+   orl 0A1h, #040h
+; End Macro LOADDAC_OFF
+
+    push    0A8h                      ; Save interrupt state.
+    clr     ea                      ; Disable interrupts.
+
+    mov     0C7h,#0AAh
+    mov     0C7h,#055h
+
+    anl     0A2h,#00h     ; Set P5.4-P5.7 for use as port pins.
+    pop     0A8h                      ; Restore interrupt state.
+
+
+
+    clr     a
+    ret
+
+;****************************************************************************
+
+LibraryID:      ;*
+db "rdrocket";*
+
+INT_HANDLER:
+  ljmp mytimer3interrupt
+
+;****************************************************************************
+;*
+;* Function Name: Native_getNumberOfAudios
+;*
+;*   Description: public static native int getNumberOfAudios(int address);
+;*
+;*      Input(s): address of flash audio image
+;*
+;*    Outputs(s): A - zero on success, exception number on failure.
+;*                returns an int in R3:R2:R1:R0, msb:...:lsb.
+;*                
+;****************************************************************************
+Native_getNumberOfAudios:
+  clr    a                       ; request first parameter
+  lcall  0427C39h    ; get address in r3:r2:r1:r0
+
+  ; ignore whatever r3 had
+  mov    093h,r2
+  mov    dph,r1
+  mov    dpl,r0
+
+  mov    r3,#00h                  ; top 2 bytes of number always 0
+  mov    r2,#00h                  ; 
+  movx   a,@dptr                ; get high byte of number
+  inc    dptr
+  mov    r1,a
+  movx   a,@dptr                ; get low byte of number
+  mov    r0,a
+  clr  a                         ; indicate "no exception"
+  ret                            ;
+
+
+
+
+;****************************************************************************
+;*
+;* Function Name: PointToAudioRecord
+;*
+;*   Description: On the stack: (int address, int index);
+;*
+;*      Input(s): address of flashed audio image
+;*                index of audio record to get the address for
+;*
+;*    Outputs(s): dptr - point to 6 byte audio record
+;*                
+;*         Notes: The format for the audio table is...
+;*                [u2] number of audio entries
+;*                [u5] * NUM_ENTRIES
+;*                     where the first u3 is the address (x:h:l)
+;*                     and the next u2 is the length (h:l)
+;*
+;****************************************************************************
+PointToAudioRecord:
+  clr    a                       ; request first parameter
+  lcall  0427C39h    ; get address in r3:r2:r1:r0
+
+  ; ignore whatever r3 had
+  mov    093h,r2
+  mov    dph,r1
+  mov    dpl,r0
+  inc    dptr                    ; inc past the 2 bytes of 'number of entries'
+  inc    dptr
+
+  mov    a,#01h                   ; request second parameter
+  lcall  0427C39h    ; get index in r3:r2:r1:r0
+
+  ;
+  ; mulitply r1:r0 by 5
+  ;
+  mov    b,#06h
+  mov    a,r0
+  mul    ab
+  mov    r0,a                   ; store the low byte
+  push   b                       ; preserve the high byte
+  mov    a,r1
+  mov    b,#06h
+  mul    ab
+  mov    r2,b                   ; xhigh byte or result
+  mov    r1,a
+  pop    0E0h                     ; restore the earlier high byte
+  add    a,r1                   ; and add to result
+  mov    r1,a
+  jnc    nat_getaa_nocarry
+  inc    r2
+nat_getaa_nocarry:
+  ;
+  ; now r2:r1:r0 has the result of 6 * index.  Add to dptr
+  ;
+  mov    a,dpl
+  add    a,r0
+  mov    dpl,a
+  mov    a,dph
+  addc   a,r1 
+  mov    dph,a
+  mov    a,093h
+  addc   a,r2 
+  mov    093h,a
+  ;
+  ; now we are pointing to our 5 byte record
+  ;
+  ret
+
+;****************************************************************************
+;*
+;* Function Name: Native_getAudioAddress
+;*
+;*   Description: public static native int getAudioAddress(int address, int index);
+;*
+;*      Input(s): address of flashed audio image
+;*                index of audio record to get the address for
+;*
+;*    Outputs(s): A - zero on success, exception number on failure.
+;*                returns an address R3:R2:R1:R0, msb:...:lsb.
+;*                
+;*         Notes: The format for the audio table is...
+;*                [u2] number of audio entries
+;*                [u6] * NUM_ENTRIES
+;*                     where the first u3 is the address (x:h:l)
+;*                     and the next u2 is the length (h:l)
+;*
+;****************************************************************************
+Native_getAudioAddress:
+  lcall  PointToAudioRecord      ; get the audio record
+  mov    r3,#00h                  ; top byte meaningless
+  movx   a,@dptr
+  inc    dptr
+  mov    r2,a                   ; x byte of address
+  movx   a,@dptr
+  inc    dptr
+  mov    r1,a                   ; h byte of address
+  movx   a,@dptr
+  mov    r0,a                   ; L byte of address
+
+  clr   a                        ; indicate "no exceptions"
+  ret                            ;
+
+;****************************************************************************
+;*
+;* Function Name: Native_getAudioLength
+;*
+;*   Description: public static native int getAudioLength(int address, int index);
+;*
+;*      Input(s): address of flashed audio image
+;*                index of audio record to get the address for
+;*
+;*    Outputs(s): A - zero on success, exception number on failure.
+;*                returns length in R3:R2:R1:R0, msb:...:lsb.
+;*                
+;*         Notes: The format for the audio table is...
+;*                [u2] number of audio entries
+;*                [u6] * NUM_ENTRIES
+;*                     where the first u3 is the address (x:h:l)
+;*                     and the next u2 is the length (h:l)
+;*
+;****************************************************************************
+Native_getAudioLength:
+  lcall  PointToAudioRecord      ; get the audio record
+  inc    dptr                    ; point past the address
+  inc    dptr
+  inc    dptr
+  mov    r3,#00h                  ; top byte meaningless
+  movx   a,@dptr
+  inc    dptr
+  mov    r2,a                   ; x byte of length
+  movx   a,@dptr
+  inc    dptr
+  mov    r1,a                   ; h byte of length
+  movx   a,@dptr
+  mov    r0,a                   ; L byte of length
+
+  clr   a                        ; indicate "no exceptions"
+  ret                            ;
+
+
+;****************************************************************************
+;*
+;* Function Name: Native_isAudioPlaying
+;*
+;*   Description: public static native boolean isAudioPlaying();
+;*
+;*      Input(s): None 
+;*
+;*    Outputs(s): A - zero on success, exception number on failure.
+;*                Determine if audio is playing (timer 3 interrupt enabled)
+;*                Boolean returned in r3:r2:r1:r0
+;*                
+;****************************************************************************
+Native_isAudioPlaying:
+  mov   r3,#00h
+  mov   r2,#00h
+  mov   r1,#00h
+  jb    0E9h,nat_iap_timerenabled 
+  mov   r0,#00h                   ; timer is not enabled
+  sjmp  nat_iap_exit
+
+nat_iap_timerenabled:
+  mov   r0,#01h                   ; timer IS enabled
+
+nat_iap_exit:
+  clr   a                        ; no error
+  ret                            ;
+
+ ;****************************************************************************
+;*
+;* Function Name: Native_startAudio
+;*
+;*   Description: public static native int startAudio(int address, int length);
+;*
+;*      Input(s): address to start playing audio data at
+;*                length of audio data to play
+;*
+;*    Outputs(s): A - zero on success, exception number on failure.
+;*                returns an int in R3:R2:R1:R0, msb:...:lsb.
+;*                
+;****************************************************************************
+Native_startAudio:
+  clr   a                        ;
+  lcall 0427C39h     ; load address
+  mov   a,r0                    ; low byte of the data pointer
+  mov   r0,#0F0h     
+  mov   @r0,a
+  mov   a,r1                    ; high byte of the data pointer
+  mov   r0,#0F1h
+  mov   @r0,a
+  mov   a,r2                    ; extended byte of the data pointer
+  mov   r0,#0F2h 
+  mov   @r0,a
+
+  mov   a,#01h                    ;
+  lcall 0427C39h     ; load length
+  mov   a,r0                    ; low byte of length
+
+  mov   r0,#0F3h
+  mov   @r0,a
+  mov   a,r1                    ; high byte of length
+  mov   r0,#0F4h
+  mov   @r0,a
+  mov   a,r2                    ; extended byte of length
+  mov   r0,#0F5h
+  mov   @r0,a
+  ;
+  ; initialize timer 3 reloads.  this will give it a little time before it starts.
+  ;
+  mov   0FBh,#00h
+  mov   0FCh,#00h
+  
+  ;
+  ; enabling the timer 3 interrupt should start playing audio!
+  ;
+  
+; Begin Macro CLEAR_TIMER_INTERRUPT
+   ; The clear of the timer 3 bit should be handled by hardware
+   anl 0FDh, #07Fh        ; timer 3, shouldn't need to do nothin'
+; End Macro CLEAR_TIMER_INTERRUPT
+  
+; Begin Macro ENABLE_TIMER_INTERRUPT
+  setb 0E9h                       ; enable timer 3 interrupt
+; End Macro ENABLE_TIMER_INTERRUPT
+  
+; Begin Macro ENABLE_TIMER
+  orl  0FDh, #040h                ; enable timer 3, 0100 0000
+; End Macro ENABLE_TIMER
+
+  clr   a                        ; no error 
+  ret                            ;
+
+
+;****************************************************************************
+
+
+mytimer3interrupt:
+        push    0E0h
+        push    0D0h
+        push    086h
+        push    00h
+        push    0EBh
+        push    0F3h
+        push    0F2h
+
+        ;
+        ; extract our data pointer
+        ;
+        mov     r0,#0F0h
+        mov     a,@r0
+        mov     0F2h,a
+        mov     r0,#0F1h
+        mov     a,@r0
+        mov     0F3h,a
+        mov     r0,#0F2h
+        mov     a,@r0
+        mov     0EBh,a
+
+        ;
+        ; Reload the timer
+        ;
+        mov     0FBh,#017h
+        mov     0FCh,#0FCh
+        
+; Begin Macro CLEAR_TIMER_INTERRUPT
+   ; The clear of the timer 3 bit should be handled by hardware
+   anl 0FDh, #07Fh        ; timer 3, shouldn't need to do nothin'
+; End Macro CLEAR_TIMER_INTERRUPT
+
+
+        ;
+        ; read our audio data
+        ;
+        mov     086h,#018h
+        movx    a,@dptr                  ; read lsbyte left
+        mov     r0,a                     ; R0 now holds lsbyte left
+        movx    a,@dptr                  ; read msbyte left
+
+        ;
+        ; Now load the DAC's
+        ;
+        
+; Begin Macro CLOCK_LOW
+   clr 090h.0
+; End Macro CLOCK_LOW
+        
+; Begin Macro SELECT_CHIP_ON
+   ;clr      P1.0
+   anl  0A1h, #07Fh
+; End Macro SELECT_CHIP_ON
+
+        cpl 0E0h.7                          ; toggle top bit to get -1 to 1 range
+        ;
+        ; Wait for the byte to be shifted out on the port pins.
+        ;
+        mov     c,0E0h.7
+        mov     091h,c
+        
+; Begin Macro CLOCK_HIGH
+   setb 090h.0
+; End Macro CLOCK_HIGH
+        mov     c,0E0h.6
+        
+; Begin Macro CLOCK_LOW
+   clr 090h.0
+; End Macro CLOCK_LOW
+        mov     091h,c
+        
+; Begin Macro CLOCK_HIGH
+   setb 090h.0
+; End Macro CLOCK_HIGH
+        mov     c,0E0h.5
+        
+; Begin Macro CLOCK_LOW
+   clr 090h.0
+; End Macro CLOCK_LOW
+        mov     091h,c
+        
+; Begin Macro CLOCK_HIGH
+   setb 090h.0
+; End Macro CLOCK_HIGH
+        mov     c,0E0h.4
+        
+; Begin Macro CLOCK_LOW
+   clr 090h.0
+; End Macro CLOCK_LOW
+        mov     091h,c
+        
+; Begin Macro CLOCK_HIGH
+   setb 090h.0
+; End Macro CLOCK_HIGH
+        mov     c,0E0h.3
+        
+; Begin Macro CLOCK_LOW
+   clr 090h.0
+; End Macro CLOCK_LOW
+        mov     091h,c
+        
+; Begin Macro CLOCK_HIGH
+   setb 090h.0
+; End Macro CLOCK_HIGH
+        mov     c,0E0h.2
+        
+; Begin Macro CLOCK_LOW
+   clr 090h.0
+; End Macro CLOCK_LOW
+        mov     091h,c
+        
+; Begin Macro CLOCK_HIGH
+   setb 090h.0
+; End Macro CLOCK_HIGH
+        mov     c,0E0h.1
+        
+; Begin Macro CLOCK_LOW
+   clr 090h.0
+; End Macro CLOCK_LOW
+        mov     091h,c
+        
+; Begin Macro CLOCK_HIGH
+   setb 090h.0
+; End Macro CLOCK_HIGH
+        mov     c,0E0h.0
+        
+; Begin Macro CLOCK_LOW
+   clr 090h.0
+; End Macro CLOCK_LOW
+        mov     091h,c
+        
+; Begin Macro CLOCK_HIGH
+   setb 090h.0
+; End Macro CLOCK_HIGH
+        nop
+        
+; Begin Macro CLOCK_LOW
+   clr 090h.0
+; End Macro CLOCK_LOW
+
+
+        mov     a,r0
+        ;
+        ; Send other byte to DAC
+        ;
+        mov     c,0E0h.7
+        mov     091h,c
+        
+; Begin Macro CLOCK_HIGH
+   setb 090h.0
+; End Macro CLOCK_HIGH
+        mov     c,0E0h.6
+        
+; Begin Macro CLOCK_LOW
+   clr 090h.0
+; End Macro CLOCK_LOW
+        mov     091h,c
+        
+; Begin Macro CLOCK_HIGH
+   setb 090h.0
+; End Macro CLOCK_HIGH
+        mov     c,0E0h.5
+        
+; Begin Macro CLOCK_LOW
+   clr 090h.0
+; End Macro CLOCK_LOW
+        mov     091h,c
+        
+; Begin Macro CLOCK_HIGH
+   setb 090h.0
+; End Macro CLOCK_HIGH
+        mov     c,0E0h.4
+        
+; Begin Macro CLOCK_LOW
+   clr 090h.0
+; End Macro CLOCK_LOW
+        mov     091h,c
+        
+; Begin Macro CLOCK_HIGH
+   setb 090h.0
+; End Macro CLOCK_HIGH
+        mov     c,0E0h.3
+        
+; Begin Macro CLOCK_LOW
+   clr 090h.0
+; End Macro CLOCK_LOW
+        mov     091h,c
+        
+; Begin Macro CLOCK_HIGH
+   setb 090h.0
+; End Macro CLOCK_HIGH
+        mov     c,0E0h.2
+        
+; Begin Macro CLOCK_LOW
+   clr 090h.0
+; End Macro CLOCK_LOW
+        mov     091h,c
+        
+; Begin Macro CLOCK_HIGH
+   setb 090h.0
+; End Macro CLOCK_HIGH
+        mov     c,0E0h.1
+        
+; Begin Macro CLOCK_LOW
+   clr 090h.0
+; End Macro CLOCK_LOW
+        mov     091h,c
+        
+; Begin Macro CLOCK_HIGH
+   setb 090h.0
+; End Macro CLOCK_HIGH
+        mov     c,0E0h.0
+        
+; Begin Macro CLOCK_LOW
+   clr 090h.0
+; End Macro CLOCK_LOW
+        mov     091h,c
+        
+; Begin Macro CLOCK_HIGH
+   setb 090h.0
+; End Macro CLOCK_HIGH
+        nop
+        
+; Begin Macro CLOCK_LOW
+   clr 090h.0
+; End Macro CLOCK_LOW
+        nop
+
+        
+; Begin Macro SELECT_CHIP_OFF
+;   setb     P1.0
+   orl 0A1h, #080h
+; End Macro SELECT_CHIP_OFF
+
+        mov     r0,#0F0h
+        mov     a,0F2h
+        mov     @r0,a
+        mov     r0,#0F1h
+        mov     a,0F3h
+        mov     @r0,a
+        mov     r0,#0F2h
+        mov     a,0EBh
+        mov     @r0,a
+
+        ;
+        ; Chip select if off, now we need to pulse LDAC.
+        ; Also check to see if we're at the end of our clip.
+        ; These instructions are intermingled to make sure 
+        ; the LDAC signal stays on for long enough.
+        ;
+        mov     r0,#0F3h
+        mov     a,@r0                  
+        
+; Begin Macro LOADDAC_ON
+;   clr      P1.1
+   anl 0A1h, #0BFh
+; End Macro LOADDAC_ON
+
+        ;
+        ; if a is zero, we need to dec the high length
+        ;
+        jz      interrupt_dechighlength
+        dec     a
+        mov     @r0,a 
+        ;
+        ; if a is zero now, we need to check for zero length.
+        ; else we just exit
+        ;
+        jnz     interrupt_exit
+        mov     r0,#0F4h
+        mov     a,@r0
+        ;
+        ; if the high byte is not zero, there is more data.  exit now
+        ;
+        jnz     interrupt_exit
+        ;
+        ; else check the xhigh bits
+        ;
+        mov     r0,#0F5h
+        mov     a,@r0
+        ;
+        ; if the high byte is not zero, there is more data.  exit now
+        ;
+        jnz     interrupt_exit
+
+        ;
+        ; else there is no more data.  disable the timer 3 interrupt.
+        ;
+        
+; Begin Macro DISABLE_TIMER_INTERRUPT
+  clr 0E9h                        ; disable timer 3 interrupt
+; End Macro DISABLE_TIMER_INTERRUPT
+        
+; Begin Macro DISABLE_TIMER
+  anl  0FDh, #0BFh                ; enable timer 3, 1011 1111
+; End Macro DISABLE_TIMER
+        sjmp    interrupt_exit
+
+interrupt_dechighlength:
+        mov     @r0,#0FFh
+        mov     r0,#0F4h
+        mov     a,@r0
+        jz      interrupt_decxhighlength
+        dec     a
+        mov     @r0,a
+        ; 
+        ; No threat of running into 0 length here, just exit
+        ;
+        sjmp    interrupt_exit
+
+interrupt_decxhighlength:
+        mov     @r0,#0FFh
+        mov     r0,#0F5h
+        mov     a,@r0
+        dec     a
+        mov     @r0,a
+
+interrupt_exit:
+        
+; Begin Macro LOADDAC_OFF
+;   setb     P1.1
+   orl 0A1h, #040h
+; End Macro LOADDAC_OFF
+        pop     0F2h
+        pop     0F3h
+        pop     0EBh
+        pop     00h
+        pop     086h
+        pop     0D0h 
+        pop     0E0h
+        reti
+
+
+
+
+
+$END_MODULE
+END

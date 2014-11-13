@@ -1,0 +1,4 @@
+asx8051 -olsffgp Camel52.asm
+sdcc -mds400 --model-flat24 -Wl-r --code-loc 0x120000 Camel52.rel 
+packihx Camel52.ihx > Camel52.hex
+sed -i '/:04/D' Camel52.hex

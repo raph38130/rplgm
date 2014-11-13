@@ -1,0 +1,171 @@
+ Sat Oct 17 21:10:57 1998  file rebonds.lis  page 1
+
+
+
+
+
+
+ST6 MACRO-ASSEMBLER version 4.50  - July 1996
+                                                 
+ Sat Oct 17 21:10:57 1998  file rebonds.lis  page 2
+
+
+--- SOURCE FILE : rebonds.txt ---
+   1                                 1 	;RP 10/98
+   2                                 2 	;
+   3                                 3 	;compte les rebonds du bouton poussoir+
+   4                                 4 	;visualise le résultat en deux étapes :
+   5                                 5 	;	poids faible
+   6                                 6 	;	poids fort si appui sur poussoir-
+   7                                 7 	;pb4 = led1 = bit de poids fort
+   8                                 8 	;
+   9                                 9 		.input "d:\st6tools\st626x.def"
+
+
+--- SOURCE FILE : d:\st6tools\st626x.def ---
+  10                            1    1 	
+  11                            1    2 	;      **************************************
+  12                            1    3 	;      *  REGISTERS/VARIABLES DECLARATION   *
+  13                            1    4 	;      **************************************
+  14                            1    5 	
+  15                            1    6 	
+  16                            1    7 	x	.def 080h,0ffh,0ffh,m
+  17                            1    8 	y	.def 081h,0ffh,0ffh,m
+  18                            1    9 	v	.def 082h,0ffh,0ffh,m
+  19                            1   10 	w	.def 083h,0ffh,0ffh,m
+  20                            1   11 	a	.def 0ffh,0ffh,0ffh,m
+  21                            1   12 	
+  22                            1   13 	IOR	.def 0c8h,0ffh,0ffh	; Interrupt Option Register
+  23                            1   14 	
+  24                            1   15 	DRWR	.def 0c9h,0ffh,0ffh	; DATA ROM Window Register
+  25                            1   16 	;modif par RP
+  26                            1   17 	drbr	.def 0e8h,03h,03h 
+  27                            1   18 	eectl	.def 0eah
+  28                            1   19 	
+  29                            1   20 	
+  30                            1   21 	;	**************
+  31                            1   22 	;	*   PORT A   *
+  32                            1   23 	;	**************
+  33                            1   24 	DRA	.def 0c0h,0ffh,0ffh	; Data Register A
+  34                            1   25 	DDRA	.def 0c4h,0ffh,0ffh	; Data Direction Register A
+  35                            1   26 	OPRA	.def 0cch,0ffh,0ffh	; Option register A
+  36                            1   27 	
+  37                            1   28 	;	**************
+  38                            1   29 	;	*   PORT B   *
+  39                            1   30 	;	**************
+  40                            1   31 	DRB	.def 0c1h,0ffh,0ffh	; Data Register B
+  41                            1   32 	DDRB	.def 0c5h,0ffh,0ffh	; Data Direction Register B
+  42                            1   33 	OPRB	.def 0cdh,0ffh,0ffh	; Option register B
+  43                            1   34 	
+  44                            1   35 	;	**************
+  45                            1   36 	;	*   PORT C   *
+  46                            1   37 	;	**************
+  47                            1   38 	DRC	.def 0c2h,0ffh,0ffh	; Data Register C
+  48                            1   39 	DDRC	.def 0c6h,0ffh,0ffh	; Data Direction Register C
+  49                            1   40 	OPRC	.def 0ceh,0ffh,0ffh	; Option register C
+  50                            1   41 	
+  51                            1   42 	;	**************
+  52                            1   43 	;	* A/D CONVER *
+  53                            1   44 	;	**************
+  54                            1   45 	ADCR	.def 0d1h,0ffh,0ffh	; Control register
+  55                            1   46 	ADR	.def 0d0h,0ffh,0ffh	; DATA register (result of conversion)
+  56                            1   47 	
+ Sat Oct 17 21:10:57 1998  file rebonds.lis  page 3
+
+
+  57                            1   48 	
+  58                            1   49 	;	**************
+  59                            1   50 	;	*   TIMER    *
+  60                            1   51 	;	**************
+  61                            1   52 	;TSCR1	.def 0d4h,0ffh,0ffh	; TIMER STATUS control register
+  62                            1   53 	;TCR1	.def 0d3h,0ffh,0ffh	; TIMER COUNTER register
+  63                            1   54 	;PSC1	.def 0d2h,0ffh,0ffh	; TIMER PRESCALER register
+  64                            1   55 	
+  65                            1   56 	;	*********************
+  66                            1   57 	;	* AUTO RELOAD TIMER *
+  67                            1   58 	;	*********************
+  68                            1   59 	ARMC	.def 0d5h,0ffh,0ffh	; AR MODE control register
+  69                            1   60 	ARSC0	.def 0d6h,0ffh,0ffh	; AR STATUS control register 0 
+  70                            1   61 	ARSC1	.def 0d7h,0ffh,0ffh	; AR STATUS control register 1
+  71                            1   62 	ARLR	.def 0d8h,0ffh,0ffh	; AR LOAD register
+  72                            1   63 	ARRC	.def 0d9h,0ffh,0ffh	; AR RELOAD/CAPTURE register
+  73                            1   64 	ARCP	.def 0dah,0ffh,0ffh	; AR COMPARE register
+  74                            1   65 	
+  75                            1   66 	
+  76                            1   67 	WDR     .def    0d8h        ;watchdog register
+  77                            1   68 	
+  78                            1   69 	psc         .def    0d2h,m
+  79                            1   70 	tcr         .def    0d3h,m
+  80                            1   71 	tscr        .def    0d4h,m
+  81                            1   72 	
+  82                            1   73 	
+  83                            1   74 	tmz	    .equ    7
+  84                            1   75 	eti	    .equ    6
+  85                            1   76 	tout	    .equ    5
+  86                            1   77 	dout	    .equ    4
+  87                            1   78 	psi         .equ    3
+  88                            1   79 	
+
+
+--- SOURCE FILE : rebonds.txt ---
+  89                                10 	GEN	.def 4
+  90                                11 		.org 0400h
+  91                                12 	
+  92                                13 		;init PB0-PB4
+  93                                14 		;+ PB5 - PB6
+  94 P00 0400 0DC11F P00 0400       15 	debut	ldi DRB, 00011111b 	; pour tout éteindre et entrées avec pull up avec it
+  95 P00 0403 0DC51F P00 0403       16 		ldi DDRB,00011111b
+  96 P00 0406 0DCD20 P00 0406       17 		ldi OPRB,00100000b	; seul + genere des it 
+  97 P00 0409 3BC8   P00 0409       18 		set GEN,IOR
+  98                                19 		;init IT
+  99 P00 040B 4D     P00 040B       20 		reti			; passer en mode normal
+ 100 P00 040C 0D8200 P00 040C       21 		ldi v,0
+ 101                                22 	
+ 102                                23 		;main loop
+ 103 P00 040F        P00 040F       24 	loop	;print low bits
+ 104 P00 040F 63C108 P00 040F       25 		jrr 6,DRB,suite
+ 105 P00 0412 B5     P00 0412       26 		ld a,v
+ 106 P00 0413 2D     P00 0413       27 		com a
+ 107 P00 0414 B70F   P00 0414       28 		andi a,00001111b
+ 108 P00 0416 9FC1   P00 0416       29 		ld DRB,a
+ 109 P00 0418 F940   P00 0418       30 		jp loop
+ 110 P00 041A        P00 041A       31 	suite	;print high bits
+ 111 P00 041A B5     P00 041A       32 		ld a,v
+ 112 P00 041B AD     P00 041B       33 		rlc a
+ 113 P00 041C AD     P00 041C       34 		rlc a
+ Sat Oct 17 21:10:57 1998  file rebonds.lis  page 4
+
+
+ 114 P00 041D AD     P00 041D       35 		rlc a
+ 115 P00 041E AD     P00 041E       36 		rlc a
+ 116 P00 041F AD     P00 041F       37 		rlc a
+ 117 P00 0420 2D     P00 0420       38 		com a
+ 118 P00 0421 B70F   P00 0421       39 		andi a,00001111b
+ 119 P00 0423 9FC1   P00 0423       40 		ld DRB,a
+ 120 P00 0425 F940   P00 0425       41 		jp loop
+ 121                                42 	
+ 122 P00 0427        P00 0427       43 	handler 
+ 123 P00 0427 95     P00 0427       44 		inc v
+ 124 P00 0428 4D     P00 0428       45 		reti
+ 125                                46 	
+ 126                                47 		.org 0FF6h
+ 127 P00 0FF6 7942   P00 0FF6       48 	int1	jp handler
+ 128                                49 	
+ 129                                50 	  	.org 0ffeh
+ 130 P00 0FFE 0940   P00 0FFE       51 	reset jp debut
+ Sat Oct 17 21:10:57 1998  file rebonds.lis  page 5
+
+
+
+ ** SPACE 'PAGE_0' SECTION MAP **
+
+_______________________________________
+|      name       |  type  |   size   |
+|-----------------|--------|----------|
+| PG0_0           |  TEXT  |       29 |
+| PG0_1           |  TEXT  |        2 |
+| PG0_2           |  TEXT  |        2 |
+|_________________|________|__________|
+
+No error detected
+No warning

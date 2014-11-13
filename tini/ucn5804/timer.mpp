@@ -1,0 +1,87 @@
+$BEGIN_MODULE(timer)
+; DEFAULTING TO A390 MODE
+;* mar mar 29 16:21:41 UTC 2005 RP
+;* - T3 for stepper motor clock
+;* - T2 for quadrature
+;* ven jan 21 13:01:12 UTC 2005 RP
+;* - overflow flag needs to be cleared
+;* 
+;* 
+$include(tini_400.inc)
+$include(ds80c400.inc)
+$include(tinimacro.inc)
+$include(apiequ.inc)
+
+Native_Init:
+  clr a
+  ret
+  
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;TIMER T2 quadrature decoding
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+Native_readT2:
+; TH2 TL2  
+  mov a,0CDh
+  mov 01h,a                            
+  mov a,0CCh            
+  mov 00h,a                
+  clr a
+  mov 03h,a           
+  mov 02h,a          
+  ret 
+
+Native_startCountT2:
+   mov a,#01h	;DCEN=1
+   mov 0C9h,a	
+   mov a,#06h	;C/T2=1 TR2=1
+   mov 0C8h,a	
+   mov a,#080h
+   mov 0CDh,a
+   clr a
+   mov 0CCh,a
+   ret
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; STEPPER CMD VIA P1.7 (J5.1)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+wait:
+   mov b,a
+   push b
+   mov a,00h
+l:
+   mov b,a
+   push b
+   mov a,#0Fh
+delay:
+   dec a
+   jnz delay
+   pop b
+   mov a,b
+   dec a
+   jnz l   
+   pop b
+   mov a,b
+   ret
+
+   
+;R0 delay 0x0B 0xFF
+;R1 steps 0x00 0xFF
+;
+;
+Native_stepper:
+   clr a
+   lcall 0427C39h     ; load parameter
+   mov a,01h   
+loop:
+   setb 090h.7
+   call wait
+   clr 090h.7
+   call wait
+   dec a
+   jnz loop  
+   ret
+                             
+ 
+$END_MODULE
+END

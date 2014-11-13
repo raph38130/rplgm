@@ -1,0 +1,214 @@
+ Tue Nov 24 15:24:16 1998  file gradator.lis  page 1
+
+
+
+
+
+
+ST6 MACRO-ASSEMBLER version 4.50  - July 1996
+                                                 
+ Tue Nov 24 15:24:16 1998  file gradator.lis  page 2
+
+
+--- SOURCE FILE : gradator.txt ---
+   1                                 1 	;
+   2                                 2 	;RP 18 / 11 / 98
+   3                                 3 	;
+   4                                 4 	;
+   5                                 5 	; GRADATEUR ST6
+   6                                 6 	;
+   7                                 7 	;l'intensité lumineuse des leds varie
+   8                                 8 	;en fonction de la valeur du potentiometre
+   9                                 9 	;
+  10                                10 	;principe : le rapport cyclique du signal de commande varie
+  11                                11 	;		ART utilisé en PWM
+  12                                12 	;		Port B en sortie
+  13                                13 	;		PB5,PB6 entrée avec it
+  14                                14 	;appui sur + allume
+  15                                15 	;appui sur - éteind
+  16                                16 	
+  17                                17 		.input "d:\st6tools\st626x.def"
+
+
+--- SOURCE FILE : d:\st6tools\st626x.def ---
+  18                            1    1 	
+  19                            1    2 	;      **************************************
+  20                            1    3 	;      *  REGISTERS/VARIABLES DECLARATION   *
+  21                            1    4 	;      **************************************
+  22                            1    5 	
+  23                            1    6 	
+  24                            1    7 	x	.def 080h,0ffh,0ffh,m
+  25                            1    8 	y	.def 081h,0ffh,0ffh,m
+  26                            1    9 	v	.def 082h,0ffh,0ffh,m
+  27                            1   10 	w	.def 083h,0ffh,0ffh,m
+  28                            1   11 	a	.def 0ffh,0ffh,0ffh,m
+  29                            1   12 	
+  30                            1   13 	IOR	.def 0c8h,0ffh,0ffh	; Interrupt Option Register
+  31                            1   14 	
+  32                            1   15 	DRWR	.def 0c9h,0ffh,0ffh	; DATA ROM Window Register
+  33                            1   16 	
+  34                            1   17 	;modif par RP
+  35                            1   18 	DRBR	.def 0e8h 
+  36                            1   19 	EECTL	.def 0eah
+  37                            1   20 	
+  38                            1   21 	
+  39                            1   22 	;	**************
+  40                            1   23 	;	*   PORT A   *
+  41                            1   24 	;	**************
+  42                            1   25 	DRA	.def 0c0h,0ffh,0ffh	; Data Register A
+  43                            1   26 	DDRA	.def 0c4h,0ffh,0ffh	; Data Direction Register A
+  44                            1   27 	OPRA	.def 0cch,0ffh,0ffh	; Option register A
+  45                            1   28 	
+  46                            1   29 	;	**************
+  47                            1   30 	;	*   PORT B   *
+  48                            1   31 	;	**************
+  49                            1   32 	DRB	.def 0c1h,0ffh,0ffh	; Data Register B
+  50                            1   33 	DDRB	.def 0c5h,0ffh,0ffh	; Data Direction Register B
+  51                            1   34 	OPRB	.def 0cdh,0ffh,0ffh	; Option register B
+  52                            1   35 	
+  53                            1   36 	;	**************
+  54                            1   37 	;	*   PORT C   *
+  55                            1   38 	;	**************
+  56                            1   39 	DRC	.def 0c2h,0ffh,0ffh	; Data Register C
+ Tue Nov 24 15:24:16 1998  file gradator.lis  page 3
+
+
+  57                            1   40 	DDRC	.def 0c6h,0ffh,0ffh	; Data Direction Register C
+  58                            1   41 	OPRC	.def 0ceh,0ffh,0ffh	; Option register C
+  59                            1   42 	
+  60                            1   43 	;	**************
+  61                            1   44 	;	* A/D CONVER *
+  62                            1   45 	;	**************
+  63                            1   46 	ADCR	.def 0d1h,0ffh,0ffh	; Control register
+  64                            1   47 	ADR	.def 0d0h,0ffh,0ffh	; DATA register (result of conversion)
+  65                            1   48 	
+  66                            1   49 	
+  67                            1   50 	;	**************
+  68                            1   51 	;	*   TIMER    *
+  69                            1   52 	;	**************
+  70                            1   53 	TSCR1	.def 0d4h,0ffh,0ffh	; TIMER STATUS control register
+  71                            1   54 	TCR1	.def 0d3h,0ffh,0ffh	; TIMER COUNTER register
+  72                            1   55 	PSC1	.def 0d2h,0ffh,0ffh	; TIMER PRESCALER register
+  73                            1   56 	
+  74                            1   57 	;	*********************
+  75                            1   58 	;	* AUTO RELOAD TIMER *
+  76                            1   59 	;	*********************
+  77                            1   60 	ARMC	.def 0d5h,0ffh,0ffh	; AR MODE control register
+  78                            1   61 	ARSC0	.def 0d6h,0ffh,0ffh	; AR STATUS control register 0 
+  79                            1   62 	ARSC1	.def 0d7h,0ffh,0ffh	; AR STATUS control register 1
+  80                            1   63 	ARLR	.def 0d8h,0ffh,0ffh	; AR LOAD register
+  81                            1   64 	ARRC	.def 0d9h,0ffh,0ffh	; AR RELOAD/CAPTURE register
+  82                            1   65 	ARCP	.def 0dah,0ffh,0ffh	; AR COMPARE register
+  83                            1   66 	
+  84                            1   67 	
+  85                            1   68 	WDR     .def    0d8h        ;watchdog register
+  86                            1   69 	
+  87                            1   70 	
+
+
+--- SOURCE FILE : gradator.txt ---
+  88                                18 	;
+  89                                19 	; init
+  90                                20 	;
+  91                                21 		.org 0100h
+  92 P00 0100        P00 0100       22 	debut	;mise en route du can
+  93 P00 0100 0DD110 P00 0100       23 		ldi ADCR,00010000b	;PDS	
+  94                                24 		;PB0-PB4 en sortie open drain
+  95                                25 		;PB5 PB6 en entrée avec pull up avec it
+  96 P00 0103 0DC11F P00 0103       26 		ldi DRB,00011111b
+  97 P00 0106 0DC51F P00 0106       27 		ldi DDRB,00011111b
+  98 P00 0109 0DCD60 P00 0109       28 		ldi OPRB,01100000b
+  99                                29 		;PA4 potentiometre en entrée de can
+ 100 P00 010C 0DC400 P00 010C       30 		ldi DDRA,0		
+ 101 P00 010F 0DCC10 P00 010F       31 		ldi OPRA,00010000b
+ 102 P00 0112 0DC010 P00 0112       32 		ldi DRA,00010000b
+ 103                                33 		;
+ 104 P00 0115 0DD54C P00 0115       34 		ldi ARMC,01001100b	;TEN CPIE OVIE
+ 105 P00 0118 0DD7E5 P00 0118       35 		ldi ARSC1,11100101b	;/128 rising Fint/3
+ 106 P00 011B 0DD900 P00 011B       36 		ldi ARRC,0
+ 107 P00 011E 0DDA00 P00 011E       37 		ldi ARCP,0
+ 108                                38 		;gestion des IT
+ 109 P00 0121 0DC810 P00 0121       39 		ldi IOR,00010000b
+ 110 P00 0124 4D     P00 0124       40 		reti
+ 111                                41 	
+ 112 P00 0125        P00 0125       42 	main	
+ 113 P00 0125 BBD1   P00 0125       43 		set 5,ADCR		;STA
+ Tue Nov 24 15:24:16 1998  file gradator.lis  page 4
+
+
+ 114 P00 0127 63D1FD P00 0127       44 	loop	jrr 6,ADCR,loop		;EOC
+ 115 P00 012A 1FD0   P00 012A       45 		ld a,ADR
+ 116 P00 012C 9FDA   P00 012C       46 		ld ARCP,a
+ 117 P00 012E 5912   P00 012E       47 		jp main
+ 118                                48 	
+ 119                                49 	
+ 120                                50 	
+ 121                                51 	;
+ 122                                52 	;handler AR TIMER
+ 123                                53 	;
+ 124 P00 0130        P00 0130       54 	arthandler:
+ 125 P00 0130 13D605 P00 0130       55 		jrs 0,ARSC0,allume	;OVF
+ 126 P00 0133 93D607 P00 0133       56 		jrs 1,ARSC0,eteind	;CPF
+ 127 P00 0136 0914   P00 0136       57 		jp endart
+ 128 P00 0138 0DC100 P00 0138       58 	allume	ldi DRB,00000000b
+ 129 P00 013B 0914   P00 013B       59 		jp endart
+ 130 P00 013D 0DC11F P00 013D       60 	eteind	ldi DRB,00011111b
+ 131 P00 0140 0DD600 P00 0140       61 	endart	ldi ARSC0,0		;it ack
+ 132 P00 0143 4D     P00 0143       62 		reti
+ 133                                63 	
+ 134                                64 	;
+ 135                                65 	;handler PORT B
+ 136                                66 	;
+ 137 P00 0144        P00 0144       67 	pbhandler:
+ 138 P00 0144 A3C105 P00 0144       68 		jrr 5,DRB,plus
+ 139 P00 0147 63C107 P00 0147       69 		jrr 6,DRB,moins
+ 140 P00 014A 4915   P00 014A       70 		jp endpb
+ 141 P00 014C 0DC51F P00 014C       71 	plus	ldi DDRB,00011111b
+ 142 P00 014F 4915   P00 014F       72 		jp endpb
+ 143 P00 0151 0DC500 P00 0151       73 	moins	ldi DDRB,00000000b
+ 144 P00 0154 4D     P00 0154       74 	endpb	reti
+ 145                                75 	
+ 146                                76 	
+ 147                                77 	;
+ 148                                78 	;vecteur d'interruptions
+ 149                                79 	;
+ 150                                80 		;adc
+ 151                                81 		.org 0FF0h
+ 152 P00 0FF0 4D     P00 0FF0       82 		reti
+ 153                                83 	
+ 154                                84 		;art
+ 155                                85 		.org 0FF2h
+ 156 P00 0FF2 0913   P00 0FF2       86 		jp arthandler
+ 157                                87 	
+ 158                                88 		;spi
+ 159                                89 		.org 0FF4h
+ 160 P00 0FF4 4D     P00 0FF4       90 		reti
+ 161                                91 	
+ 162                                92 		;portB
+ 163                                93 		.org 0FF6h
+ 164 P00 0FF6 4914   P00 0FF6       94 		jp pbhandler
+ 165                                95 	
+ 166                                96 		;reset
+ 167                                97 		.org 0FFEh
+ 168 P00 0FFE 0910   P00 0FFE       98 		jp debut
+ 169                                99 	
+ 170                               100 	;fin du programme
+ Tue Nov 24 15:24:16 1998  file gradator.lis  page 5
+
+
+
+ ** SPACE 'PAGE_0' SECTION MAP **
+
+_______________________________________
+|      name       |  type  |   size   |
+|-----------------|--------|----------|
+| PG0_0           |  TEXT  |       55 |
+| PG0_1           |  TEXT  |        1 |
+| PG0_2           |  TEXT  |        2 |
+| PG0_3           |  TEXT  |        1 |
+| PG0_4           |  TEXT  |        2 |
+| PG0_5           |  TEXT  |        2 |
+|_________________|________|__________|
+
+No error detected
+No warning

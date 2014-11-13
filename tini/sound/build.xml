@@ -1,0 +1,146 @@
+<!--
+  Ant Build File for INES NSM35 Comms Interface Card
+  ==================================================
+
+ * TiniUnit Unit Testing Framework for the Dallas Semiconductors TINI Board
+ * http://tiniunit.sourceforge.net/
+ *
+ * Invensys Energy Systems (NZ) Ltd
+ * Christchurch, New Zealand
+ * http://www.invensys-energy.com/new_zealand/
+ * Contact: Gavin Kingsley <gavin.kingsley@energy.invensys.com>
+ *
+ * Copyright (c) 2000, 2001, Invensys Energy Systems (NZ) Ltd
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 3. Neither the name of Invensys Energy Systems (NZ) Ltd nor the names of its
+ *    contributors may be used to endorse or promote products derived from this
+ *    software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL INVENSYS ENERGY SYSTEMS (NZ) LTD OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * http://www.opensource.org/licenses/bsd-license.html
+
+  Ant is a cross platform Java build process. Download Ant from
+  http://jakarta.apache.org/ant/index.html. The FTP tasks are optional
+  extensions that should be downloaded at the same time from the same location.
+  The FTP extensions require NetComponents.jar from
+  http://www.savarese.org/oro/software/NetComponents.html. This build file also
+  uses TiniAnt: Ant extensions for TINI to allow TiniConversion. Download
+  TiniAnt from http://tiniant.sourceforge.net/.
+
+-->
+
+<project name="TiniUnit" default="deploy" basedir=".">
+
+  <!-- Bring in the "tini" task used to run TiniConverter -->
+  <taskdef name="tini" classname="net.geeba.ant.Tini"/>
+
+  <!--
+    Set global properties for this build. I think it is possible to override
+    these values using a properties file, but I haven't done that for this version
+    since these values are correct for my PC! Your mileage may vary. These values
+    can be overridden from within Termite.
+  -->
+  <property name="src" value="src"/>
+  <property name="javadoc" value="javadoc"/>
+  <property name="bin" value="bin"/>
+  <property name="out" value="test.tini"/>
+  <property name="zip" value="tiniunit.zip"/>
+  <property name="main" value="nz.co.invensysenergy.test.com.dalsemi.SystemTestSuite"/>
+  <property name="test.pc.testsets" value="pc"/>
+  <property name="test.pc.out" value="Unit Test Report.txt"/>
+  <property name="test.tini.testsets" value="tini"/>
+  <property name="tini.dir" value="\java\tini\tini1.02d"/>
+  <property name="tini.db" value="${tini.dir}\bin\tini.db"/>
+  <property name="tini.cp" value="${tini.dir}/bin/tiniclasses.jar"/>
+  <property name="tini.jar" value="${tini.dir}/bin/tini.jar"/>
+  <property name="netcomponents.cp" value="\Java\JDK\NetComponents-1.3.8a\NetComponents.jar"/>
+  <property name="cp" value="${tini.cp};${netcomponents.cp}"/>
+  <property name="tinitest" value="TiniTest"/>
+
+  <!--
+    On Windows, edit the plain text file "/winnt/system32/etc/hosts" to make the
+    "tini" host name point to the IP address of your TINI, assuming your network
+    doesn't allow this to happen automatically. Alternatively, a dotted decimal
+    IP address can be entered here.
+  -->
+  <property name="tini.ip" value="tini"/>
+  <property name="tini.user" value="root"/>
+  <property name="tini.pwd" value="tini"/>
+
+  <target name="build" description="Builds the class files of the test framework">
+    <mkdir dir="${bin}"/>
+    <javac srcdir="${src}" destdir="${bin}" classpath="${cp}" excludes="**/vssver.scc"/>
+  </target>
+
+  <target name="deploy" depends="clean,build,javadoc" description="Builds a distributable zip of source and supporting documentation.">
+    <zip zipfile="${zip}" basedir="." includes="${src}/,${javadoc}/,build.xml,index.html" excludes="**/vssver.scc"/>
+  </target>
+
+  <target name="slush" depends="build" description="Builds a TINI file suitable for running under slush on the TINI">
+    <tini outputfile="${out}" database="${tini.db}" classpath="${tini.jar}" mainclass="${main}">
+      <convert dir="${bin}">
+        <exclude name="${tinitest}.class"/>
+      </convert>
+    </tini>
+  </target>
+
+  <target name="ftp" depends="slush" description="FTPs the slush version of the application to the TINI">
+    <ftp server="${tini.ip}" userid="${tini.user}" password="${tini.pwd}" verbose="yes">
+      <fileset dir=".">
+        <include name="${out}"/>
+      </fileset>
+    </ftp>
+  </target>
+
+  <target name="test" depends="clean,test.pc,test.tini" description="Runs the tests on the PC and on the TINI"/>
+
+  <target name="test.pc" depends="build" description="Run the complete test framework on the PC">
+    <echo message="Starting tests, output in file: ${test.pc.out}"/>
+    <java classname="${main}" fork="yes" failonerror="yes" classpath="${bin};${cp}" output="${test.pc.out}">
+      <jvmarg line="-classic"/>
+      <arg line="${test.pc.testsets}"/>
+    </java>
+  </target>
+
+  <target name="test.tini" depends="slush" description="Runs the test on the TINI">
+    <java classname="${tinitest}" classpath=".\${bin};${netcomponents.cp}" fork="yes" failonerror="yes">
+      <arg line="${out} ${test.tini.testsets}"/>
+    </java>
+  </target>
+
+  <target name="clean" description="Removes all class and output files">
+    <!-- Must ensure dir exists, else delete will fail -->
+    <mkdir dir="${bin}"/>
+    <delete dir="${bin}"/>
+    <mkdir dir="${javadoc}"/>
+    <delete dir="${javadoc}"/>
+    <delete file="${out}"/>
+    <delete file="${zip}"/>
+  </target>
+
+  <target name="javadoc" description="Generates javadoc documentation for the source code/">
+    <mkdir dir="${javadoc}"/>
+    <javadoc packagenames="nz.co.invensysenergy.*" sourcepath="${src}" destdir="${javadoc}" private="true"/>
+  </target>
+
+</project>

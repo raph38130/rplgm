@@ -1,0 +1,1460 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : FreeWare ANSI-C Compiler
+                              3 ; Version 2.3.7 Thu Feb  5 13:39:25 2004
+                              4 
+                              5 ;--------------------------------------------------------
+                              6 	.module tini_i2c
+                              7 	.optsdcc -mds400 --model-flat24
+                              8 	
+                              9 .flat24 on		; 24 bit flat addressing
+                    0093     10 dpx = 0x93		; dpx register unknown to assembler
+                    0086     11 dps = 0x86		; dps register unknown to assembler
+                    0084     12 dpl1 = 0x84		; dpl1 register unknown to assembler
+                    0085     13 dph1 = 0x85		; dph1 register unknown to assembler
+                    0095     14 dpx1 = 0x95		; dpx1 register unknown to assembler
+                    009C     15 ap = 0x9C		; ap register unknown to assembler
+                    009C     16 _ap = 0x9C		; _ap register unknown to assembler
+                    00D1     17 mcnt0 = 0xD1		; mcnt0 register unknown to assembler
+                    00D2     18 mcnt1 = 0xD2		; mcnt1 register unknown to assembler
+                    00D3     19 ma = 0xD3		; ma register unknown to assembler
+                    00D4     20 mb = 0xD4		; mb register unknown to assembler
+                    00D5     21 mc = 0xD5		; mc register unknown to assembler
+                    00D1     22 F1 = 0xD1		; F1 user flag unknown to assembler
+                    009B     23 esp = 0x9B		; ESP user flag unknown to assembler
+                             24 ;--------------------------------------------------------
+                             25 ; Public variables in this module
+                             26 ;--------------------------------------------------------
+                             27 	.globl _i2c_waitforscl
+                             28 	.globl _i2c_writereadblock_PARM_5
+                             29 	.globl _i2c_writereadblock_PARM_4
+                             30 	.globl _i2c_writereadblock_PARM_3
+                             31 	.globl _i2c_writereadblock_PARM_2
+                             32 	.globl _i2c_readblock_PARM_3
+                             33 	.globl _i2c_readblock_PARM_2
+                             34 	.globl _i2c_writeblock_PARM_3
+                             35 	.globl _i2c_writeblock_PARM_2
+                             36 	.globl _i2c_version
+                             37 	.globl _i2c_start
+                             38 	.globl _i2c_bit
+                             39 	.globl _i2c_readbit
+                             40 	.globl _i2c_stop
+                             41 	.globl _i2c_readbyte
+                             42 	.globl _i2c_writebyte
+                             43 	.globl _i2c_select
+                             44 	.globl _i2c_writeblock
+                             45 	.globl _i2c_readblock
+                             46 	.globl _i2c_writereadblock
+                             47 ;--------------------------------------------------------
+                             48 ; special function registers
+                             49 ;--------------------------------------------------------
+                    0080     50 _P4	=	0x0080
+                    0081     51 _SP	=	0x0081
+                    0082     52 _DPL	=	0x0082
+                    0083     53 _DPH	=	0x0083
+                    0084     54 _DPL1	=	0x0084
+                    0085     55 _DPH1	=	0x0085
+                    0086     56 _DPS	=	0x0086
+                    0087     57 _PCON	=	0x0087
+                    0088     58 _TCON	=	0x0088
+                    0089     59 _TMOD	=	0x0089
+                    008A     60 _TL0	=	0x008a
+                    008B     61 _TL1	=	0x008b
+                    008C     62 _TH0	=	0x008c
+                    008D     63 _TH1	=	0x008d
+                    008E     64 _CKCON	=	0x008e
+                    0090     65 _P1	=	0x0090
+                    0091     66 _EXIF	=	0x0091
+                    0092     67 _P4CNT	=	0x0092
+                    0093     68 _DPX	=	0x0093
+                    0095     69 _DPX1	=	0x0095
+                    0098     70 _SCON0	=	0x0098
+                    0099     71 _SBUF0	=	0x0099
+                    009B     72 _ESP	=	0x009b
+                    009C     73 _AP	=	0x009c
+                    009D     74 _ACON	=	0x009d
+                    00A0     75 _P2	=	0x00a0
+                    00A1     76 _P5	=	0x00a1
+                    00A2     77 _P5CNT	=	0x00a2
+                    00A8     78 _IE	=	0x00a8
+                    00B0     79 _P3	=	0x00b0
+                    00B8     80 _IP	=	0x00b8
+                    00C0     81 _SCON1	=	0x00c0
+                    00C1     82 _SBUF1	=	0x00c1
+                    00C4     83 _PMR	=	0x00c4
+                    00C6     84 _MCON	=	0x00c6
+                    00C7     85 _TA	=	0x00c7
+                    00C8     86 _T2CON	=	0x00c8
+                    00C9     87 _T2MOD	=	0x00c9
+                    00CA     88 _RCAP2L	=	0x00ca
+                    00CA     89 _RTL2	=	0x00ca
+                    00CB     90 _RCAP2H	=	0x00cb
+                    00CB     91 _RTH2	=	0x00cb
+                    00CC     92 _TL2	=	0x00cc
+                    00CD     93 _TH2	=	0x00cd
+                    00D0     94 _PSW	=	0x00d0
+                    00D1     95 _MCNT0	=	0x00d1
+                    00D2     96 _MCNT1	=	0x00d2
+                    00D3     97 _MA	=	0x00d3
+                    00D4     98 _MB	=	0x00d4
+                    00D5     99 _MC	=	0x00d5
+                    00D8    100 _WDCON	=	0x00d8
+                    00E0    101 _ACC	=	0x00e0
+                    00E8    102 _EIE	=	0x00e8
+                    00EA    103 _MXAX	=	0x00ea
+                    00F0    104 _B	=	0x00f0
+                    00F8    105 _EIP	=	0x00f8
+                            106 ;--------------------------------------------------------
+                            107 ; special function bits 
+                            108 ;--------------------------------------------------------
+                    0088    109 _IT0	=	0x0088
+                    0089    110 _IE0	=	0x0089
+                    008A    111 _IT1	=	0x008a
+                    008B    112 _IE1	=	0x008b
+                    008C    113 _TR0	=	0x008c
+                    008D    114 _TF0	=	0x008d
+                    008E    115 _TR1	=	0x008e
+                    008F    116 _TF1	=	0x008f
+                    0090    117 _T2	=	0x0090
+                    0091    118 _T2EX	=	0x0091
+                    0092    119 _RXD1	=	0x0092
+                    0093    120 _TXD1	=	0x0093
+                    0094    121 _INT2	=	0x0094
+                    0095    122 _INT3	=	0x0095
+                    0096    123 _INT4	=	0x0096
+                    0097    124 _INT5	=	0x0097
+                    0098    125 _RI_0	=	0x0098
+                    0099    126 _TI_0	=	0x0099
+                    009A    127 _RB8_0	=	0x009a
+                    009B    128 _TB8_0	=	0x009b
+                    009C    129 _REN_0	=	0x009c
+                    009D    130 _SM2_0	=	0x009d
+                    009E    131 _SM1_0	=	0x009e
+                    009F    132 _SM0_0	=	0x009f
+                    009F    133 _FE_0	=	0x009f
+                    00A8    134 _EX0	=	0x00a8
+                    00A9    135 _ET0	=	0x00a9
+                    00AA    136 _EX1	=	0x00aa
+                    00AB    137 _ET1	=	0x00ab
+                    00AC    138 _ES0	=	0x00ac
+                    00AD    139 _ET2	=	0x00ad
+                    00AE    140 _ES1	=	0x00ae
+                    00AF    141 _EA	=	0x00af
+                    00B0    142 _RXD0	=	0x00b0
+                    00B1    143 _TXD0	=	0x00b1
+                    00B2    144 _INT0	=	0x00b2
+                    00B3    145 _INT1	=	0x00b3
+                    00B4    146 _T0	=	0x00b4
+                    00B5    147 _T1	=	0x00b5
+                    00B6    148 _WR	=	0x00b6
+                    00B7    149 _RD	=	0x00b7
+                    00B8    150 _PX0	=	0x00b8
+                    00B9    151 _PT0	=	0x00b9
+                    00BA    152 _PX1	=	0x00ba
+                    00BB    153 _PT1	=	0x00bb
+                    00BC    154 _PS0	=	0x00bc
+                    00BD    155 _PT2	=	0x00bd
+                    00BE    156 _PS1	=	0x00be
+                    00C0    157 _RI_1	=	0x00c0
+                    00C1    158 _TI_1	=	0x00c1
+                    00C2    159 _RB8_1	=	0x00c2
+                    00C3    160 _TB8_1	=	0x00c3
+                    00C4    161 _REN_1	=	0x00c4
+                    00C5    162 _SM2_1	=	0x00c5
+                    00C6    163 _SM1_1	=	0x00c6
+                    00C7    164 _SM0_1	=	0x00c7
+                    00C7    165 _FE_1	=	0x00c7
+                    00C8    166 _CP_RL	=	0x00c8
+                    00C9    167 _C_T	=	0x00c9
+                    00CA    168 _TR2	=	0x00ca
+                    00CB    169 _EXEN2	=	0x00cb
+                    00CC    170 _TCLK	=	0x00cc
+                    00CD    171 _RCLK	=	0x00cd
+                    00CE    172 _EXF2	=	0x00ce
+                    00CF    173 _TF2	=	0x00cf
+                    00D0    174 _P	=	0x00d0
+                    00D1    175 _F1	=	0x00d1
+                    00D2    176 _OV	=	0x00d2
+                    00D3    177 _RS0	=	0x00d3
+                    00D4    178 _RS1	=	0x00d4
+                    00D5    179 _F0	=	0x00d5
+                    00D6    180 _AC	=	0x00d6
+                    00D7    181 _CY	=	0x00d7
+                    00D8    182 _RWT	=	0x00d8
+                    00D9    183 _EWT	=	0x00d9
+                    00DA    184 _WDRF	=	0x00da
+                    00DB    185 _WDIF	=	0x00db
+                    00DC    186 _PFI	=	0x00dc
+                    00DD    187 _EPFI	=	0x00dd
+                    00DE    188 _POR	=	0x00de
+                    00DF    189 _SMOD_1	=	0x00df
+                    00E8    190 _EX2	=	0x00e8
+                    00E9    191 _EX3	=	0x00e9
+                    00EA    192 _EX4	=	0x00ea
+                    00EB    193 _EX5	=	0x00eb
+                    00EC    194 _EWDI	=	0x00ec
+                    00ED    195 _C1IE	=	0x00ed
+                    00EE    196 _C0IE	=	0x00ee
+                    00EF    197 _CANBIE	=	0x00ef
+                    00F8    198 _PX2	=	0x00f8
+                    00F9    199 _PX3	=	0x00f9
+                    00FA    200 _PX4	=	0x00fa
+                    00FB    201 _PX5	=	0x00fb
+                    00FC    202 _PWDI	=	0x00fc
+                    00FD    203 _C1IP	=	0x00fd
+                    00FE    204 _C0IP	=	0x00fe
+                    00FF    205 _CANBIP	=	0x00ff
+                            206 ;--------------------------------------------------------
+                            207 ; overlayable register banks 
+                            208 ;--------------------------------------------------------
+                            209 	.area REG_BANK_0	(REL,OVR,DATA)
+   0000                     210 	.ds 8
+                            211 	.area REG_BANK_3	(REL,OVR,DATA)
+   0000                     212 	.ds 8
+                            213 ;--------------------------------------------------------
+                            214 ; internal ram data
+                            215 ;--------------------------------------------------------
+                            216 	.area DSEG    (DATA)
+                            217 ;--------------------------------------------------------
+                            218 ; overlayable items in internal ram 
+                            219 ;--------------------------------------------------------
+                            220 	.area OSEG    (OVR,DATA)
+                            221 ;--------------------------------------------------------
+                            222 ; indirectly addressable internal ram data
+                            223 ;--------------------------------------------------------
+                            224 	.area ISEG    (DATA)
+                            225 ;--------------------------------------------------------
+                            226 ; bit data
+                            227 ;--------------------------------------------------------
+                            228 	.area BSEG    (BIT)
+                            229 ;--------------------------------------------------------
+                            230 ; external ram data
+                            231 ;--------------------------------------------------------
+                            232 	.area XSEG    (XDATA)
+   0000                     233 _i2c_writeblock_PARM_2::
+   0000                     234 	.ds 4
+   0004                     235 _i2c_writeblock_PARM_3::
+   0004                     236 	.ds 2
+   0006                     237 _i2c_readblock_PARM_2::
+   0006                     238 	.ds 4
+   000A                     239 _i2c_readblock_PARM_3::
+   000A                     240 	.ds 2
+   000C                     241 _i2c_readblock_sloc0_1_0::
+   000C                     242 	.ds 4
+   0010                     243 _i2c_writereadblock_PARM_2::
+   0010                     244 	.ds 4
+   0014                     245 _i2c_writereadblock_PARM_3::
+   0014                     246 	.ds 2
+   0016                     247 _i2c_writereadblock_PARM_4::
+   0016                     248 	.ds 4
+   001A                     249 _i2c_writereadblock_PARM_5::
+   001A                     250 	.ds 2
+   001C                     251 _i2c_writereadblock_sloc0_1_0::
+   001C                     252 	.ds 4
+                            253 ;--------------------------------------------------------
+                            254 ; external initialized ram data
+                            255 ;--------------------------------------------------------
+                            256 	.area XISEG   (XDATA)
+                            257 ;--------------------------------------------------------
+                            258 ; global & static initialisations
+                            259 ;--------------------------------------------------------
+                            260 	.area GSINIT  (CODE)
+                            261 	.area GSFINAL (CODE)
+                            262 	.area GSINIT  (CODE)
+                            263 ;--------------------------------------------------------
+                            264 ; Home
+                            265 ;--------------------------------------------------------
+                            266 	.area HOME    (CODE)
+                            267 	.area CSEG    (CODE)
+                            268 ;--------------------------------------------------------
+                            269 ; code
+                            270 ;--------------------------------------------------------
+                            271 	.area CSEG    (CODE)
+                            272 ;------------------------------------------------------------
+                            273 ;Allocation info for local variables in function 'i2c_version'
+                            274 ;------------------------------------------------------------
+                            275 ;------------------------------------------------------------
+                            276 ;	tini_i2c.c:47: int i2c_version(void)
+                            277 ;	genFunction 
+                            278 ;	-----------------------------------------
+                            279 ;	 function i2c_version
+                            280 ;	-----------------------------------------
+   0000                     281 _i2c_version:
+                    0002    282 	ar2 = 0x02
+                    0003    283 	ar3 = 0x03
+                    0004    284 	ar4 = 0x04
+                    0005    285 	ar5 = 0x05
+                    0006    286 	ar6 = 0x06
+                    0007    287 	ar7 = 0x07
+                    0000    288 	ar0 = 0x00
+                    0001    289 	ar1 = 0x01
+                            290 ;	tini_i2c.c:49: return 1;
+                            291 ;	genRet 
+                            292 ; Peephole 182c   used 16 bit load of dptr
+   0000 90 00 00 01         293 	mov  dptr,#0x0001
+                            294 ;	genLabel 
+   0004                     295 00101$:
+                            296 ;	genEndFunction 
+   0004 22                  297 	ret
+                            298 ;------------------------------------------------------------
+                            299 ;Allocation info for local variables in function 'i2c_waitforscl'
+                            300 ;------------------------------------------------------------
+                            301 ;waitcount                 Allocated to registers 
+                            302 ;------------------------------------------------------------
+                            303 ;	tini_i2c.c:86: void i2c_waitforscl()
+                            304 ;	genFunction 
+                            305 ;	-----------------------------------------
+                            306 ;	 function i2c_waitforscl
+                            307 ;	-----------------------------------------
+   0005                     308 _i2c_waitforscl:
+                            309 ;	tini_i2c.c:92: for (waitcount = 0;waitcount < I2C_MAXIMUM_SCL_WAITCOUNT;waitcount++)
+                            310 ;	genAssign 
+                            311 ;	genAssign: resultIsFar = FALSE
+   0005 7A 00               312 	mov	r2,#0x00
+   0007 7B 00               313 	mov	r3,#0x00
+                            314 ;	genLabel 
+   0009                     315 00103$:
+                            316 ;	genCast 
+   0009 8A 04               317 	mov	ar4,r2
+   000B 8B 05               318 	mov	ar5,r3
+   000D EB                  319 	mov	a,r3
+   000E 33                  320 	rlc	a
+   000F 95 E0               321 	subb	a,acc
+   0011 FE                  322 	mov	r6,a
+   0012 FF                  323 	mov	r7,a
+                            324 ;	genCmpLt 
+                            325 ;	genCmp
+   0013 C3                  326 	clr	c
+   0014 EC                  327 	mov	a,r4
+   0015 94 20               328 	subb	a,#0x20
+   0017 ED                  329 	mov	a,r5
+   0018 94 A1               330 	subb	a,#0xA1
+   001A EE                  331 	mov	a,r6
+   001B 94 07               332 	subb	a,#0x07
+   001D EF                  333 	mov	a,r7
+   001E 64 80               334 	xrl	a,#0x80
+   0020 94 80               335 	subb	a,#0x80
+                            336 ;	genIfxJump
+                            337 ; Peephole 108   removed ljmp by inverse jump logic
+   0022 50 11               338 	jnc  00107$
+   0024                     339 00112$:
+                            340 ;	tini_i2c.c:94: if (SCL_IN) return;
+                            341 ;	genRightShift 
+                            342 ;	genRightShiftLiteral (1), size 1
+                            343 ;	genrshOne
+   0024 E5 90               344 	mov	a,_P1
+   0026 C3                  345 	clr	c
+   0027 13                  346 	rrc	a
+                            347 ;	genAnd 
+                            348 ; Peephole 105   removed redundant mov
+   0028 FC                  349 	mov  r4,a
+                            350 ;	genIfxJump
+                            351 ; Peephole 111   removed ljmp by inverse jump logic
+   0029 30 E0 02            352 	jnb  acc.0,00105$
+   002C                     353 00113$:
+                            354 ;	genRet 
+                            355 ;	genLabel 
+                            356 ; Peephole 132   changed ljmp to sjmp
+   002C 80 07               357 	sjmp 00107$
+   002E                     358 00105$:
+                            359 ;	tini_i2c.c:92: for (waitcount = 0;waitcount < I2C_MAXIMUM_SCL_WAITCOUNT;waitcount++)
+                            360 ;	genPlus 
+   002E 0A                  361 	inc	r2
+   002F BA 00 01            362 	cjne	r2,#0,00114$
+   0032 0B                  363 	inc	r3
+   0033                     364 00114$:
+                            365 ;	did genPlusIncr
+                            366 ;	genGoto 
+                            367 ;	genLabel 
+                            368 ; Peephole 132   changed ljmp to sjmp
+   0033 80 D4               369 	sjmp 00103$
+   0035                     370 00107$:
+                            371 ;	genEndFunction 
+   0035 22                  372 	ret
+                            373 ;------------------------------------------------------------
+                            374 ;Allocation info for local variables in function 'i2c_start'
+                            375 ;------------------------------------------------------------
+                            376 ;------------------------------------------------------------
+                            377 ;	tini_i2c.c:103: void i2c_start(void)
+                            378 ;	genFunction 
+                            379 ;	-----------------------------------------
+                            380 ;	 function i2c_start
+                            381 ;	-----------------------------------------
+   0036                     382 _i2c_start:
+                            383 ;	tini_i2c.c:105: SDA_LOW;
+                            384 ;	genAnd 
+   0036 53 90 FE            385 	anl	_P1,#0xFE
+                            386 ;	tini_i2c.c:106: i2c_delay();
+                            387 ;	genInline 
+   0039 00 00 00 00 00 00   388 	 nop nop nop nop nop nop nop 
+        00
+                            389 ;	tini_i2c.c:107: SCL_LOW;
+                            390 ;	genAnd 
+   0040 53 90 FD            391 	anl	_P1,#0xFD
+                            392 ;	tini_i2c.c:108: i2c_delay();
+                            393 ;	genInline 
+   0043 00 00 00 00 00 00   394 	 nop nop nop nop nop nop nop 
+        00
+                            395 ;	genLabel 
+   004A                     396 00101$:
+                            397 ;	genEndFunction 
+   004A 22                  398 	ret
+                            399 ;------------------------------------------------------------
+                            400 ;Allocation info for local variables in function 'i2c_bit'
+                            401 ;------------------------------------------------------------
+                            402 ;singlebit                 Allocated to registers r2 
+                            403 ;------------------------------------------------------------
+                            404 ;	tini_i2c.c:117: void i2c_bit(unsigned char singlebit)
+                            405 ;	genFunction 
+                            406 ;	-----------------------------------------
+                            407 ;	 function i2c_bit
+                            408 ;	-----------------------------------------
+   004B                     409 _i2c_bit:
+                            410 ;	genReceive 
+   004B AA 82               411 	mov	r2,dpl
+                            412 ;	tini_i2c.c:119: SDA_OUT(singlebit);
+                            413 ;	genIfx 
+   004D EA                  414 	mov	a,r2
+                            415 ;	genIfxJump
+                            416 ; Peephole 110   removed ljmp by inverse jump logic
+   004E 60 05               417 	jz  00103$
+   0050                     418 00106$:
+                            419 ;	genOr 
+   0050 43 90 01            420 	orl	_P1,#0x01
+                            421 ;	genGoto 
+                            422 ;	genLabel 
+                            423 ; Peephole 132   changed ljmp to sjmp
+   0053 80 03               424 	sjmp 00104$
+   0055                     425 00103$:
+                            426 ;	genAnd 
+   0055 53 90 FE            427 	anl	_P1,#0xFE
+                            428 ;	genLabel 
+   0058                     429 00104$:
+                            430 ;	tini_i2c.c:120: i2c_delay();
+                            431 ;	genInline 
+   0058 00 00 00 00 00 00   432 	 nop nop nop nop nop nop nop 
+        00
+                            433 ;	tini_i2c.c:121: SCL_HIGH;
+                            434 ;	genOr 
+   005F 43 90 02            435 	orl	_P1,#0x02
+                            436 ;	tini_i2c.c:123: i2c_waitforscl();
+                            437 ;	genCall 
+   0062 12s00r00r05         438 	lcall	_i2c_waitforscl
+                            439 ;	tini_i2c.c:125: i2c_delay();
+                            440 ;	genInline 
+   0066 00 00 00 00 00 00   441 	 nop nop nop nop nop nop nop 
+        00
+                            442 ;	tini_i2c.c:126: SCL_LOW;
+                            443 ;	genAnd 
+   006D 53 90 FD            444 	anl	_P1,#0xFD
+                            445 ;	tini_i2c.c:127: i2c_delay();
+                            446 ;	genInline 
+   0070 00 00 00 00 00 00   447 	 nop nop nop nop nop nop nop 
+        00
+                            448 ;	genLabel 
+   0077                     449 00101$:
+                            450 ;	genEndFunction 
+   0077 22                  451 	ret
+                            452 ;------------------------------------------------------------
+                            453 ;Allocation info for local variables in function 'i2c_readbit'
+                            454 ;------------------------------------------------------------
+                            455 ;retVal                    Allocated to registers r2 
+                            456 ;------------------------------------------------------------
+                            457 ;	tini_i2c.c:136: unsigned char i2c_readbit(void)
+                            458 ;	genFunction 
+                            459 ;	-----------------------------------------
+                            460 ;	 function i2c_readbit
+                            461 ;	-----------------------------------------
+   0078                     462 _i2c_readbit:
+                            463 ;	tini_i2c.c:140: SDA_HIGH;
+                            464 ;	genOr 
+   0078 43 90 01            465 	orl	_P1,#0x01
+                            466 ;	tini_i2c.c:141: i2c_delay();
+                            467 ;	genInline 
+   007B 00 00 00 00 00 00   468 	 nop nop nop nop nop nop nop 
+        00
+                            469 ;	tini_i2c.c:142: SCL_HIGH;
+                            470 ;	genOr 
+   0082 43 90 02            471 	orl	_P1,#0x02
+                            472 ;	tini_i2c.c:144: i2c_waitforscl();
+                            473 ;	genCall 
+   0085 12s00r00r05         474 	lcall	_i2c_waitforscl
+                            475 ;	tini_i2c.c:146: i2c_delay();
+                            476 ;	genInline 
+   0089 00 00 00 00 00 00   477 	 nop nop nop nop nop nop nop 
+        00
+                            478 ;	tini_i2c.c:147: retVal = SDA_IN;
+                            479 ;	genAnd 
+                            480 ;	better literal AND.
+   0090 E5 90               481 	mov	a,_P1
+   0092 54 01               482 	anl	a, #0x01
+   0094 FA                  483 	mov	r2,a
+                            484 ;	tini_i2c.c:148: i2c_delay();
+                            485 ;	genInline 
+   0095 00 00 00 00 00 00   486 	 nop nop nop nop nop nop nop 
+        00
+                            487 ;	tini_i2c.c:149: SCL_LOW;
+                            488 ;	genAnd 
+   009C 53 90 FD            489 	anl	_P1,#0xFD
+                            490 ;	tini_i2c.c:150: i2c_delay();
+                            491 ;	genInline 
+   009F 00 00 00 00 00 00   492 	 nop nop nop nop nop nop nop 
+        00
+                            493 ;	tini_i2c.c:152: return retVal;
+                            494 ;	genRet 
+   00A6 8A 82               495 	mov	dpl,r2
+                            496 ;	genLabel 
+   00A8                     497 00101$:
+                            498 ;	genEndFunction 
+   00A8 22                  499 	ret
+                            500 ;------------------------------------------------------------
+                            501 ;Allocation info for local variables in function 'i2c_stop'
+                            502 ;------------------------------------------------------------
+                            503 ;------------------------------------------------------------
+                            504 ;	tini_i2c.c:159: void i2c_stop(void)
+                            505 ;	genFunction 
+                            506 ;	-----------------------------------------
+                            507 ;	 function i2c_stop
+                            508 ;	-----------------------------------------
+   00A9                     509 _i2c_stop:
+                            510 ;	tini_i2c.c:161: SDA_LOW;
+                            511 ;	genAnd 
+   00A9 53 90 FE            512 	anl	_P1,#0xFE
+                            513 ;	tini_i2c.c:162: i2c_delay();
+                            514 ;	genInline 
+   00AC 00 00 00 00 00 00   515 	 nop nop nop nop nop nop nop 
+        00
+                            516 ;	tini_i2c.c:163: SCL_HIGH;
+                            517 ;	genOr 
+   00B3 43 90 02            518 	orl	_P1,#0x02
+                            519 ;	tini_i2c.c:164: i2c_delay();
+                            520 ;	genInline 
+   00B6 00 00 00 00 00 00   521 	 nop nop nop nop nop nop nop 
+        00
+                            522 ;	tini_i2c.c:165: SDA_HIGH;
+                            523 ;	genOr 
+   00BD 43 90 01            524 	orl	_P1,#0x01
+                            525 ;	tini_i2c.c:166: i2c_delay();
+                            526 ;	genInline 
+   00C0 00 00 00 00 00 00   527 	 nop nop nop nop nop nop nop 
+        00
+                            528 ;	genLabel 
+   00C7                     529 00101$:
+                            530 ;	genEndFunction 
+   00C7 22                  531 	ret
+                            532 ;------------------------------------------------------------
+                            533 ;Allocation info for local variables in function 'i2c_readbyte'
+                            534 ;------------------------------------------------------------
+                            535 ;doACK                     Allocated to registers r2 
+                            536 ;i                         Allocated to registers 
+                            537 ;result                    Allocated to registers r3 
+                            538 ;------------------------------------------------------------
+                            539 ;	tini_i2c.c:178: unsigned char i2c_readbyte(unsigned char doACK)
+                            540 ;	genFunction 
+                            541 ;	-----------------------------------------
+                            542 ;	 function i2c_readbyte
+                            543 ;	-----------------------------------------
+   00C8                     544 _i2c_readbyte:
+                            545 ;	genReceive 
+   00C8 AA 82               546 	mov	r2,dpl
+                            547 ;	tini_i2c.c:181: unsigned char result = 0;
+                            548 ;	genAssign 
+                            549 ;	genAssign: resultIsFar = TRUE
+   00CA 7B 00               550 	mov	r3,#0x00
+                            551 ;	tini_i2c.c:183: for (i = 0;i < 8;i++)
+                            552 ;	genAssign 
+                            553 ;	genAssign: resultIsFar = FALSE
+   00CC 7C 08               554 	mov	r4,#0x08
+                            555 ;	genLabel 
+   00CE                     556 00106$:
+                            557 ;	tini_i2c.c:185: result <<= 1;
+                            558 ;	genCast 
+   00CE 8B 05               559 	mov	ar5,r3
+   00D0 7E 00               560 	mov	r6,#0
+                            561 ;	genLeftShift 
+                            562 ;	genLeftShiftLiteral (1), size 2
+                            563 ;	genlshTwo 
+   00D2 EE                  564 	mov	a,r6
+   00D3 CD                  565 	xch	a,r5
+   00D4 25 E0               566 	add	a,acc
+   00D6 CD                  567 	xch	a,r5
+   00D7 33                  568 	rlc	a
+   00D8 FE                  569 	mov	r6,a
+                            570 ;	genCast 
+   00D9 8D 03               571 	mov	ar3,r5
+                            572 ;	tini_i2c.c:186: result |= (i2c_readbit() & 0x01);
+                            573 ;	genCall 
+   00DB C0 02               574 	push	ar2
+   00DD C0 03               575 	push	ar3
+   00DF C0 04               576 	push	ar4
+   00E1 12s00r00r78         577 	lcall	_i2c_readbit
+   00E5 D0 04               578 	pop	ar4
+   00E7 D0 03               579 	pop	ar3
+   00E9 D0 02               580 	pop	ar2
+                            581 ;	genAnd 
+                            582 ;	better literal AND.
+   00EB E5 82               583 	mov	a,dpl
+   00ED 54 01               584 	anl	a, #0x01
+                            585 ;	genOr 
+                            586 ; Peephole 105   removed redundant mov
+   00EF FD                  587 	mov  r5,a
+   00F0 42 03               588 	orl	ar3,a
+                            589 ;	genDjnz
+                            590 ; Peephole 132   changed ljmp to sjmp
+                            591 ; Peephole 205   optimized misc jump sequence
+                            592 ; Peephole 236e
+   00F2 DC DA               593 	djnz  r4,00106$
+   00F4                     594 00112$:
+   00F4                     595 00113$:
+                            596 ;	tini_i2c.c:183: for (i = 0;i < 8;i++)
+                            597 ;	tini_i2c.c:189: if (doACK == 0)
+                            598 ;	genCmpEq 
+                            599 ;	gencjneshort
+   00F4 EA                  600 	mov	a,r2
+                            601 ; Peephole 132   changed ljmp to sjmp
+                            602 ; Peephole 199   optimized misc jump sequence
+   00F5 B4 00 0D            603 	cjne a,#0x00,00102$
+                            604 ;00114$:
+                            605 ; Peephole 200   removed redundant sjmp
+   00F8                     606 00115$:
+                            607 ;	tini_i2c.c:190: i2c_bit(1);  // No ACK
+                            608 ;	genCall 
+   00F8 C0 03               609 	push	ar3
+                            610 ;	genSend argreg = 1, size = 1 
+   00FA 75 82 01            611 	mov	dpl,#0x01
+   00FD 12s00r00r4B         612 	lcall	_i2c_bit
+   0101 D0 03               613 	pop	ar3
+                            614 ;	genGoto 
+                            615 ;	genLabel 
+                            616 ; Peephole 132   changed ljmp to sjmp
+   0103 80 0B               617 	sjmp 00103$
+   0105                     618 00102$:
+                            619 ;	tini_i2c.c:192: i2c_bit(0);  // Do the ACK
+                            620 ;	genCall 
+   0105 C0 03               621 	push	ar3
+                            622 ;	genSend argreg = 1, size = 1 
+   0107 75 82 00            623 	mov	dpl,#0x00
+   010A 12s00r00r4B         624 	lcall	_i2c_bit
+   010E D0 03               625 	pop	ar3
+                            626 ;	genLabel 
+   0110                     627 00103$:
+                            628 ;	tini_i2c.c:194: return result;
+                            629 ;	genRet 
+   0110 8B 82               630 	mov	dpl,r3
+                            631 ;	genLabel 
+   0112                     632 00107$:
+                            633 ;	genEndFunction 
+   0112 22                  634 	ret
+                            635 ;------------------------------------------------------------
+                            636 ;Allocation info for local variables in function 'i2c_writebyte'
+                            637 ;------------------------------------------------------------
+                            638 ;singlebyte                Allocated to registers r2 
+                            639 ;i                         Allocated to registers 
+                            640 ;------------------------------------------------------------
+                            641 ;	tini_i2c.c:205: unsigned char i2c_writebyte(unsigned char singlebyte)
+                            642 ;	genFunction 
+                            643 ;	-----------------------------------------
+                            644 ;	 function i2c_writebyte
+                            645 ;	-----------------------------------------
+   0113                     646 _i2c_writebyte:
+                            647 ;	genReceive 
+   0113 AA 82               648 	mov	r2,dpl
+                            649 ;	tini_i2c.c:209: for (i = 0;i < 8;i++)
+                            650 ;	genAssign 
+                            651 ;	genAssign: resultIsFar = FALSE
+   0115 7B 00               652 	mov	r3,#0x00
+                            653 ;	genLabel 
+   0117                     654 00104$:
+                            655 ;	genCmpLt 
+                            656 ;	genCmp
+   0117 BB 08 00            657 	cjne	r3,#0x08,00113$
+   011A                     658 00113$:
+                            659 ;	genIfxJump
+                            660 ; Peephole 108   removed ljmp by inverse jump logic
+   011A 50 34               661 	jnc  00107$
+   011C                     662 00114$:
+                            663 ;	tini_i2c.c:211: if (singlebyte & 0x80)
+                            664 ;	genAnd 
+   011C EA                  665 	mov	a,r2
+                            666 ;	genIfxJump
+                            667 ; Peephole 111   removed ljmp by inverse jump logic
+   011D 30 E7 11            668 	jnb  acc.7,00102$
+   0120                     669 00115$:
+                            670 ;	tini_i2c.c:212: i2c_bit(1);
+                            671 ;	genCall 
+   0120 C0 02               672 	push	ar2
+   0122 C0 03               673 	push	ar3
+                            674 ;	genSend argreg = 1, size = 1 
+   0124 75 82 01            675 	mov	dpl,#0x01
+   0127 12s00r00r4B         676 	lcall	_i2c_bit
+   012B D0 03               677 	pop	ar3
+   012D D0 02               678 	pop	ar2
+                            679 ;	genGoto 
+                            680 ;	genLabel 
+                            681 ; Peephole 132   changed ljmp to sjmp
+   012F 80 0F               682 	sjmp 00103$
+   0131                     683 00102$:
+                            684 ;	tini_i2c.c:214: i2c_bit(0);
+                            685 ;	genCall 
+   0131 C0 02               686 	push	ar2
+   0133 C0 03               687 	push	ar3
+                            688 ;	genSend argreg = 1, size = 1 
+   0135 75 82 00            689 	mov	dpl,#0x00
+   0138 12s00r00r4B         690 	lcall	_i2c_bit
+   013C D0 03               691 	pop	ar3
+   013E D0 02               692 	pop	ar2
+                            693 ;	genLabel 
+   0140                     694 00103$:
+                            695 ;	tini_i2c.c:215: singlebyte <<= 1;
+                            696 ;	genCast 
+   0140 8A 04               697 	mov	ar4,r2
+   0142 7D 00               698 	mov	r5,#0
+                            699 ;	genLeftShift 
+                            700 ;	genLeftShiftLiteral (1), size 2
+                            701 ;	genlshTwo 
+   0144 ED                  702 	mov	a,r5
+   0145 CC                  703 	xch	a,r4
+   0146 25 E0               704 	add	a,acc
+   0148 CC                  705 	xch	a,r4
+   0149 33                  706 	rlc	a
+   014A FD                  707 	mov	r5,a
+                            708 ;	genCast 
+   014B 8C 02               709 	mov	ar2,r4
+                            710 ;	tini_i2c.c:209: for (i = 0;i < 8;i++)
+                            711 ;	genPlus 
+   014D 0B                  712 	inc	r3
+                            713 ;	did genPlusIncr
+                            714 ;	genGoto 
+                            715 ;	genLabel 
+                            716 ; Peephole 132   changed ljmp to sjmp
+   014E 80 C7               717 	sjmp 00104$
+   0150                     718 00107$:
+                            719 ;	tini_i2c.c:218: return i2c_readbit();
+                            720 ;	genCall 
+   0150 12s00r00r78         721 	lcall	_i2c_readbit
+                            722 ;	genRet 
+                            723 ;	genLabel 
+   0154                     724 00108$:
+                            725 ;	genEndFunction 
+   0154 22                  726 	ret
+                            727 ;------------------------------------------------------------
+                            728 ;Allocation info for local variables in function 'i2c_select'
+                            729 ;------------------------------------------------------------
+                            730 ;address                   Allocated to registers r2 
+                            731 ;------------------------------------------------------------
+                            732 ;	tini_i2c.c:230: unsigned char i2c_select(unsigned char address)
+                            733 ;	genFunction 
+                            734 ;	-----------------------------------------
+                            735 ;	 function i2c_select
+                            736 ;	-----------------------------------------
+   0155                     737 _i2c_select:
+                            738 ;	genReceive 
+   0155 AA 82               739 	mov	r2,dpl
+                            740 ;	tini_i2c.c:232: i2c_start();
+                            741 ;	genCall 
+   0157 C0 02               742 	push	ar2
+   0159 12s00r00r36         743 	lcall	_i2c_start
+   015D D0 02               744 	pop	ar2
+                            745 ;	tini_i2c.c:233: return i2c_writebyte(address);
+                            746 ;	genCall 
+                            747 ;	genSend argreg = 1, size = 1 
+   015F 8A 82               748 	mov	dpl,r2
+   0161 12s00r01r13         749 	lcall	_i2c_writebyte
+                            750 ;	genRet 
+                            751 ;	genLabel 
+   0165                     752 00101$:
+                            753 ;	genEndFunction 
+   0165 22                  754 	ret
+                            755 ;------------------------------------------------------------
+                            756 ;Allocation info for local variables in function 'i2c_writeblock'
+                            757 ;------------------------------------------------------------
+                            758 ;barr                      Allocated with name '_i2c_writeblock_PARM_2'
+                            759 ;length                    Allocated with name '_i2c_writeblock_PARM_3'
+                            760 ;address                   Allocated to registers r2 
+                            761 ;i                         Allocated to registers 
+                            762 ;------------------------------------------------------------
+                            763 ;	tini_i2c.c:250: unsigned char i2c_writeblock(unsigned char address,unsigned char *barr,int length)
+                            764 ;	genFunction 
+                            765 ;	-----------------------------------------
+                            766 ;	 function i2c_writeblock
+                            767 ;	-----------------------------------------
+   0166                     768 _i2c_writeblock:
+                            769 ;	genReceive 
+   0166 AA 82               770 	mov	r2,dpl
+                            771 ;	tini_i2c.c:254: if (i2c_select(address & 0xFE) != 0)
+                            772 ;	genAnd 
+   0168 53 02 FE            773 	anl	ar2,#0xFE
+                            774 ;	genCall 
+                            775 ;	genSend argreg = 1, size = 1 
+   016B 8A 82               776 	mov	dpl,r2
+   016D 12s00r01r55         777 	lcall	_i2c_select
+                            778 ;	genCmpEq 
+                            779 ;	gencjneshort
+   0171 E5 82               780 	mov	a,dpl
+   0173 B4 00 02            781 	cjne	a,#0x00,00115$
+                            782 ; Peephole 132   changed ljmp to sjmp
+   0176 80 07               783 	sjmp 00114$
+   0178                     784 00115$:
+                            785 ;	tini_i2c.c:255: return 1;
+                            786 ;	genRet 
+   0178 75 82 01            787 	mov	dpl,#0x01
+   017B 02s00r01rFC         788 	ljmp	00109$
+                            789 ;	tini_i2c.c:257: for (i = 0;i < length;i++)
+                            790 ;	genLabel 
+   017F                     791 00114$:
+                            792 ;	genAssign 
+   017F 90s00r00r00         793 	mov	dptr,#_i2c_writeblock_PARM_2
+                            794 ;	genAssign: resultIsFar = FALSE
+   0183 E0                  795 	movx	a,@dptr
+   0184 FA                  796 	mov	r2,a
+   0185 A3                  797 	inc	dptr
+   0186 E0                  798 	movx	a,@dptr
+   0187 FB                  799 	mov	r3,a
+   0188 A3                  800 	inc	dptr
+   0189 E0                  801 	movx	a,@dptr
+   018A FC                  802 	mov	r4,a
+   018B A3                  803 	inc	dptr
+   018C E0                  804 	movx	a,@dptr
+   018D FD                  805 	mov	r5,a
+                            806 ;	genAssign 
+                            807 ;	genAssign: resultIsFar = FALSE
+   018E 7E 00               808 	mov	r6,#0x00
+   0190 7F 00               809 	mov	r7,#0x00
+                            810 ;	genLabel 
+   0192                     811 00105$:
+                            812 ;	genCmpLt 
+   0192 90s00r00r04         813 	mov	dptr,#_i2c_writeblock_PARM_3
+                            814 ;	genCmp
+   0196 C3                  815 	clr	c
+   0197 EE                  816 	mov	a,r6
+   0198 C5 F0               817 	xch	a, b
+   019A E0                  818 	movx	a,@dptr
+   019B C5 F0               819 	xch	a, b
+   019D 95 F0               820 	subb	a,b
+   019F EF                  821 	mov	a,r7
+   01A0 64 80               822 	xrl	a,#0x80
+   01A2 C5 F0               823 	xch	a, b
+   01A4 A3                  824 	inc	dptr
+   01A5 E0                  825 	movx	a,@dptr
+   01A6 C5 F0               826 	xch	a, b
+   01A8 63 F0 80            827 	xrl	b,#0x80
+   01AB 95 F0               828 	subb	a,b
+                            829 ;	genIfxJump
+                            830 ; Peephole 108   removed ljmp by inverse jump logic
+   01AD 50 46               831 	jnc  00108$
+   01AF                     832 00116$:
+                            833 ;	tini_i2c.c:258: if (i2c_writebyte(barr[i]) != 0) return 1;
+                            834 ;	genPlus 
+   01AF EE                  835 	mov	a,r6
+   01B0 2A                  836 	add	a,r2
+   01B1 F5 82               837 	mov	dpl,a
+   01B3 EF                  838 	mov	a,r7
+   01B4 3B                  839 	addc	a,r3
+   01B5 F5 83               840 	mov	dph,a
+                            841 ; Peephole 3.d   changed mov to clr
+   01B7 E4                  842 	clr	a
+   01B8 3C                  843 	addc	a,r4
+   01B9 F5 93               844 	mov	dpx,a
+   01BB 8D F0               845 	mov	b,r5
+                            846 ;	genPointerGet 
+                            847 ;	genGenPointerGet 
+   01BD 12s00r00r00         848 	lcall	__gptrget
+   01C1 F8                  849 	mov	r0,a
+                            850 ;	genCall 
+   01C2 C0 02               851 	push	ar2
+   01C4 C0 03               852 	push	ar3
+   01C6 C0 04               853 	push	ar4
+   01C8 C0 05               854 	push	ar5
+   01CA C0 06               855 	push	ar6
+   01CC C0 07               856 	push	ar7
+                            857 ;	genSend argreg = 1, size = 1 
+   01CE 88 82               858 	mov	dpl,r0
+   01D0 12s00r01r13         859 	lcall	_i2c_writebyte
+   01D4 D0 07               860 	pop	ar7
+   01D6 D0 06               861 	pop	ar6
+   01D8 D0 05               862 	pop	ar5
+   01DA D0 04               863 	pop	ar4
+   01DC D0 03               864 	pop	ar3
+   01DE D0 02               865 	pop	ar2
+                            866 ;	genCmpEq 
+                            867 ;	gencjneshort
+   01E0 E5 82               868 	mov	a,dpl
+   01E2 B4 00 02            869 	cjne	a,#0x00,00117$
+                            870 ; Peephole 132   changed ljmp to sjmp
+   01E5 80 05               871 	sjmp 00107$
+   01E7                     872 00117$:
+                            873 ;	genRet 
+   01E7 75 82 01            874 	mov	dpl,#0x01
+                            875 ;	genLabel 
+                            876 ; Peephole 132   changed ljmp to sjmp
+   01EA 80 10               877 	sjmp 00109$
+   01EC                     878 00107$:
+                            879 ;	tini_i2c.c:257: for (i = 0;i < length;i++)
+                            880 ;	genPlus 
+   01EC 0E                  881 	inc	r6
+   01ED BE 00 01            882 	cjne	r6,#0,00118$
+   01F0 0F                  883 	inc	r7
+   01F1                     884 00118$:
+                            885 ;	did genPlusIncr
+                            886 ;	genGoto 
+   01F1 02s00r01r92         887 	ljmp	00105$
+                            888 ;	genLabel 
+   01F5                     889 00108$:
+                            890 ;	tini_i2c.c:260: i2c_stop();
+                            891 ;	genCall 
+   01F5 12s00r00rA9         892 	lcall	_i2c_stop
+                            893 ;	tini_i2c.c:262: return 0;
+                            894 ;	genRet 
+   01F9 75 82 00            895 	mov	dpl,#0x00
+                            896 ;	genLabel 
+   01FC                     897 00109$:
+                            898 ;	genEndFunction 
+   01FC 22                  899 	ret
+                            900 ;------------------------------------------------------------
+                            901 ;Allocation info for local variables in function 'i2c_readblock'
+                            902 ;------------------------------------------------------------
+                            903 ;barr                      Allocated with name '_i2c_readblock_PARM_2'
+                            904 ;length                    Allocated with name '_i2c_readblock_PARM_3'
+                            905 ;address                   Allocated to registers r2 
+                            906 ;i                         Allocated to registers 
+                            907 ;sloc0                     Allocated with name '_i2c_readblock_sloc0_1_0'
+                            908 ;------------------------------------------------------------
+                            909 ;	tini_i2c.c:279: unsigned char i2c_readblock(unsigned char address,unsigned char *barr,int length)
+                            910 ;	genFunction 
+                            911 ;	-----------------------------------------
+                            912 ;	 function i2c_readblock
+                            913 ;	-----------------------------------------
+   01FD                     914 _i2c_readblock:
+                            915 ;	genReceive 
+   01FD AA 82               916 	mov	r2,dpl
+                            917 ;	tini_i2c.c:283: if (i2c_select(address | 0x01) != 0)
+                            918 ;	genOr 
+   01FF 43 02 01            919 	orl	ar2,#0x01
+                            920 ;	genCall 
+                            921 ;	genSend argreg = 1, size = 1 
+   0202 8A 82               922 	mov	dpl,r2
+   0204 12s00r01r55         923 	lcall	_i2c_select
+                            924 ;	genCmpEq 
+                            925 ;	gencjneshort
+   0208 E5 82               926 	mov	a,dpl
+   020A B4 00 02            927 	cjne	a,#0x00,00112$
+                            928 ; Peephole 132   changed ljmp to sjmp
+   020D 80 07               929 	sjmp 00102$
+   020F                     930 00112$:
+                            931 ;	tini_i2c.c:284: return 1;
+                            932 ;	genRet 
+   020F 75 82 01            933 	mov	dpl,#0x01
+   0212 02s00r02rF4         934 	ljmp	00107$
+                            935 ;	genLabel 
+   0216                     936 00102$:
+                            937 ;	tini_i2c.c:287: length--;
+                            938 ;	genAssign 
+   0216 90s00r00r0A         939 	mov	dptr,#_i2c_readblock_PARM_3
+                            940 ;	genAssign: resultIsFar = FALSE
+   021A E0                  941 	movx	a,@dptr
+   021B FA                  942 	mov	r2,a
+   021C A3                  943 	inc	dptr
+   021D E0                  944 	movx	a,@dptr
+   021E FB                  945 	mov	r3,a
+                            946 ;	genMinus 
+   021F 1A                  947 	dec	r2
+   0220 BA FF 01            948 	cjne	r2,#0xFF,00113$
+   0223 1B                  949 	dec	r3
+   0224                     950 00113$:
+                            951 ;	genAssign 
+                            952 ;	genAssign: resultIsFar = TRUE
+   0224 90s00r00r0A         953 	mov	dptr,#_i2c_readblock_PARM_3
+   0228 EA                  954 	mov	a,r2
+   0229 F0                  955 	movx	@dptr,a
+   022A A3                  956 	inc	dptr
+   022B EB                  957 	mov	a,r3
+   022C F0                  958 	movx	@dptr,a
+                            959 ;	tini_i2c.c:290: for (i = 0;i < length;i++)
+                            960 ;	genAssign 
+   022D 90s00r00r06         961 	mov	dptr,#_i2c_readblock_PARM_2
+                            962 ;	genAssign: resultIsFar = TRUE
+                            963 ;	genFarFarAssign (390 auto-toggle fun)
+   0231 75 86 21            964 	mov	dps,#0x21
+   0234 90s00r00r0C         965 	mov	dptr,#_i2c_readblock_sloc0_1_0
+   0238 E0                  966 	movx	a,@dptr
+   0239 F0                  967 	movx	@dptr,a
+   023A A3                  968 	inc	dptr
+   023B A3                  969 	inc	dptr
+   023C E0                  970 	movx	a,@dptr
+   023D F0                  971 	movx	@dptr,a
+   023E A3                  972 	inc	dptr
+   023F A3                  973 	inc	dptr
+   0240 E0                  974 	movx	a,@dptr
+   0241 F0                  975 	movx	@dptr,a
+   0242 A3                  976 	inc	dptr
+   0243 A3                  977 	inc	dptr
+   0244 E0                  978 	movx	a,@dptr
+   0245 F0                  979 	movx	@dptr,a
+   0246 75 86 00            980 	mov	dps,#0
+                            981 ;	genAssign 
+                            982 ;	genAssign: resultIsFar = FALSE
+   0249 7E 00               983 	mov	r6,#0x00
+   024B 7F 00               984 	mov	r7,#0x00
+                            985 ;	genLabel 
+   024D                     986 00103$:
+                            987 ;	genCmpLt 
+   024D 90s00r00r0A         988 	mov	dptr,#_i2c_readblock_PARM_3
+                            989 ;	genCmp
+   0251 C3                  990 	clr	c
+   0252 EE                  991 	mov	a,r6
+   0253 C5 F0               992 	xch	a, b
+   0255 E0                  993 	movx	a,@dptr
+   0256 C5 F0               994 	xch	a, b
+   0258 95 F0               995 	subb	a,b
+   025A EF                  996 	mov	a,r7
+   025B 64 80               997 	xrl	a,#0x80
+   025D C5 F0               998 	xch	a, b
+   025F A3                  999 	inc	dptr
+   0260 E0                 1000 	movx	a,@dptr
+   0261 C5 F0              1001 	xch	a, b
+   0263 63 F0 80           1002 	xrl	b,#0x80
+   0266 95 F0              1003 	subb	a,b
+                           1004 ;	genIfxJump
+                           1005 ; Peephole 108   removed ljmp by inverse jump logic
+   0268 50 4A              1006 	jnc  00106$
+   026A                    1007 00114$:
+                           1008 ;	tini_i2c.c:291: barr[i] = i2c_readbyte(1);
+                           1009 ;	genPlus 
+   026A 90s00r00r0C        1010 	mov	dptr,#_i2c_readblock_sloc0_1_0
+                           1011 ;	Swapped plus args.
+   026E E0                 1012 	movx	a,@dptr
+   026F 2E                 1013 	add	a,r6
+   0270 F8                 1014 	mov	r0,a
+   0271 A3                 1015 	inc	dptr
+   0272 E0                 1016 	movx	a,@dptr
+   0273 3F                 1017 	addc	a,r7
+   0274 F9                 1018 	mov	r1,a
+   0275 A3                 1019 	inc	dptr
+   0276 E0                 1020 	movx	a,@dptr
+   0277 34 00              1021 	addc	a,#0
+   0279 FA                 1022 	mov	r2,a
+   027A A3                 1023 	inc	dptr
+   027B E0                 1024 	movx	a,@dptr
+   027C FB                 1025 	mov	r3,a
+                           1026 ;	genCall 
+   027D C0 02              1027 	push	ar2
+   027F C0 03              1028 	push	ar3
+   0281 C0 06              1029 	push	ar6
+   0283 C0 07              1030 	push	ar7
+   0285 C0 00              1031 	push	ar0
+   0287 C0 01              1032 	push	ar1
+                           1033 ;	genSend argreg = 1, size = 1 
+   0289 75 82 01           1034 	mov	dpl,#0x01
+   028C 12s00r00rC8        1035 	lcall	_i2c_readbyte
+   0290 AC 82              1036 	mov	r4,dpl
+   0292 D0 01              1037 	pop	ar1
+   0294 D0 00              1038 	pop	ar0
+   0296 D0 07              1039 	pop	ar7
+   0298 D0 06              1040 	pop	ar6
+   029A D0 03              1041 	pop	ar3
+   029C D0 02              1042 	pop	ar2
+                           1043 ;	genPointerSet 
+   029E 88 82              1044 	mov	dpl,r0
+   02A0 89 83              1045 	mov	dph,r1
+   02A2 8A 93              1046 	mov	dpx,r2
+   02A4 8B F0              1047 	mov	b,r3
+   02A6 EC                 1048 	mov	a,r4
+   02A7 12s00r00r00        1049 	lcall	__gptrput
+                           1050 ;	tini_i2c.c:290: for (i = 0;i < length;i++)
+                           1051 ;	genPlus 
+   02AB 0E                 1052 	inc	r6
+   02AC BE 00 01           1053 	cjne	r6,#0,00115$
+   02AF 0F                 1054 	inc	r7
+   02B0                    1055 00115$:
+                           1056 ;	did genPlusIncr
+                           1057 ;	genGoto 
+   02B0 02s00r02r4D        1058 	ljmp	00103$
+                           1059 ;	genLabel 
+   02B4                    1060 00106$:
+                           1061 ;	tini_i2c.c:294: barr[i] = i2c_readbyte(0);
+                           1062 ;	genPlus 
+   02B4 90s00r00r0C        1063 	mov	dptr,#_i2c_readblock_sloc0_1_0
+                           1064 ;	Swapped plus args.
+   02B8 E0                 1065 	movx	a,@dptr
+   02B9 2E                 1066 	add	a,r6
+   02BA FE                 1067 	mov	r6,a
+   02BB A3                 1068 	inc	dptr
+   02BC E0                 1069 	movx	a,@dptr
+   02BD 3F                 1070 	addc	a,r7
+   02BE FF                 1071 	mov	r7,a
+   02BF A3                 1072 	inc	dptr
+   02C0 E0                 1073 	movx	a,@dptr
+   02C1 34 00              1074 	addc	a,#0
+   02C3 FA                 1075 	mov	r2,a
+   02C4 A3                 1076 	inc	dptr
+   02C5 E0                 1077 	movx	a,@dptr
+   02C6 FB                 1078 	mov	r3,a
+                           1079 ;	genCall 
+   02C7 C0 02              1080 	push	ar2
+   02C9 C0 03              1081 	push	ar3
+   02CB C0 06              1082 	push	ar6
+   02CD C0 07              1083 	push	ar7
+                           1084 ;	genSend argreg = 1, size = 1 
+   02CF 75 82 00           1085 	mov	dpl,#0x00
+   02D2 12s00r00rC8        1086 	lcall	_i2c_readbyte
+   02D6 AC 82              1087 	mov	r4,dpl
+   02D8 D0 07              1088 	pop	ar7
+   02DA D0 06              1089 	pop	ar6
+   02DC D0 03              1090 	pop	ar3
+   02DE D0 02              1091 	pop	ar2
+                           1092 ;	genPointerSet 
+   02E0 8E 82              1093 	mov	dpl,r6
+   02E2 8F 83              1094 	mov	dph,r7
+   02E4 8A 93              1095 	mov	dpx,r2
+   02E6 8B F0              1096 	mov	b,r3
+   02E8 EC                 1097 	mov	a,r4
+   02E9 12s00r00r00        1098 	lcall	__gptrput
+                           1099 ;	tini_i2c.c:296: i2c_stop();
+                           1100 ;	genCall 
+   02ED 12s00r00rA9        1101 	lcall	_i2c_stop
+                           1102 ;	tini_i2c.c:298: return 0;
+                           1103 ;	genRet 
+   02F1 75 82 00           1104 	mov	dpl,#0x00
+                           1105 ;	genLabel 
+   02F4                    1106 00107$:
+                           1107 ;	genEndFunction 
+   02F4 22                 1108 	ret
+                           1109 ;------------------------------------------------------------
+                           1110 ;Allocation info for local variables in function 'i2c_writereadblock'
+                           1111 ;------------------------------------------------------------
+                           1112 ;barr1                     Allocated with name '_i2c_writereadblock_PARM_2'
+                           1113 ;length1                   Allocated with name '_i2c_writereadblock_PARM_3'
+                           1114 ;barr2                     Allocated with name '_i2c_writereadblock_PARM_4'
+                           1115 ;length2                   Allocated with name '_i2c_writereadblock_PARM_5'
+                           1116 ;address                   Allocated to registers r2 
+                           1117 ;i                         Allocated to registers 
+                           1118 ;sloc0                     Allocated with name '_i2c_writereadblock_sloc0_1_0'
+                           1119 ;------------------------------------------------------------
+                           1120 ;	tini_i2c.c:318: unsigned char i2c_writereadblock(unsigned char address,unsigned char *barr1,int length1,unsigned char *barr2,int length2)
+                           1121 ;	genFunction 
+                           1122 ;	-----------------------------------------
+                           1123 ;	 function i2c_writereadblock
+                           1124 ;	-----------------------------------------
+   02F5                    1125 _i2c_writereadblock:
+                           1126 ;	genReceive 
+   02F5 AA 82              1127 	mov	r2,dpl
+                           1128 ;	tini_i2c.c:322: if (i2c_select(address & 0xFE) != 0)
+                           1129 ;	genAnd 
+                           1130 ;	better literal AND.
+   02F7 EA                 1131 	mov	a,r2
+   02F8 54 FE              1132 	anl	a, #0xFE
+   02FA FB                 1133 	mov	r3,a
+                           1134 ;	genCall 
+   02FB C0 02              1135 	push	ar2
+                           1136 ;	genSend argreg = 1, size = 1 
+   02FD 8B 82              1137 	mov	dpl,r3
+   02FF 12s00r01r55        1138 	lcall	_i2c_select
+   0303 D0 02              1139 	pop	ar2
+                           1140 ;	genCmpEq 
+                           1141 ;	gencjneshort
+   0305 E5 82              1142 	mov	a,dpl
+   0307 B4 00 02           1143 	cjne	a,#0x00,00121$
+                           1144 ; Peephole 132   changed ljmp to sjmp
+   030A 80 07              1145 	sjmp 00117$
+   030C                    1146 00121$:
+                           1147 ;	tini_i2c.c:323: return 1;
+                           1148 ;	genRet 
+   030C 75 82 01           1149 	mov	dpl,#0x01
+   030F 02s00r04r8A        1150 	ljmp	00113$
+                           1151 ;	tini_i2c.c:325: for (i = 0;i < length1;i++)
+                           1152 ;	genLabel 
+   0313                    1153 00117$:
+                           1154 ;	genAssign 
+   0313 90s00r00r10        1155 	mov	dptr,#_i2c_writereadblock_PARM_2
+                           1156 ;	genAssign: resultIsFar = FALSE
+   0317 E0                 1157 	movx	a,@dptr
+   0318 FB                 1158 	mov	r3,a
+   0319 A3                 1159 	inc	dptr
+   031A E0                 1160 	movx	a,@dptr
+   031B FC                 1161 	mov	r4,a
+   031C A3                 1162 	inc	dptr
+   031D E0                 1163 	movx	a,@dptr
+   031E FD                 1164 	mov	r5,a
+   031F A3                 1165 	inc	dptr
+   0320 E0                 1166 	movx	a,@dptr
+   0321 FE                 1167 	mov	r6,a
+                           1168 ;	genAssign 
+                           1169 ;	genAssign: resultIsFar = FALSE
+   0322 7F 00              1170 	mov	r7,#0x00
+   0324 78 00              1171 	mov	r0,#0x00
+                           1172 ;	genLabel 
+   0326                    1173 00105$:
+                           1174 ;	genCmpLt 
+   0326 90s00r00r14        1175 	mov	dptr,#_i2c_writereadblock_PARM_3
+                           1176 ;	genCmp
+   032A C3                 1177 	clr	c
+   032B EF                 1178 	mov	a,r7
+   032C C5 F0              1179 	xch	a, b
+   032E E0                 1180 	movx	a,@dptr
+   032F C5 F0              1181 	xch	a, b
+   0331 95 F0              1182 	subb	a,b
+   0333 E8                 1183 	mov	a,r0
+   0334 64 80              1184 	xrl	a,#0x80
+   0336 C5 F0              1185 	xch	a, b
+   0338 A3                 1186 	inc	dptr
+   0339 E0                 1187 	movx	a,@dptr
+   033A C5 F0              1188 	xch	a, b
+   033C 63 F0 80           1189 	xrl	b,#0x80
+   033F 95 F0              1190 	subb	a,b
+                           1191 ;	genIfxJump
+                           1192 ; Peephole 108   removed ljmp by inverse jump logic
+   0341 50 3E              1193 	jnc  00108$
+   0343                    1194 00122$:
+                           1195 ;	tini_i2c.c:326: i2c_writebyte(barr1[i]);
+                           1196 ;	genPlus 
+   0343 EF                 1197 	mov	a,r7
+   0344 2B                 1198 	add	a,r3
+   0345 F5 82              1199 	mov	dpl,a
+   0347 E8                 1200 	mov	a,r0
+   0348 3C                 1201 	addc	a,r4
+   0349 F5 83              1202 	mov	dph,a
+                           1203 ; Peephole 3.d   changed mov to clr
+   034B E4                 1204 	clr	a
+   034C 3D                 1205 	addc	a,r5
+   034D F5 93              1206 	mov	dpx,a
+   034F 8E F0              1207 	mov	b,r6
+                           1208 ;	genPointerGet 
+                           1209 ;	genGenPointerGet 
+   0351 12s00r00r00        1210 	lcall	__gptrget
+   0355 F9                 1211 	mov	r1,a
+                           1212 ;	genCall 
+   0356 C0 02              1213 	push	ar2
+   0358 C0 03              1214 	push	ar3
+   035A C0 04              1215 	push	ar4
+   035C C0 05              1216 	push	ar5
+   035E C0 06              1217 	push	ar6
+   0360 C0 07              1218 	push	ar7
+   0362 C0 00              1219 	push	ar0
+                           1220 ;	genSend argreg = 1, size = 1 
+   0364 89 82              1221 	mov	dpl,r1
+   0366 12s00r01r13        1222 	lcall	_i2c_writebyte
+   036A D0 00              1223 	pop	ar0
+   036C D0 07              1224 	pop	ar7
+   036E D0 06              1225 	pop	ar6
+   0370 D0 05              1226 	pop	ar5
+   0372 D0 04              1227 	pop	ar4
+   0374 D0 03              1228 	pop	ar3
+   0376 D0 02              1229 	pop	ar2
+                           1230 ;	tini_i2c.c:325: for (i = 0;i < length1;i++)
+                           1231 ;	genPlus 
+   0378 0F                 1232 	inc	r7
+   0379 BF 00 01           1233 	cjne	r7,#0,00123$
+   037C 08                 1234 	inc	r0
+   037D                    1235 00123$:
+                           1236 ;	did genPlusIncr
+                           1237 ;	genGoto 
+   037D 02s00r03r26        1238 	ljmp	00105$
+                           1239 ;	genLabel 
+   0381                    1240 00108$:
+                           1241 ;	tini_i2c.c:328: SDA_HIGH;
+                           1242 ;	genOr 
+   0381 43 90 01           1243 	orl	_P1,#0x01
+                           1244 ;	tini_i2c.c:329: i2c_delay();
+                           1245 ;	genInline 
+   0384 00 00 00 00 00 00  1246 	 nop nop nop nop nop nop nop 
+        00
+                           1247 ;	tini_i2c.c:330: SCL_HIGH;
+                           1248 ;	genOr 
+   038B 43 90 02           1249 	orl	_P1,#0x02
+                           1250 ;	tini_i2c.c:331: i2c_delay();
+                           1251 ;	genInline 
+   038E 00 00 00 00 00 00  1252 	 nop nop nop nop nop nop nop 
+        00
+                           1253 ;	tini_i2c.c:333: if (i2c_select(address | 0x01) != 0)
+                           1254 ;	genOr 
+   0395 43 02 01           1255 	orl	ar2,#0x01
+                           1256 ;	genCall 
+                           1257 ;	genSend argreg = 1, size = 1 
+   0398 8A 82              1258 	mov	dpl,r2
+   039A 12s00r01r55        1259 	lcall	_i2c_select
+                           1260 ;	genCmpEq 
+                           1261 ;	gencjneshort
+   039E E5 82              1262 	mov	a,dpl
+   03A0 B4 00 02           1263 	cjne	a,#0x00,00124$
+                           1264 ; Peephole 132   changed ljmp to sjmp
+   03A3 80 07              1265 	sjmp 00104$
+   03A5                    1266 00124$:
+                           1267 ;	tini_i2c.c:334: return 1;
+                           1268 ;	genRet 
+   03A5 75 82 01           1269 	mov	dpl,#0x01
+   03A8 02s00r04r8A        1270 	ljmp	00113$
+                           1271 ;	genLabel 
+   03AC                    1272 00104$:
+                           1273 ;	tini_i2c.c:337: length2--;
+                           1274 ;	genAssign 
+   03AC 90s00r00r1A        1275 	mov	dptr,#_i2c_writereadblock_PARM_5
+                           1276 ;	genAssign: resultIsFar = FALSE
+   03B0 E0                 1277 	movx	a,@dptr
+   03B1 FA                 1278 	mov	r2,a
+   03B2 A3                 1279 	inc	dptr
+   03B3 E0                 1280 	movx	a,@dptr
+   03B4 FB                 1281 	mov	r3,a
+                           1282 ;	genMinus 
+   03B5 1A                 1283 	dec	r2
+   03B6 BA FF 01           1284 	cjne	r2,#0xFF,00125$
+   03B9 1B                 1285 	dec	r3
+   03BA                    1286 00125$:
+                           1287 ;	genAssign 
+                           1288 ;	genAssign: resultIsFar = TRUE
+   03BA 90s00r00r1A        1289 	mov	dptr,#_i2c_writereadblock_PARM_5
+   03BE EA                 1290 	mov	a,r2
+   03BF F0                 1291 	movx	@dptr,a
+   03C0 A3                 1292 	inc	dptr
+   03C1 EB                 1293 	mov	a,r3
+   03C2 F0                 1294 	movx	@dptr,a
+                           1295 ;	tini_i2c.c:340: for (i = 0;i < length2;i++)
+                           1296 ;	genAssign 
+   03C3 90s00r00r16        1297 	mov	dptr,#_i2c_writereadblock_PARM_4
+                           1298 ;	genAssign: resultIsFar = TRUE
+                           1299 ;	genFarFarAssign (390 auto-toggle fun)
+   03C7 75 86 21           1300 	mov	dps,#0x21
+   03CA 90s00r00r1C        1301 	mov	dptr,#_i2c_writereadblock_sloc0_1_0
+   03CE E0                 1302 	movx	a,@dptr
+   03CF F0                 1303 	movx	@dptr,a
+   03D0 A3                 1304 	inc	dptr
+   03D1 A3                 1305 	inc	dptr
+   03D2 E0                 1306 	movx	a,@dptr
+   03D3 F0                 1307 	movx	@dptr,a
+   03D4 A3                 1308 	inc	dptr
+   03D5 A3                 1309 	inc	dptr
+   03D6 E0                 1310 	movx	a,@dptr
+   03D7 F0                 1311 	movx	@dptr,a
+   03D8 A3                 1312 	inc	dptr
+   03D9 A3                 1313 	inc	dptr
+   03DA E0                 1314 	movx	a,@dptr
+   03DB F0                 1315 	movx	@dptr,a
+   03DC 75 86 00           1316 	mov	dps,#0
+                           1317 ;	genAssign 
+                           1318 ;	genAssign: resultIsFar = FALSE
+   03DF 7E 00              1319 	mov	r6,#0x00
+   03E1 7F 00              1320 	mov	r7,#0x00
+                           1321 ;	genLabel 
+   03E3                    1322 00109$:
+                           1323 ;	genCmpLt 
+   03E3 90s00r00r1A        1324 	mov	dptr,#_i2c_writereadblock_PARM_5
+                           1325 ;	genCmp
+   03E7 C3                 1326 	clr	c
+   03E8 EE                 1327 	mov	a,r6
+   03E9 C5 F0              1328 	xch	a, b
+   03EB E0                 1329 	movx	a,@dptr
+   03EC C5 F0              1330 	xch	a, b
+   03EE 95 F0              1331 	subb	a,b
+   03F0 EF                 1332 	mov	a,r7
+   03F1 64 80              1333 	xrl	a,#0x80
+   03F3 C5 F0              1334 	xch	a, b
+   03F5 A3                 1335 	inc	dptr
+   03F6 E0                 1336 	movx	a,@dptr
+   03F7 C5 F0              1337 	xch	a, b
+   03F9 63 F0 80           1338 	xrl	b,#0x80
+   03FC 95 F0              1339 	subb	a,b
+                           1340 ;	genIfxJump
+                           1341 ; Peephole 108   removed ljmp by inverse jump logic
+   03FE 50 4A              1342 	jnc  00112$
+   0400                    1343 00126$:
+                           1344 ;	tini_i2c.c:341: barr2[i] = i2c_readbyte(1);
+                           1345 ;	genPlus 
+   0400 90s00r00r1C        1346 	mov	dptr,#_i2c_writereadblock_sloc0_1_0
+                           1347 ;	Swapped plus args.
+   0404 E0                 1348 	movx	a,@dptr
+   0405 2E                 1349 	add	a,r6
+   0406 F8                 1350 	mov	r0,a
+   0407 A3                 1351 	inc	dptr
+   0408 E0                 1352 	movx	a,@dptr
+   0409 3F                 1353 	addc	a,r7
+   040A F9                 1354 	mov	r1,a
+   040B A3                 1355 	inc	dptr
+   040C E0                 1356 	movx	a,@dptr
+   040D 34 00              1357 	addc	a,#0
+   040F FA                 1358 	mov	r2,a
+   0410 A3                 1359 	inc	dptr
+   0411 E0                 1360 	movx	a,@dptr
+   0412 FB                 1361 	mov	r3,a
+                           1362 ;	genCall 
+   0413 C0 02              1363 	push	ar2
+   0415 C0 03              1364 	push	ar3
+   0417 C0 06              1365 	push	ar6
+   0419 C0 07              1366 	push	ar7
+   041B C0 00              1367 	push	ar0
+   041D C0 01              1368 	push	ar1
+                           1369 ;	genSend argreg = 1, size = 1 
+   041F 75 82 01           1370 	mov	dpl,#0x01
+   0422 12s00r00rC8        1371 	lcall	_i2c_readbyte
+   0426 AC 82              1372 	mov	r4,dpl
+   0428 D0 01              1373 	pop	ar1
+   042A D0 00              1374 	pop	ar0
+   042C D0 07              1375 	pop	ar7
+   042E D0 06              1376 	pop	ar6
+   0430 D0 03              1377 	pop	ar3
+   0432 D0 02              1378 	pop	ar2
+                           1379 ;	genPointerSet 
+   0434 88 82              1380 	mov	dpl,r0
+   0436 89 83              1381 	mov	dph,r1
+   0438 8A 93              1382 	mov	dpx,r2
+   043A 8B F0              1383 	mov	b,r3
+   043C EC                 1384 	mov	a,r4
+   043D 12s00r00r00        1385 	lcall	__gptrput
+                           1386 ;	tini_i2c.c:340: for (i = 0;i < length2;i++)
+                           1387 ;	genPlus 
+   0441 0E                 1388 	inc	r6
+   0442 BE 00 01           1389 	cjne	r6,#0,00127$
+   0445 0F                 1390 	inc	r7
+   0446                    1391 00127$:
+                           1392 ;	did genPlusIncr
+                           1393 ;	genGoto 
+   0446 02s00r03rE3        1394 	ljmp	00109$
+                           1395 ;	genLabel 
+   044A                    1396 00112$:
+                           1397 ;	tini_i2c.c:344: barr2[i] = i2c_readbyte(0);
+                           1398 ;	genPlus 
+   044A 90s00r00r1C        1399 	mov	dptr,#_i2c_writereadblock_sloc0_1_0
+                           1400 ;	Swapped plus args.
+   044E E0                 1401 	movx	a,@dptr
+   044F 2E                 1402 	add	a,r6
+   0450 FE                 1403 	mov	r6,a
+   0451 A3                 1404 	inc	dptr
+   0452 E0                 1405 	movx	a,@dptr
+   0453 3F                 1406 	addc	a,r7
+   0454 FF                 1407 	mov	r7,a
+   0455 A3                 1408 	inc	dptr
+   0456 E0                 1409 	movx	a,@dptr
+   0457 34 00              1410 	addc	a,#0
+   0459 FA                 1411 	mov	r2,a
+   045A A3                 1412 	inc	dptr
+   045B E0                 1413 	movx	a,@dptr
+   045C FB                 1414 	mov	r3,a
+                           1415 ;	genCall 
+   045D C0 02              1416 	push	ar2
+   045F C0 03              1417 	push	ar3
+   0461 C0 06              1418 	push	ar6
+   0463 C0 07              1419 	push	ar7
+                           1420 ;	genSend argreg = 1, size = 1 
+   0465 75 82 00           1421 	mov	dpl,#0x00
+   0468 12s00r00rC8        1422 	lcall	_i2c_readbyte
+   046C AC 82              1423 	mov	r4,dpl
+   046E D0 07              1424 	pop	ar7
+   0470 D0 06              1425 	pop	ar6
+   0472 D0 03              1426 	pop	ar3
+   0474 D0 02              1427 	pop	ar2
+                           1428 ;	genPointerSet 
+   0476 8E 82              1429 	mov	dpl,r6
+   0478 8F 83              1430 	mov	dph,r7
+   047A 8A 93              1431 	mov	dpx,r2
+   047C 8B F0              1432 	mov	b,r3
+   047E EC                 1433 	mov	a,r4
+   047F 12s00r00r00        1434 	lcall	__gptrput
+                           1435 ;	tini_i2c.c:346: i2c_stop();
+                           1436 ;	genCall 
+   0483 12s00r00rA9        1437 	lcall	_i2c_stop
+                           1438 ;	tini_i2c.c:348: return 0;
+                           1439 ;	genRet 
+   0487 75 82 00           1440 	mov	dpl,#0x00
+                           1441 ;	genLabel 
+   048A                    1442 00113$:
+                           1443 ;	genEndFunction 
+   048A 22                 1444 	ret
+                           1445 	.area CSEG    (CODE)
+                           1446 	.area XINIT   (CODE)

@@ -1,0 +1,6 @@
+#!/bin/bash
+export OMNIPATH=/home/raph/omniORB-4.0.0
+export INST_DIR=/mnt/b2/downloads/EPS2003
+#
+export LD_LIBRARY_PATH=${OMNIPATH}/build/lib/
+${INST_DIR}/tango_cvs/cppserver/dbase/DataBaseds 2 -v4 -ORBendPoint :::30000

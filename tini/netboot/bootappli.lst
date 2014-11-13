@@ -1,0 +1,643 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : FreeWare ANSI-C Compiler
+                              3 ; Version 2.4.2 (Jun 15 2004)
+                              4 ; This file generated Wed Sep 22 00:34:04 2004
+                              5 ;--------------------------------------------------------
+                              6 	.module bootappli
+                              7 	.optsdcc -mds400 --model-flat24
+                              8 	
+                              9 ;--------------------------------------------------------
+                             10 ; CPU specific extensions
+                             11 ;--------------------------------------------------------
+                             12 .flat24 on		; 24 bit flat addressing
+                    0084     13 dpl1	=	0x84
+                    0085     14 dph1	=	0x85
+                    0086     15 dps	=	0x86
+                    0093     16 dpx	=	0x93
+                    0095     17 dpx1	=	0x95
+                    009B     18 esp	=	0x9B
+                    009C     19 ap	=	0x9C
+                    009C     20 _ap	=	0x9C
+                    00D1     21 mcnt0	=	0xD1
+                    00D2     22 mcnt1	=	0xD2
+                    00D3     23 ma	=	0xD3
+                    00D4     24 mb	=	0xD4
+                    00D5     25 mc	=	0xD5
+                    00D1     26 F1	=	0xD1	; user flag
+                             27 ;--------------------------------------------------------
+                             28 ; Public variables in this module
+                             29 ;--------------------------------------------------------
+                             30 	.globl _main
+                             31 ;--------------------------------------------------------
+                             32 ; special function registers
+                             33 ;--------------------------------------------------------
+                    0080     34 _P4	=	0x0080
+                    0081     35 _SP	=	0x0081
+                    0082     36 _DPL	=	0x0082
+                    0083     37 _DPH	=	0x0083
+                    0084     38 _DPL1	=	0x0084
+                    0085     39 _DPH1	=	0x0085
+                    0086     40 _DPS	=	0x0086
+                    0087     41 _PCON	=	0x0087
+                    0088     42 _TCON	=	0x0088
+                    0089     43 _TMOD	=	0x0089
+                    008A     44 _TL0	=	0x008a
+                    008B     45 _TL1	=	0x008b
+                    008C     46 _TH0	=	0x008c
+                    008D     47 _TH1	=	0x008d
+                    008E     48 _CKCON	=	0x008e
+                    0090     49 _P1	=	0x0090
+                    0091     50 _EXIF	=	0x0091
+                    0092     51 _P4CNT	=	0x0092
+                    0093     52 _DPX	=	0x0093
+                    0095     53 _DPX1	=	0x0095
+                    0098     54 _SCON0	=	0x0098
+                    0099     55 _SBUF0	=	0x0099
+                    009B     56 _ESP	=	0x009b
+                    009C     57 _AP	=	0x009c
+                    009D     58 _ACON	=	0x009d
+                    00A0     59 _P2	=	0x00a0
+                    00A1     60 _P5	=	0x00a1
+                    00A2     61 _P5CNT	=	0x00a2
+                    00A8     62 _IE	=	0x00a8
+                    00B0     63 _P3	=	0x00b0
+                    00B8     64 _IP	=	0x00b8
+                    00C0     65 _SCON1	=	0x00c0
+                    00C1     66 _SBUF1	=	0x00c1
+                    00C4     67 _PMR	=	0x00c4
+                    00C6     68 _MCON	=	0x00c6
+                    00C7     69 _TA	=	0x00c7
+                    00C8     70 _T2CON	=	0x00c8
+                    00C9     71 _T2MOD	=	0x00c9
+                    00CA     72 _RCAP2L	=	0x00ca
+                    00CA     73 _RTL2	=	0x00ca
+                    00CB     74 _RCAP2H	=	0x00cb
+                    00CB     75 _RTH2	=	0x00cb
+                    00CC     76 _TL2	=	0x00cc
+                    00CD     77 _TH2	=	0x00cd
+                    00D0     78 _PSW	=	0x00d0
+                    00D1     79 _MCNT0	=	0x00d1
+                    00D2     80 _MCNT1	=	0x00d2
+                    00D3     81 _MA	=	0x00d3
+                    00D4     82 _MB	=	0x00d4
+                    00D5     83 _MC	=	0x00d5
+                    00D8     84 _WDCON	=	0x00d8
+                    00E0     85 _ACC	=	0x00e0
+                    00E8     86 _EIE	=	0x00e8
+                    00EA     87 _MXAX	=	0x00ea
+                    00F0     88 _B	=	0x00f0
+                    00F8     89 _EIP	=	0x00f8
+                             90 ;--------------------------------------------------------
+                             91 ; special function bits 
+                             92 ;--------------------------------------------------------
+                    0088     93 _IT0	=	0x0088
+                    0089     94 _IE0	=	0x0089
+                    008A     95 _IT1	=	0x008a
+                    008B     96 _IE1	=	0x008b
+                    008C     97 _TR0	=	0x008c
+                    008D     98 _TF0	=	0x008d
+                    008E     99 _TR1	=	0x008e
+                    008F    100 _TF1	=	0x008f
+                    0090    101 _T2	=	0x0090
+                    0091    102 _T2EX	=	0x0091
+                    0092    103 _RXD1	=	0x0092
+                    0093    104 _TXD1	=	0x0093
+                    0094    105 _INT2	=	0x0094
+                    0095    106 _INT3	=	0x0095
+                    0096    107 _INT4	=	0x0096
+                    0097    108 _INT5	=	0x0097
+                    0098    109 _RI_0	=	0x0098
+                    0099    110 _TI_0	=	0x0099
+                    009A    111 _RB8_0	=	0x009a
+                    009B    112 _TB8_0	=	0x009b
+                    009C    113 _REN_0	=	0x009c
+                    009D    114 _SM2_0	=	0x009d
+                    009E    115 _SM1_0	=	0x009e
+                    009F    116 _SM0_0	=	0x009f
+                    009F    117 _FE_0	=	0x009f
+                    00A8    118 _EX0	=	0x00a8
+                    00A9    119 _ET0	=	0x00a9
+                    00AA    120 _EX1	=	0x00aa
+                    00AB    121 _ET1	=	0x00ab
+                    00AC    122 _ES0	=	0x00ac
+                    00AD    123 _ET2	=	0x00ad
+                    00AE    124 _ES1	=	0x00ae
+                    00AF    125 _EA	=	0x00af
+                    00B0    126 _RXD0	=	0x00b0
+                    00B1    127 _TXD0	=	0x00b1
+                    00B2    128 _INT0	=	0x00b2
+                    00B3    129 _INT1	=	0x00b3
+                    00B4    130 _T0	=	0x00b4
+                    00B5    131 _T1	=	0x00b5
+                    00B6    132 _WR	=	0x00b6
+                    00B7    133 _RD	=	0x00b7
+                    00B8    134 _PX0	=	0x00b8
+                    00B9    135 _PT0	=	0x00b9
+                    00BA    136 _PX1	=	0x00ba
+                    00BB    137 _PT1	=	0x00bb
+                    00BC    138 _PS0	=	0x00bc
+                    00BD    139 _PT2	=	0x00bd
+                    00BE    140 _PS1	=	0x00be
+                    00C0    141 _RI_1	=	0x00c0
+                    00C1    142 _TI_1	=	0x00c1
+                    00C2    143 _RB8_1	=	0x00c2
+                    00C3    144 _TB8_1	=	0x00c3
+                    00C4    145 _REN_1	=	0x00c4
+                    00C5    146 _SM2_1	=	0x00c5
+                    00C6    147 _SM1_1	=	0x00c6
+                    00C7    148 _SM0_1	=	0x00c7
+                    00C7    149 _FE_1	=	0x00c7
+                    00C8    150 _CP_RL	=	0x00c8
+                    00C9    151 _C_T	=	0x00c9
+                    00CA    152 _TR2	=	0x00ca
+                    00CB    153 _EXEN2	=	0x00cb
+                    00CC    154 _TCLK	=	0x00cc
+                    00CD    155 _RCLK	=	0x00cd
+                    00CE    156 _EXF2	=	0x00ce
+                    00CF    157 _TF2	=	0x00cf
+                    00D0    158 _P	=	0x00d0
+                    00D1    159 _F1	=	0x00d1
+                    00D2    160 _OV	=	0x00d2
+                    00D3    161 _RS0	=	0x00d3
+                    00D4    162 _RS1	=	0x00d4
+                    00D5    163 _F0	=	0x00d5
+                    00D6    164 _AC	=	0x00d6
+                    00D7    165 _CY	=	0x00d7
+                    00D8    166 _RWT	=	0x00d8
+                    00D9    167 _EWT	=	0x00d9
+                    00DA    168 _WDRF	=	0x00da
+                    00DB    169 _WDIF	=	0x00db
+                    00DC    170 _PFI	=	0x00dc
+                    00DD    171 _EPFI	=	0x00dd
+                    00DE    172 _POR	=	0x00de
+                    00DF    173 _SMOD_1	=	0x00df
+                    00E8    174 _EX2	=	0x00e8
+                    00E9    175 _EX3	=	0x00e9
+                    00EA    176 _EX4	=	0x00ea
+                    00EB    177 _EX5	=	0x00eb
+                    00EC    178 _EWDI	=	0x00ec
+                    00ED    179 _C1IE	=	0x00ed
+                    00EE    180 _C0IE	=	0x00ee
+                    00EF    181 _CANBIE	=	0x00ef
+                    00F8    182 _PX2	=	0x00f8
+                    00F9    183 _PX3	=	0x00f9
+                    00FA    184 _PX4	=	0x00fa
+                    00FB    185 _PX5	=	0x00fb
+                    00FC    186 _PWDI	=	0x00fc
+                    00FD    187 _C1IP	=	0x00fd
+                    00FE    188 _C0IP	=	0x00fe
+                    00FF    189 _CANBIP	=	0x00ff
+                            190 ;--------------------------------------------------------
+                            191 ; overlayable register banks 
+                            192 ;--------------------------------------------------------
+                            193 	.area REG_BANK_0	(REL,OVR,DATA)
+   0000                     194 	.ds 8
+                            195 	.area REG_BANK_3	(REL,OVR,DATA)
+   0000                     196 	.ds 8
+                            197 ;--------------------------------------------------------
+                            198 ; internal ram data
+                            199 ;--------------------------------------------------------
+                            200 	.area DSEG    (DATA)
+                            201 ;--------------------------------------------------------
+                            202 ; overlayable items in internal ram 
+                            203 ;--------------------------------------------------------
+                            204 	.area OSEG    (OVR,DATA)
+                            205 ;--------------------------------------------------------
+                            206 ; Stack segment in internal ram 
+                            207 ;--------------------------------------------------------
+                            208 	.area	SSEG	(DATA)
+   0000                     209 __start__stack:
+   0000                     210 	.ds	1
+                            211 
+                            212 ;--------------------------------------------------------
+                            213 ; indirectly addressable internal ram data
+                            214 ;--------------------------------------------------------
+                            215 	.area ISEG    (DATA)
+                            216 ;--------------------------------------------------------
+                            217 ; bit data
+                            218 ;--------------------------------------------------------
+                            219 	.area BSEG    (BIT)
+                            220 ;--------------------------------------------------------
+                            221 ; external ram data
+                            222 ;--------------------------------------------------------
+                            223 	.area XSEG    (XDATA)
+   0000                     224 _main_x_1_1::
+   0000                     225 	.ds 4
+                            226 ;--------------------------------------------------------
+                            227 ; external initialized ram data
+                            228 ;--------------------------------------------------------
+                            229 	.area XISEG   (XDATA)
+                            230 ;--------------------------------------------------------
+                            231 ; the direct data area used by the DS80c400 ROM code.
+                            232 ;--------------------------------------------------------
+                            233 .area ROMSEG (ABS,CON,DATA)
+                            234 
+   0000                     235 .ds 24 ; 24 bytes of directs used starting at 0x68
+                            236 
+                            237 ;--------------------------------------------------------
+                            238 ; interrupt vector 
+                            239 ;--------------------------------------------------------
+                            240 	.area CSEG    (CODE)
+   0000                     241 __interrupt_vect:
+                            242 ;	DS80C400 IVT must be generated at runtime.
+   0000 80 05               243 	sjmp	__sdcc_400boot
+   0002 54 49 4E 49         244 	.ascii	'TINI'	; required signature for 400 boot loader.
+   0006 00                  245 	.db	0	; selected bank: zero *should* work...
+   0007 02s00r00r00         246 	__sdcc_400boot:	ljmp	__sdcc_gsinit_startup
+                            247 ;--------------------------------------------------------
+                            248 ; global & static initialisations
+                            249 ;--------------------------------------------------------
+                            250 	.area GSINIT  (CODE)
+                            251 	.area GSFINAL (CODE)
+                            252 	.area GSINIT  (CODE)
+   0000                     253 __sdcc_gsinit_startup:
+   0000 12s00r00r00         254 	lcall	__sdcc_external_startup
+   0004 E5 82               255 	mov	a,dpl
+   0006 60 04               256 	jz	__sdcc_init_data
+   0008 02s00r00r0B         257 	ljmp	__sdcc_program_startup
+   000C                     258 __sdcc_init_data:
+                            259 ;	_ds390_genXINIT() start
+   000C 74r00               260 	mov	a,#l_XINIT
+   000E 44s00               261 	orl	a,#l_XINIT>>8
+   0010 60 27               262 	jz	00003$
+   0012 74r00               263 	mov	a,#s_XINIT
+   0014 24r00               264 	add	a,#l_XINIT
+   0016 F9                  265 	mov	r1,a
+   0017 74s00               266 	mov	a,#s_XINIT>>8
+   0019 34s00               267 	addc	a,#l_XINIT>>8
+   001B FA                  268 	mov	r2,a
+   001C 90s00r00r00         269 	mov	dptr,#s_XINIT
+   0020 75 86 21            270 	mov	dps,#0x21
+   0023 90s00r00r00         271 	mov	dptr,#s_XISEG
+   0027 E4                  272 00001$:	clr	a
+   0028 93                  273 	movc	a,@a+dptr
+   0029 F0                  274 	movx	@dptr,a
+   002A A3                  275 	inc	dptr
+   002B A3                  276 	inc	dptr
+   002C E5 82               277 00002$:	mov	a,dpl
+   002E B5 01 F6            278 	cjne	a,ar1,00001$
+   0031 E5 83               279 	mov	a,dph
+   0033 B5 02 F1            280 	cjne	a,ar2,00001$
+   0036 75 86 00            281 	mov	dps,#0
+   0039                     282 00003$:
+                            283 ;	_ds390_genXINIT() end
+                            284 	.area GSFINAL (CODE)
+   0000 02s00r00r0B         285 	ljmp	__sdcc_program_startup
+                            286 ;--------------------------------------------------------
+                            287 ; Home
+                            288 ;--------------------------------------------------------
+                            289 	.area HOME    (CODE)
+                            290 	.area CSEG    (CODE)
+                            291 ;--------------------------------------------------------
+                            292 ; code
+                            293 ;--------------------------------------------------------
+                            294 	.area CSEG    (CODE)
+   000B                     295 __sdcc_program_startup:
+   000B 12s00r00r11         296 	lcall	_main
+                            297 ;	return from main will lock up
+   000F 80 FE               298 	sjmp .
+                            299 ;------------------------------------------------------------
+                            300 ;Allocation info for local variables in function 'main'
+                            301 ;------------------------------------------------------------
+                            302 ;s                         Allocated to registers 
+                            303 ;i                         Allocated to registers 
+                            304 ;x                         Allocated with name '_main_x_1_1'
+                            305 ;------------------------------------------------------------
+                            306 ;	bootappli.c:36: void main()
+                            307 ;	genFunction 
+                            308 ;	-----------------------------------------
+                            309 ;	 function main
+                            310 ;	-----------------------------------------
+   0011                     311 _main:
+                    0002    312 	ar2 = 0x02
+                    0003    313 	ar3 = 0x03
+                    0004    314 	ar4 = 0x04
+                    0005    315 	ar5 = 0x05
+                    0006    316 	ar6 = 0x06
+                    0007    317 	ar7 = 0x07
+                    0000    318 	ar0 = 0x00
+                    0001    319 	ar1 = 0x01
+                            320 ;	bootappli.c:40: float x=0;
+                            321 ;	genAssign 
+                            322 ;	genAssign: resultIsFar = TRUE
+   0011 90s00r00r00         323 	mov	dptr,#_main_x_1_1
+                            324 ; Peephole 101   removed redundant mov
+                            325 ; Peephole 180   changed mov to clr
+   0015 E4                  326 	clr  a
+   0016 F0                  327 	movx @dptr,a
+   0017 A3                  328 	inc  dptr
+   0018 F0                  329 	movx @dptr,a
+   0019 A3                  330 	inc	dptr
+                            331 ; Peephole 101   removed redundant mov
+                            332 ; Peephole 180   changed mov to clr
+   001A E4                  333 	clr  a
+   001B F0                  334 	movx @dptr,a
+   001C A3                  335 	inc  dptr
+   001D F0                  336 	movx @dptr,a
+                            337 ;	bootappli.c:43: printf("80C400 netboot test LGM V1.1 !!!\n"); 
+                            338 ;	genIpush 
+   001E 74rB7               339 	mov	a,#__str_0
+   0020 C0 E0               340 	push	acc
+   0022 74s01               341 	mov	a,#(__str_0 >> 8)
+   0024 C0 E0               342 	push	acc
+   0026 74s00               343 	mov	a,#(__str_0 >> 16)
+   0028 C0 E0               344 	push	acc
+   002A 74 02               345 	mov	a,#0x02
+   002C C0 E0               346 	push	acc
+                            347 ;	genCall 
+   002E 12s00r00r00         348 	lcall	_printf
+                            349 ;	stack adjustment for parms
+   0032 D0 E0               350 	pop	acc
+   0034 D0 E0               351 	pop	acc
+   0036 D0 E0               352 	pop	acc
+   0038 D0 E0               353 	pop	acc
+                            354 ;	bootappli.c:44: romInit('n',SPEED_2X);
+                            355 ;	genAssign 
+                            356 ;	genAssign: resultIsFar = TRUE
+   003A 90s00r00r00         357 	mov	dptr,#_romInit_PARM_2
+   003E 74 01               358 	mov	a,#0x01
+   0040 F0                  359 	movx	@dptr,a
+                            360 ;	genCall 
+                            361 ;	genSend argreg = 1, size = 1 
+   0041 75 82 6E            362 	mov	dpl,#0x6E
+   0044 12s00r00r00         363 	lcall	_romInit
+                            364 ;	bootappli.c:45: printf("after init_rom !!!\n      press return\n");
+                            365 ;	genIpush 
+   0048 74rD9               366 	mov	a,#__str_1
+   004A C0 E0               367 	push	acc
+   004C 74s01               368 	mov	a,#(__str_1 >> 8)
+   004E C0 E0               369 	push	acc
+   0050 74s00               370 	mov	a,#(__str_1 >> 16)
+   0052 C0 E0               371 	push	acc
+   0054 74 02               372 	mov	a,#0x02
+   0056 C0 E0               373 	push	acc
+                            374 ;	genCall 
+   0058 12s00r00r00         375 	lcall	_printf
+                            376 ;	stack adjustment for parms
+   005C D0 E0               377 	pop	acc
+   005E D0 E0               378 	pop	acc
+   0060 D0 E0               379 	pop	acc
+   0062 D0 E0               380 	pop	acc
+                            381 ;	bootappli.c:46: getchar();
+                            382 ;	genCall 
+   0064 12s00r00r00         383 	lcall	_getchar
+                            384 ;	bootappli.c:48: printf("%ld millisecondes depuis netboot\n",task_gettimemillis_long());
+                            385 ;	genCall 
+   0068 12s00r00r00         386 	lcall	_task_gettimemillis_long
+   006C AE 82               387 	mov	r6,dpl
+   006E AF 83               388 	mov	r7,dph
+   0070 A8 93               389 	mov	r0,dpx
+   0072 A9 F0               390 	mov	r1,b
+                            391 ;	genIpush 
+   0074 C0 06               392 	push	ar6
+   0076 C0 07               393 	push	ar7
+   0078 C0 00               394 	push	ar0
+   007A C0 01               395 	push	ar1
+                            396 ;	genIpush 
+   007C 74r00               397 	mov	a,#__str_2
+   007E C0 E0               398 	push	acc
+   0080 74s02               399 	mov	a,#(__str_2 >> 8)
+   0082 C0 E0               400 	push	acc
+   0084 74s00               401 	mov	a,#(__str_2 >> 16)
+   0086 C0 E0               402 	push	acc
+   0088 74 02               403 	mov	a,#0x02
+   008A C0 E0               404 	push	acc
+                            405 ;	genCall 
+   008C 12s00r00r00         406 	lcall	_printf
+                            407 ;	stack adjustment for parms
+   0090 D0 E0               408 	pop	acc
+   0092 D0 E0               409 	pop	acc
+   0094 D0 E0               410 	pop	acc
+   0096 D0 E0               411 	pop	acc
+   0098 D0 E0               412 	pop	acc
+   009A D0 E0               413 	pop	acc
+   009C D0 E0               414 	pop	acc
+   009E D0 E0               415 	pop	acc
+                            416 ;	bootappli.c:49: getchar();
+                            417 ;	genCall 
+   00A0 12s00r00r00         418 	lcall	_getchar
+                            419 ;	bootappli.c:50: while(1) {
+                            420 ;	genAssign 
+                            421 ;	genAssign: resultIsFar = FALSE
+   00A4 7E 00               422 	mov	r6,#0x00
+   00A6 7F 00               423 	mov	r7,#0x00
+                            424 ;	genLabel 
+   00A8                     425 00102$:
+                            426 ;	bootappli.c:51: x += 1.0 / (((float) i)*((float) i));
+                            427 ;	genCall 
+   00A8 C0 06               428 	push	ar6
+   00AA C0 07               429 	push	ar7
+                            430 ;	genSend argreg = 1, size = 2 
+   00AC 8E 82               431 	mov	dpl,r6
+   00AE 8F 83               432 	mov	dph,r7
+   00B0 12s00r00r00         433 	lcall	___sint2fs
+   00B4 A8 82               434 	mov	r0,dpl
+   00B6 A9 83               435 	mov	r1,dph
+   00B8 AA 93               436 	mov	r2,dpx
+   00BA AB F0               437 	mov	r3,b
+   00BC D0 07               438 	pop	ar7
+   00BE D0 06               439 	pop	ar6
+                            440 ;	genAssign 
+                            441 ;	genAssign: resultIsFar = TRUE
+   00C0 90s00r00r00         442 	mov	dptr,#___fsmul_PARM_2
+   00C4 E8                  443 	mov	a,r0
+   00C5 F0                  444 	movx	@dptr,a
+   00C6 A3                  445 	inc	dptr
+   00C7 E9                  446 	mov	a,r1
+   00C8 F0                  447 	movx	@dptr,a
+   00C9 A3                  448 	inc	dptr
+   00CA EA                  449 	mov	a,r2
+   00CB F0                  450 	movx	@dptr,a
+   00CC A3                  451 	inc	dptr
+   00CD EB                  452 	mov	a,r3
+   00CE F0                  453 	movx	@dptr,a
+                            454 ;	genCall 
+   00CF C0 06               455 	push	ar6
+   00D1 C0 07               456 	push	ar7
+                            457 ;	genSend argreg = 1, size = 4 
+   00D3 88 82               458 	mov	dpl,r0
+   00D5 89 83               459 	mov	dph,r1
+   00D7 8A 93               460 	mov	dpx,r2
+   00D9 8B F0               461 	mov	b,r3
+   00DB 12s00r00r00         462 	lcall	___fsmul
+   00DF AA 82               463 	mov	r2,dpl
+   00E1 AB 83               464 	mov	r3,dph
+   00E3 AC 93               465 	mov	r4,dpx
+   00E5 AD F0               466 	mov	r5,b
+   00E7 D0 07               467 	pop	ar7
+   00E9 D0 06               468 	pop	ar6
+                            469 ;	genAssign 
+                            470 ;	genAssign: resultIsFar = TRUE
+   00EB 90s00r00r00         471 	mov	dptr,#___fsdiv_PARM_2
+   00EF EA                  472 	mov	a,r2
+   00F0 F0                  473 	movx	@dptr,a
+   00F1 A3                  474 	inc	dptr
+   00F2 EB                  475 	mov	a,r3
+   00F3 F0                  476 	movx	@dptr,a
+   00F4 A3                  477 	inc	dptr
+   00F5 EC                  478 	mov	a,r4
+   00F6 F0                  479 	movx	@dptr,a
+   00F7 A3                  480 	inc	dptr
+   00F8 ED                  481 	mov	a,r5
+   00F9 F0                  482 	movx	@dptr,a
+                            483 ;	genCall 
+   00FA C0 06               484 	push	ar6
+   00FC C0 07               485 	push	ar7
+                            486 ;	genSend argreg = 1, size = 4 
+                            487 ; Peephole 181   used 16 bit load of dptr
+   00FE 90 00 00 00         488 	mov  dptr,#0x0000
+   0102 75 93 80            489 	mov	dpx,#0x80
+   0105 75 F0 3F            490 	mov	b,#0x3F
+   0108 12s00r00r00         491 	lcall	___fsdiv
+   010C AA 82               492 	mov	r2,dpl
+   010E AB 83               493 	mov	r3,dph
+   0110 AC 93               494 	mov	r4,dpx
+   0112 AD F0               495 	mov	r5,b
+   0114 D0 07               496 	pop	ar7
+   0116 D0 06               497 	pop	ar6
+                            498 ;	genAssign 
+                            499 ;	genAssign: resultIsFar = TRUE
+   0118 90s00r00r00         500 	mov	dptr,#___fsadd_PARM_2
+   011C EA                  501 	mov	a,r2
+   011D F0                  502 	movx	@dptr,a
+   011E A3                  503 	inc	dptr
+   011F EB                  504 	mov	a,r3
+   0120 F0                  505 	movx	@dptr,a
+   0121 A3                  506 	inc	dptr
+   0122 EC                  507 	mov	a,r4
+   0123 F0                  508 	movx	@dptr,a
+   0124 A3                  509 	inc	dptr
+   0125 ED                  510 	mov	a,r5
+   0126 F0                  511 	movx	@dptr,a
+                            512 ;	genCall 
+   0127 C0 06               513 	push	ar6
+   0129 C0 07               514 	push	ar7
+                            515 ;	genSend argreg = 1, size = 4 
+   012B 05 86               516 	inc	dps
+   012D 90s00r00r00         517 	mov	dptr,#_main_x_1_1
+   0131 E0                  518 	movx	a,@dptr
+   0132 F5 82               519 	mov	dpl,a
+   0134 A3                  520 	inc	dptr
+   0135 E0                  521 	movx	a,@dptr
+   0136 F5 83               522 	mov	dph,a
+   0138 A3                  523 	inc	dptr
+   0139 E0                  524 	movx	a,@dptr
+   013A F5 93               525 	mov	dpx,a
+   013C A3                  526 	inc	dptr
+   013D E0                  527 	movx	a,@dptr
+   013E F5 F0               528 	mov	b,a
+   0140 75 86 00            529 	mov	dps,#0
+   0143 12s00r00r00         530 	lcall	___fsadd
+   0147 AA 82               531 	mov	r2,dpl
+   0149 AB 83               532 	mov	r3,dph
+   014B AC 93               533 	mov	r4,dpx
+   014D AD F0               534 	mov	r5,b
+   014F D0 07               535 	pop	ar7
+   0151 D0 06               536 	pop	ar6
+                            537 ;	genAssign 
+                            538 ;	genAssign: resultIsFar = TRUE
+   0153 90s00r00r00         539 	mov	dptr,#_main_x_1_1
+   0157 EA                  540 	mov	a,r2
+   0158 F0                  541 	movx	@dptr,a
+   0159 A3                  542 	inc	dptr
+   015A EB                  543 	mov	a,r3
+   015B F0                  544 	movx	@dptr,a
+   015C A3                  545 	inc	dptr
+   015D EC                  546 	mov	a,r4
+   015E F0                  547 	movx	@dptr,a
+   015F A3                  548 	inc	dptr
+   0160 ED                  549 	mov	a,r5
+   0161 F0                  550 	movx	@dptr,a
+                            551 ;	bootappli.c:52: printf("%d %f\012",i++,x);
+                            552 ;	genAssign 
+                            553 ;	genAssign: resultIsFar = FALSE
+   0162 8E 02               554 	mov	ar2,r6
+   0164 8F 03               555 	mov	ar3,r7
+                            556 ;	genPlus 
+   0166 0E                  557 	inc	r6
+   0167 BE 00 01            558 	cjne	r6,#0,00107$
+   016A 0F                  559 	inc	r7
+   016B                     560 00107$:
+                            561 ;	did genPlusIncr
+                            562 ;	genIpush 
+   016B C0 06               563 	push	ar6
+   016D C0 07               564 	push	ar7
+   016F 90s00r00r00         565 	mov	dptr,#_main_x_1_1
+   0173 E0                  566 	movx	a,@dptr
+   0174 C0 E0               567 	push	acc
+   0176 A3                  568 	inc	dptr
+   0177 E0                  569 	movx	a,@dptr
+   0178 C0 E0               570 	push	acc
+   017A A3                  571 	inc	dptr
+   017B E0                  572 	movx	a,@dptr
+   017C C0 E0               573 	push	acc
+   017E A3                  574 	inc	dptr
+   017F E0                  575 	movx	a,@dptr
+   0180 C0 E0               576 	push	acc
+                            577 ;	genIpush 
+   0182 C0 02               578 	push	ar2
+   0184 C0 03               579 	push	ar3
+                            580 ;	genIpush 
+   0186 74r22               581 	mov	a,#__str_3
+   0188 C0 E0               582 	push	acc
+   018A 74s02               583 	mov	a,#(__str_3 >> 8)
+   018C C0 E0               584 	push	acc
+   018E 74s00               585 	mov	a,#(__str_3 >> 16)
+   0190 C0 E0               586 	push	acc
+   0192 74 02               587 	mov	a,#0x02
+   0194 C0 E0               588 	push	acc
+                            589 ;	genCall 
+   0196 12s00r00r00         590 	lcall	_printf
+                            591 ;	stack adjustment for parms
+   019A D0 E0               592 	pop	acc
+   019C D0 E0               593 	pop	acc
+   019E D0 E0               594 	pop	acc
+   01A0 D0 E0               595 	pop	acc
+   01A2 D0 E0               596 	pop	acc
+   01A4 D0 E0               597 	pop	acc
+   01A6 D0 E0               598 	pop	acc
+   01A8 D0 E0               599 	pop	acc
+   01AA D0 E0               600 	pop	acc
+   01AC D0 E0               601 	pop	acc
+   01AE D0 07               602 	pop	ar7
+   01B0 D0 06               603 	pop	ar6
+                            604 ;	genGoto 
+   01B2 02s00r00rA8         605 	ljmp	00102$
+                            606 ;	genLabel 
+   01B6                     607 00104$:
+                            608 ;	genEndFunction 
+   01B6 22                  609 	ret
+                            610 	.area CSEG    (CODE)
+   01B7                     611 __str_0:
+   01B7 38 30 43 34 30 30   612 	.ascii "80C400 netboot test LGM V1.1 !!!"
+        20 6E 65 74 62 6F
+        6F 74 20 74 65 73
+        74 20 4C 47 4D 20
+        56 31 2E 31 20 21
+        21 21
+   01D7 0A                  613 	.db 0x0A
+   01D8 00                  614 	.db 0x00
+   01D9                     615 __str_1:
+   01D9 61 66 74 65 72 20   616 	.ascii "after init_rom !!!"
+        69 6E 69 74 5F 72
+        6F 6D 20 21 21 21
+   01EB 0A                  617 	.db 0x0A
+   01EC 20 20 20 20 20 20   618 	.ascii "      press return"
+        70 72 65 73 73 20
+        72 65 74 75 72 6E
+   01FE 0A                  619 	.db 0x0A
+   01FF 00                  620 	.db 0x00
+   0200                     621 __str_2:
+   0200 25 6C 64 20 6D 69   622 	.ascii "%ld millisecondes depuis netboot"
+        6C 6C 69 73 65 63
+        6F 6E 64 65 73 20
+        64 65 70 75 69 73
+        20 6E 65 74 62 6F
+        6F 74
+   0220 0A                  623 	.db 0x0A
+   0221 00                  624 	.db 0x00
+   0222                     625 __str_3:
+   0222 25 64 20 25 66      626 	.ascii "%d %f"
+   0227 0A                  627 	.db 0x0A
+   0228 00                  628 	.db 0x00
+                            629 	.area XINIT   (CODE)

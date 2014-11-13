@@ -1,0 +1,6 @@
+#!/bin/bash
+export INST_DIR=/mnt/b2/downloads/EPS2003
+#
+export CLASSPATH=${INST_DIR}/projet2003/TangORB.jar:${INST_DIR}/tango_cvs/tools/Pogo.jar
+ 
+java -DTEMPL_HOME=${INST_DIR}/tango_cvs/tools/pogo/templates/ pogo.appli.PogoAppli

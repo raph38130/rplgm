@@ -1,0 +1,40 @@
+Archive member included       because of file (symbol)
+
+../../LINK/lib68k.a(out.o)    vmtest1.o (outstr)
+
+Memory Configuration
+
+Name             Origin             Length            
+ram              0x00010000         0x00001000
+
+Linker script and memory map
+
+
+.text           0x00010000      0x130
+ *(.text)
+ .text          0x00010000       0x12 crt0.o
+                0x00010010                __main
+ *fill*         0x00010012        0x2
+ .text          0x00010014       0xd2 vmtest1.o
+                0x0001005c                test_load
+                0x00010022                test_print
+                0x000100b4                main
+ *fill*         0x000100e6        0x2
+ .text          0x000100e8       0x34 net.o
+                0x00010108                netcrtl_16xbug
+                0x000100f8                netwr_16xbug
+                0x000100e8                netrd_16xbug
+ .text          0x0001011c       0x14 ../../LINK/lib68k.a(out.o)
+                0x0001011c                outstr
+
+.data           0x00010130        0x0
+ *(.data)
+
+.bss            0x00010130        0x0
+ *(.bss)
+ *(COMMON)
+LOAD crt0.o
+LOAD vmtest1.o
+LOAD net.o
+LOAD ../../LINK/lib68k.a
+OUTPUT(/tftpboot/vmeboot binary)

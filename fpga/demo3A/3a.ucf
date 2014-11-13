@@ -1,0 +1,11 @@
+net clk loc="e12";
+net led<0> loc="r20";
+net led<1> loc="t19";
+net led<2> loc="u20";
+net led<3> loc="u19";
+net led<4> loc="v19";
+net led<5> loc="v20";
+net led<6> loc="y22";
+net led<7> loc="w21";
+net sw0 loc="v8";
+net sw1 loc="u10";

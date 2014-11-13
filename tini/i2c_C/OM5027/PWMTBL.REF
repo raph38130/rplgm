@@ -1,0 +1,45 @@
+;REFERENCE TABLE FOR OM5027 VDD TO PWM CONVERSION
+
+;This is the table of PWM values for the control of the dc-dc converter used
+;to produce Vlcd for LCD display contrast on the OM5027 evaluation board.
+;The table is referenced by Vdd.
+
+pwmtbl: db      76      ;2.0 V
+        db      79      ;2.1 V
+        db      64      ;2.2 V
+        db      60      ;2.3 V
+        db      56      ;2.4 V
+        db      52      ;2.5 V
+        db      49      ;2.6 V
+        db      46      ;2.7 V
+        db      43      ;2.8 V
+        db      40      ;2.9 V
+        db      38      ;3.0 V
+        db      36      ;3.1 V
+        db      34      ;3.2 V
+        db      32      ;3.3 V
+        db      31      ;3.4 V
+        db      29      ;3.5 V
+        db      28      ;3.6 V
+        db      26      ;3.7 V
+        db      25      ;3.8 V
+        db      24      ;3.9 V
+        db      23      ;4.0 V
+        db      22      ;4.1 V
+        db      21      ;4.2 V
+        db      20      ;4.3 V
+        db      19      ;4.4 V
+        db      18      ;4.5 V
+        db      17      ;4.6 V
+        db      16      ;4.7 V
+        db      15      ;4.8 V
+        db      14      ;4.9 V
+        db      13      ;5.0 V
+        db      13      ;5.1 V
+        db      12      ;5.2 V
+        db      11      ;5.3 V
+        db      11
+        db      10
+        db      10
+        db      10
+

@@ -1,0 +1,237 @@
+Archive member included       because of file (symbol)
+
+LINK/lib68k.a(strlen.s.o)     kernel/create.o (strlen)
+LINK/lib68k.a(strcpy.s.o)     kernel/create.o (strcpy)
+LINK/lib68k.a(out.o)          kernel/kernel.o (outstr)
+LINK/lib68k.a(strncpy.s.o)    kernel/semaphore.o (strncpy)
+LINK/lib68k.a(strcat.o)       kernel/status.o (strcat)
+LINK/lib68k.a(conversion.o)   kernel/status.o (ntos)
+LINK/lib68k.a(strcmp.o)       mm/load.o (strcmp)
+LINK/lib68k.a(net.o)          mm/load.o (netrd_16xbug)
+LINK/lib68k.a(strncmp.o)      mm/load.o (strncmp)
+
+Allocating common symbols
+Common symbol       size              file
+
+PROGID              0x4               mm/load.o
+O_BUFFER_0          0x100             drivers/serial.o
+t_bitmap_pages_allouees_DRAM
+                    0x80              mm/mem.o
+DUMMY               0x40              kernel/primitives.o
+PROCS_ARRAY         0x800             kernel/primitives.o
+I_BUFFER_1          0x100             drivers/serial.o
+tdesc_ptp           0x320             kernel/create.o
+SEMA_ARRAY          0x3c0             kernel/semaphore.o
+heap                0xc               mm/mem.o
+PROGS               0x1e0             kernel/initprocess.o
+t_bitmap_pages_allouees_SRAM
+                    0x4               mm/mem.o
+O_BUFFER_1          0x100             drivers/serial.o
+freeList            0xfc              mm/mem.o
+ArbreS              0x4               mmu/mmu.o
+I_BUFFER_0          0x100             drivers/serial.o
+
+Memory Configuration
+
+Name             Origin             Length            
+ramsuper         0x00010000         0x00005000
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+
+.text           0x00010000     0x2744
+ *(.text)
+ .text          0x00010000       0x18 LINK/crt0.o
+                0x00010016                __main
+ .text          0x00010018      0x1e0 kernel/create.o
+                0x0001006a                sys_create
+                0x00010018                go
+                0x0001001c                start
+                0x00010026                new_pid
+ .text          0x000101f8       0xb2 kernel/initprocess.o
+                0x00010208                init_mode_S
+ *fill*         0x000102aa        0x2
+ .text          0x000102ac       0xd4 kernel/kernel.o
+                0x000102bc                main
+ .text          0x00010380      0x132 kernel/kill.o
+                0x00010380                sys_kill
+ *fill*         0x000104b2        0x2
+ .text          0x000104b4      0x180 kernel/primitives.o
+                0x000104ee                genere
+                0x000104b4                enleve
+                0x000105a4                sys_chprio
+                0x00010564                sys_getprio
+                0x00010592                sys_getpid
+ .text          0x00010634       0x80 kernel/resume.o
+                0x00010634                sys_resume
+ .text          0x000106b4       0x7e kernel/schedule.o
+                0x00010702                reschedule
+                0x000106b4                schedule
+ *fill*         0x00010732        0x2
+ .text          0x00010734      0x1f8 kernel/semaphore.o
+                0x0001075e                sys_screate
+                0x0001089e                sys_signal
+                0x00010734                init_sema
+                0x000107d4                sys_sdelete
+                0x00010810                sys_wait
+ .text          0x0001092c      0x104 kernel/sleep.o
+                0x000109ca                wake
+                0x0001092c                init_sleeping
+                0x0001093a                sys_sleep
+ .text          0x00010a30      0x472 kernel/status.o
+                0x00010b12                sys_status
+ *fill*         0x00010ea2        0x2
+ .text          0x00010ea4       0x80 kernel/suspend.o
+                0x00010ea4                sys_suspend
+ .text          0x00010f24       0x36 ARCH/68040/context-switch.o
+                0x00010f24                switch_context
+ *fill*         0x00010f5a        0x2
+ .text          0x00010f5c      0x234 ARCH/68040/sysfunc.o
+                0x00010f5c                sys_call_select
+ .text          0x00011190       0x56 ARCH/68040/trap_handler.o
+                0x00011190                SetHandler
+ *fill*         0x000111e6        0x2
+ .text          0x000111e8      0x3a2 mm/buddy.o
+                0x000111e8                Buddy_Alloc
+                0x000112ea                Buddy_Dealloc
+                0x000113b8                Buddy_GetFreeMemInHeap
+                0x00011432                Buddy_CheckHeapIntact
+                0x000114d2                Buddy_Init
+ *fill*         0x0001158a        0x2
+ .text          0x0001158c      0x16c mm/load.o
+                0x000115c2                getadr
+                0x0001158c                init_load
+                0x00011626                sys_load
+ .text          0x000116f8      0x198 mm/mem.o
+                0x000117e4                init_allocation_par_page
+                0x0001178a                PageFree
+                0x00011860                init_buddy
+                0x000116f8                PageAlloc
+                0x00011884                init_mm
+ .text          0x00011890      0x2e8 mmu/mmu.o
+                0x00011b70                mmu_start
+                0x00011890                AllocTablePages
+                0x000119ac                MapEspaceVirtuel
+                0x00011b3a                init_mmu
+ .text          0x00011b78      0x280 drivers/drivers.o
+                0x00011c6c                sys_close
+                0x00011cbc                sys_read
+                0x00011bae                sys_open
+                0x00011d16                sys_write
+                0x00011b88                init_fdtab
+                0x00011d70                sys_ioctl
+ .text          0x00011df8       0x32 drivers/fs.o
+                0x00011e02                close_fs
+                0x00011e0c                write_fs
+                0x00011df8                open_fs
+                0x00011e16                read_fs
+                0x00011e20                ioctl_fs
+ *fill*         0x00011e2a        0x2
+ .text          0x00011e2c      0x454 drivers/serial.o
+                0x00012186                ecrire
+                0x0001221a                handler_Z85230
+                0x00011e38                open_tty
+                0x000120ba                lire
+                0x00011fd0                read_tty
+                0x00011eea                close_tty
+                0x00011f34                write_tty
+                0x0001204a                ioctl_tty
+ .text          0x00012280       0xea LINK/lib68k.a(strlen.s.o)
+                0x00012280                strlen
+ *fill*         0x0001236a        0x2
+ .text          0x0001236c       0x48 LINK/lib68k.a(strcpy.s.o)
+                0x0001236c                strcpy
+ .text          0x000123b4       0x14 LINK/lib68k.a(out.o)
+                0x000123b4                outstr
+ .text          0x000123c8      0x14e LINK/lib68k.a(strncpy.s.o)
+                0x000123c8                strncpy
+ *fill*         0x00012516        0x2
+ .text          0x00012518       0x44 LINK/lib68k.a(strcat.o)
+                0x00012518                strcat
+ .text          0x0001255c       0xe4 LINK/lib68k.a(conversion.o)
+                0x000125b8                n_htos
+                0x0001255c                ntos
+                0x00012612                ston
+ .text          0x00012640       0x52 LINK/lib68k.a(strcmp.o)
+                0x00012640                strcmp
+ *fill*         0x00012692        0x2
+ .text          0x00012694       0x34 LINK/lib68k.a(net.o)
+                0x000126b4                netcrtl_16xbug
+                0x000126a4                netwr_16xbug
+                0x00012694                netrd_16xbug
+ .text          0x000126c8       0x7c LINK/lib68k.a(strncmp.o)
+                0x000126c8                strncmp
+
+.data           0x00012744      0x1fc
+ *(.data)
+ .data          0x00012744        0xc kernel/primitives.o
+                0x00012744                PID
+                0x00012748                READY
+                0x0001274c                ACTIF
+ .data          0x00012750        0x4 kernel/sleep.o
+                0x00012750                SLEEP
+ .data          0x00012754        0x4 ARCH/68040/trap_handler.o
+ .data          0x00012758      0x1ac drivers/drivers.o
+                0x00012898                devtab
+                0x00012758                fdtab
+ .data          0x00012904       0x3c drivers/serial.o
+                0x00012904                tty
+
+.bss            0x00012940     0x1740
+ *(.bss)
+ .bss           0x00012940       0xa0 ARCH/68040/trap_handler.o
+ *(COMMON)
+ COMMON         0x000129e0      0x320 kernel/create.o
+                0x000129e0                tdesc_ptp
+ COMMON         0x00012d00      0x1e0 kernel/initprocess.o
+                0x00012d00                PROGS
+ COMMON         0x00012ee0      0x840 kernel/primitives.o
+                0x00012ee0                DUMMY
+                0x00012f20                PROCS_ARRAY
+ COMMON         0x00013720      0x3c0 kernel/semaphore.o
+                0x00013720                SEMA_ARRAY
+ COMMON         0x00013ae0        0x4 mm/load.o
+                0x00013ae0                PROGID
+ *fill*         0x00013ae4        0xc
+ COMMON         0x00013af0      0x18c mm/mem.o
+                0x00013af0                t_bitmap_pages_allouees_DRAM
+                0x00013b70                heap
+                0x00013b7c                t_bitmap_pages_allouees_SRAM
+                0x00013b80                freeList
+ COMMON         0x00013c7c        0x4 mmu/mmu.o
+                0x00013c7c                ArbreS
+ COMMON         0x00013c80      0x400 drivers/serial.o
+                0x00013c80                O_BUFFER_0
+                0x00013d80                I_BUFFER_1
+                0x00013e80                O_BUFFER_1
+                0x00013f80                I_BUFFER_0
+                0x00014080                _end=.
+
+.user           0x00015000        0x4
+                0x00015000        0x4 LONG 0x12345678
+                0x00015004                ___init=.
+LOAD LINK/crt0.o
+LOAD kernel/create.o
+LOAD kernel/initprocess.o
+LOAD kernel/kernel.o
+LOAD kernel/kill.o
+LOAD kernel/primitives.o
+LOAD kernel/resume.o
+LOAD kernel/schedule.o
+LOAD kernel/semaphore.o
+LOAD kernel/sleep.o
+LOAD kernel/status.o
+LOAD kernel/suspend.o
+LOAD ARCH/68040/context-switch.o
+LOAD ARCH/68040/sysfunc.o
+LOAD ARCH/68040/trap_handler.o
+LOAD mm/buddy.o
+LOAD mm/load.o
+LOAD mm/mem.o
+LOAD mmu/mmu.o
+LOAD drivers/drivers.o
+LOAD drivers/fs.o
+LOAD drivers/serial.o
+LOAD LINK/lib68k.a
+OUTPUT(/tftpboot/vmeboot binary)

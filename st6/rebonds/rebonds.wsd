@@ -1,0 +1,11 @@
+[Common]
+modulerebonds.txt Left=1170
+modulerebonds.txt Top=3180
+modulerebonds.txt Width=5490
+modulerebonds.txt Height=3135
+modulerebonds.txt Line=32
+Registers Left=7440
+Registers Top=4305
+Forms=Registers;modulerebonds.txt
+Modules=
+Breaks=

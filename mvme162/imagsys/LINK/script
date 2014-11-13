@@ -1,0 +1,36 @@
+OUTPUT_FORMAT("binary")
+OUTPUT_ARCH(m68k)
+
+MEMORY {
+  ramsuper : ORIGIN = 0x10000, LENGTH =  0x5000 
+}
+
+SECTIONS
+{
+        /* le code du noyau de E2S */
+
+        .text  0x10000 :
+        {
+                *(.text)
+        } > ramsuper
+
+        .data :
+        {
+                *(.data)
+        } > ramsuper
+       
+	.bss :
+	{
+		*(.bss)
+		*(COMMON)
+	} > ramsuper
+
+	_end = . ;
+	/* le code des process utilisateurs */
+	.user  0x15000 :
+	{
+	LONG(0x12345678); /*juste pour forcer le remplissage jusquà cette adresse */
+	___init = . ;
+	} 
+} 
+

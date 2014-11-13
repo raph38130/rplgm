@@ -1,0 +1,30 @@
+OUTPUT_FORMAT("binary")
+OUTPUT_ARCH(m68k)
+
+MEMORY {
+  ramuser : ORIGIN = 0x80000000, LENGTH = 0x1000
+}
+
+SECTIONS
+{
+        /* le code qui s'execute en mode U */
+
+        .text  0x80000000 :
+        {
+                *(.text)
+        } > ramuser 
+
+        .data :
+        {
+                *(.data)
+        } > ramuser 
+
+	.bss :
+	{
+		*(.bss)
+		*(COMMON)
+	} > ramuser 
+	
+
+}
+

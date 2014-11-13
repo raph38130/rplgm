@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/1999/XMLSchema-instance" xmlns:xsd="http://www.w3.org/1999/XMLSchema">
+<SOAP-ENV:Body>
+<ns1:Cmd xmlns:ns1="urn:TangoServer">
+<devname xsi:type="xsd:string" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">id1/DSClock/1</devname>
+<cmd xsi:type="xsd:string" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">getTimeDate</cmd>
+</ns1:Cmd>
+</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

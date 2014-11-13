@@ -1,0 +1,18 @@
+/* $Id: pcitor48.idl,v 1.2 2002/07/10 16:36:22 raph Exp $
+ *
+ * IDL interface for PCI TOR-48
+ *
+ * $History$
+ *
+ * export LD_LIBRARY_PATH=/usr/local/OB-4.1.1/ob/lib/:/usr/local/OB-4.1.1/jtc/lib/
+ *
+ * 
+ * /usr/local/OB-4.1.1/ob/bin/idl --output-dir ooc/client --impl-all pcitor48.idl
+ */
+ 
+interface pcitor48
+{
+	void 	SetLed	(in short number);
+	boolean Read	(in short number);
+	void 	Status	(in short number, out string msg, inout string test);
+};

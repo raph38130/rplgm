@@ -1,0 +1,42 @@
+write_tty : revoir les sémaphores, file descriptor/device descriptor
+	XON/XOFF
+	ECHO : FAIT
+	type ahead
+	CR->CR/LF
+
+file de message
+
+sleep: faire version avec date
+
+kill : traiter le cas des process en état SLEEPING
+	FAIT 07 / 98
+
+sémaphore : sdelete() réveille les process en attente
+
+lib68k.a: faire sprintf / kprintf
+	pb car sprintf/newlib utilise ses propres create close write...
+
+MMU
+lors d'une lecture de CR, ne redemarre pas le process qui a fait un wait
+pb avant : apres resume ne donne pas le menu
+	FAIT 07 / 98
+est-ce necessaire d'allouer une page complete de descripteur
+
+passage de parametre interprocessus
+
+REECRIRE avec setjmp/longjmp
+
+LIBERATION DES RESSOURCES
+
+MAKEFILE
+
+
+kprintf/kscanf
+générer une chaine de developpement en libc6
+
+Janvier 99
+-=-=-=-=-=
+egcs
+
+noyau en C++
+

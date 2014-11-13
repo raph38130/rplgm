@@ -1,0 +1,21 @@
+XH
+H 7 areas 0 global symbols
+A _CODE size 0 flags 0
+A CSEG size 28 flags 20
+A SSEG size 0 flags 0
+A XSEG size 0 flags 40
+A ISEG size 0 flags 0
+A ROMSEG size 0 flags 0
+A DSEG size 0 flags 0
+T 00 00 80 0D 54 49 4E 49 34 30 30 00 31 2E 31 32
+R 00 00 00 01
+T 00 0E 00
+R 00 00 00 01
+T 00 0F
+R 00 00 00 01
+T 00 0F
+R 00 00 00 01
+T 00 0F D2 91 12 00 00 1F C2 91 12 00 00 1F 02
+R 00 00 00 01 80 05 00 01 80 0B 00 01
+T 00 1C 00 00 0F 00 00 00 00 00 00 00 00 22
+R 00 00 00 01 80 02 00 01

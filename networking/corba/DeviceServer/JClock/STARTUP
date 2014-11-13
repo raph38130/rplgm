@@ -1,0 +1,5 @@
+#!/bin/bash
+export CLASSPATH=.:../../tango/java/Tango.jar:../../tango/ORB/java/OB.jar
+/opt2/j2sdk1.4.0/bin/java -DTANGO_HOST=neptune:10000 DSClock serv1 -v4
+
+#/usr/local/j2sdk1.3/bin/java -DTANGO_HOST=e108poste1:10000 DSClock ssss

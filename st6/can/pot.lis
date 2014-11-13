@@ -1,0 +1,144 @@
+ Wed Oct 07 17:46:28 1998  file pot.lis  page 1
+
+
+
+
+
+
+ST6 MACRO-ASSEMBLER version 4.50  - July 1996
+                                                 
+ Wed Oct 07 17:46:28 1998  file pot.lis  page 2
+
+
+--- SOURCE FILE : pot.txt ---
+   1                                 1 	;
+   2                                 2 	;
+   3                                 3 	;reccopie de la valeur du potentiometre sur les led
+   4                                 4 	;
+   5                                 5 		.input "d:\st6tools\st626x.def"
+
+
+--- SOURCE FILE : d:\st6tools\st626x.def ---
+   6                            1    1 	
+   7                            1    2 	;      **************************************
+   8                            1    3 	;      *  REGISTERS/VARIABLES DECLARATION   *
+   9                            1    4 	;      **************************************
+  10                            1    5 	
+  11                            1    6 	
+  12                            1    7 	x	.def 080h,0ffh,0ffh,m
+  13                            1    8 	y	.def 081h,0ffh,0ffh,m
+  14                            1    9 	v	.def 082h,0ffh,0ffh,m
+  15                            1   10 	w	.def 083h,0ffh,0ffh,m
+  16                            1   11 	a	.def 0ffh,0ffh,0ffh,m
+  17                            1   12 	
+  18                            1   13 	IOR	.def 0c8h,0ffh,0ffh	; Interrupt Option Register
+  19                            1   14 	
+  20                            1   15 	DRWR	.def 0c9h,0ffh,0ffh	; DATA ROM Window Register
+  21                            1   16 	;modif par RP
+  22                            1   17 	drbr	.def 0e8h,03h,03h 
+  23                            1   18 	eectl	.def 0eah
+  24                            1   19 	
+  25                            1   20 	
+  26                            1   21 	;	**************
+  27                            1   22 	;	*   PORT A   *
+  28                            1   23 	;	**************
+  29                            1   24 	DRA	.def 0c0h,0ffh,0ffh	; Data Register A
+  30                            1   25 	DDRA	.def 0c4h,0ffh,0ffh	; Data Direction Register A
+  31                            1   26 	OPRA	.def 0cch,0ffh,0ffh	; Option register A
+  32                            1   27 	
+  33                            1   28 	;	**************
+  34                            1   29 	;	*   PORT B   *
+  35                            1   30 	;	**************
+  36                            1   31 	DRB	.def 0c1h,0ffh,0ffh	; Data Register B
+  37                            1   32 	DDRB	.def 0c5h,0ffh,0ffh	; Data Direction Register B
+  38                            1   33 	OPRB	.def 0cdh,0ffh,0ffh	; Option register B
+  39                            1   34 	
+  40                            1   35 	;	**************
+  41                            1   36 	;	*   PORT C   *
+  42                            1   37 	;	**************
+  43                            1   38 	DRC	.def 0c2h,0ffh,0ffh	; Data Register C
+  44                            1   39 	DDRC	.def 0c6h,0ffh,0ffh	; Data Direction Register C
+  45                            1   40 	OPRC	.def 0ceh,0ffh,0ffh	; Option register C
+  46                            1   41 	
+  47                            1   42 	;	**************
+  48                            1   43 	;	* A/D CONVER *
+  49                            1   44 	;	**************
+  50                            1   45 	ADCR	.def 0d1h,0ffh,0ffh	; Control register
+  51                            1   46 	ADR	.def 0d0h,0ffh,0ffh	; DATA register (result of conversion)
+  52                            1   47 	
+  53                            1   48 	
+  54                            1   49 	;	**************
+  55                            1   50 	;	*   TIMER    *
+  56                            1   51 	;	**************
+ Wed Oct 07 17:46:28 1998  file pot.lis  page 3
+
+
+  57                            1   52 	;TSCR1	.def 0d4h,0ffh,0ffh	; TIMER STATUS control register
+  58                            1   53 	;TCR1	.def 0d3h,0ffh,0ffh	; TIMER COUNTER register
+  59                            1   54 	;PSC1	.def 0d2h,0ffh,0ffh	; TIMER PRESCALER register
+  60                            1   55 	
+  61                            1   56 	;	*********************
+  62                            1   57 	;	* AUTO RELOAD TIMER *
+  63                            1   58 	;	*********************
+  64                            1   59 	ARMC	.def 0d5h,0ffh,0ffh	; AR MODE control register
+  65                            1   60 	ARSC0	.def 0d6h,0ffh,0ffh	; AR STATUS control register 0 
+  66                            1   61 	ARSC1	.def 0d7h,0ffh,0ffh	; AR STATUS control register 1
+  67                            1   62 	ARLR	.def 0d8h,0ffh,0ffh	; AR LOAD register
+  68                            1   63 	ARRC	.def 0d9h,0ffh,0ffh	; AR RELOAD/CAPTURE register
+  69                            1   64 	ARCP	.def 0dah,0ffh,0ffh	; AR COMPARE register
+  70                            1   65 	
+  71                            1   66 	
+  72                            1   67 	WDR     .def    0d8h        ;watchdog register
+  73                            1   68 	
+  74                            1   69 	psc         .def    0d2h,m
+  75                            1   70 	tcr         .def    0d3h,m
+  76                            1   71 	tscr        .def    0d4h,m
+  77                            1   72 	
+  78                            1   73 	
+  79                            1   74 	tmz	    .equ    7
+  80                            1   75 	eti	    .equ    6
+  81                            1   76 	tout	    .equ    5
+  82                            1   77 	dout	    .equ    4
+  83                            1   78 	psi         .equ    3
+  84                            1   79 	
+
+
+--- SOURCE FILE : pot.txt ---
+  85                                 6 	STA	.def 5
+  86                                 7 	EOC	.def 6
+  87                                 8 	PDS	.def 4
+  88                                 9 	
+  89                                10 		.org 0400h
+  90                                11 	
+  91                                12 		;init PB0-PB4 PA6
+  92 P00 0400 0DC119 P00 0400       13 		ldi DRB,00011001b 	; pour tout éteindre
+  93 P00 0403 0DC51F P00 0403       14 		ldi DDRB,00011111b
+  94 P00 0406 0DCD00 P00 0406       15 		ldi OPRB,0
+  95                                16 	
+  96 P00 0409 0DC400 P00 0409       17 		ldi DDRA,0		; PA4 potentiometre en entrée de can
+  97 P00 040C 0DCC10 P00 040C       18 		ldi OPRA,00010000b
+  98 P00 040F 0DC010 P00 040F       19 		ldi DRA, 00010000b
+  99                                20 		
+ 100 P00 0412 3BD1   P00 0412       21 		set PDS,ADCR		;mise en route du can
+ 101 P00 0414 04     P00 0414       22 		nop
+ 102 P00 0415 04     P00 0415       23 		nop
+ 103 P00 0416 BBD1   P00 0416       24 	conv	set STA,ADCR
+ 104 P00 0418 63D1FD P00 0418       25 	loop	jrr EOC,ADCR,loop
+ 105 P00 041B 1FD0   P00 041B       26 		ld a, ADR
+ 106 P00 041D 9FC1   P00 041D       27 		ld DRB,a
+ 107 P00 041F 6941   P00 041F       28 		jp conv
+ 108                                29 	
+ Wed Oct 07 17:46:28 1998  file pot.lis  page 4
+
+
+
+ ** SPACE 'PAGE_0' SECTION MAP **
+
+_______________________________________
+|      name       |  type  |   size   |
+|-----------------|--------|----------|
+| PG0_0           |  TEXT  |       21 |
+|_________________|________|__________|
+
+No error detected
+No warning

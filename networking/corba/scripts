@@ -1,0 +1,18 @@
+#!/bin/bash
+#Start IMR
+/usr/local/OB-4.1.1/ob/bin/imr -a -d CORBA/IMR/
+#-L "iiop --port 10000"
+
+#start IMRConsole
+export CLASSPATH=/usr/local/JOB-4.1.1/lib/OBIMR.jar:/usr/local/JOB-4.1.1/lib/OBUtil.jar
+java -Xbootclasspath/p:/usr/local/JOB-4.1.1/lib/OB.jar: -Dooc.orb.service.IMR=corbaloc::localhost:9999/IMR com.ooc.IMRConsole.Main
+
+
+./ServerAuto -ORBregister pcitor48 -ORBInitRef IMR=corbaloc::localhost:9999/IMR -OAnumeric
+
+
+
+/usr/local/OB-4.1.1/ob/bin/imr -a -d CORBA/IMR/ -ORBInitRef IMR=corbaloc::localhost:9999/IMR -OAnumeric
+
+
+/usr/local/OB-4.1.1/ob/bin/imr  --administrative --admin-endpoint "iiop --port 4321" --forward-endpoint "iiop --port 4322" --slave-endpoint "iiop --port 4323" --database /home/raph/CORBA/IMR/ -ORBInitRef IMR=corbaloc::localhost:4321/IMR

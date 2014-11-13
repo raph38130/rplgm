@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<school>
+	<student><name>aaa</name><fname>dd</fname><average math="10.0"/></student>
+	<student><name>bbb</name><fname>aaa</fname><average math="10.0"/></student>
+	<student><name>bbb</name><fname>ccc</fname><average math="8.0"/></student>
+	<student><name>bbb</name><fname>ccc</fname><average math="10.0"/></student>
+	<student><name>bbb</name><fname>dd</fname><average math="10.0"/></student>
+	<student><name>ttt</name><fname>ccc</fname><average math="8.0"/></student>
+	<student><name>xyz</name><fname>dd</fname><average math="5.0"/></student>
+</school>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE office:document-content PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "office.dtd">
+<office:document-content xmlns:office="http://openoffice.org/2000/office" xmlns:style="http://openoffice.org/2000/style" xmlns:text="http://openoffice.org/2000/text" xmlns:table="http://openoffice.org/2000/table" xmlns:draw="http://openoffice.org/2000/drawing" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:number="http://openoffice.org/2000/datastyle" xmlns:svg="http://www.w3.org/2000/svg" xmlns:chart="http://openoffice.org/2000/chart" xmlns:dr3d="http://openoffice.org/2000/dr3d" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:form="http://openoffice.org/2000/form" xmlns:script="http://openoffice.org/2000/script" office:class="spreadsheet" office:version="1.0">
+ <office:script/>
+ <office:font-decls>
+  <style:font-decl style:name="Arial Unicode MS" fo:font-family="&apos;Arial Unicode MS&apos;" style:font-pitch="variable"/>
+  <style:font-decl style:name="HG Mincho Light J" fo:font-family="&apos;HG Mincho Light J&apos;" style:font-pitch="variable"/>
+  <style:font-decl style:name="Albany" fo:font-family="Albany" style:font-family-generic="swiss" style:font-pitch="variable"/>
+ </office:font-decls>
+ <office:automatic-styles>
+  <style:style style:name="co1" style:family="table-column">
+   <style:properties fo:break-before="auto" style:column-width="2.267cm"/>
+  </style:style>
+  <style:style style:name="ro1" style:family="table-row">
+   <style:properties fo:break-before="auto"/>
+  </style:style>
+  <style:style style:name="ta1" style:family="table" style:master-page-name="Default">
+   <style:properties table:display="true"/>
+  </style:style>
+ </office:automatic-styles>
+ <office:body>
+  <table:table table:name="Sheet1" table:style-name="ta1">
+   <table:table-column table:style-name="co1" table:number-columns-repeated="4" table:default-cell-style-name="Default"/>
+   <table:table-row table:style-name="ro1">
+    <table:table-cell>
+     <text:p>Eleve</text:p>
+    </table:table-cell>
+    <table:table-cell>
+     <text:p>Français</text:p>
+    </table:table-cell>
+    <table:table-cell>
+     <text:p>Math</text:p>
+    </table:table-cell>
+    <table:table-cell>
+     <text:p>Moyenne</text:p>
+    </table:table-cell>
+   </table:table-row>
+   <table:table-row table:style-name="ro1">
+    <table:table-cell>
+     <text:p>Xxx</text:p>
+    </table:table-cell>
+    <table:table-cell table:value-type="float" table:value="10">
+     <text:p>100</text:p>
+    </table:table-cell>
+    <table:table-cell table:value-type="float" table:value="15">
+     <text:p>15</text:p>
+    </table:table-cell>
+    <table:table-cell table:formula="=AVERAGE([.B2:.C2])" table:value-type="float" table:value="12.5">
+     <text:p>12,5</text:p>
+    </table:table-cell>
+   </table:table-row>
+   <table:table-row table:style-name="ro1">
+    <table:table-cell>
+     <text:p>Yyy</text:p>
+    </table:table-cell>
+    <table:table-cell table:value-type="float" table:value="12">
+     <text:p>12</text:p>
+    </table:table-cell>
+    <table:table-cell table:value-type="float" table:value="8">
+     <text:p>8</text:p>
+    </table:table-cell>
+    <table:table-cell table:formula="=AVERAGE([.B3:.C3])" table:value-type="float" table:value="10">
+     <text:p>10</text:p>
+    </table:table-cell>
+   </table:table-row>
+  </table:table>
+  <table:table table:name="Sheet2" table:style-name="ta1">
+   <table:table-column table:style-name="co1" table:default-cell-style-name="Default"/>
+   <table:table-row table:style-name="ro1">
+    <table:table-cell/>
+   </table:table-row>
+  </table:table>
+  <table:table table:name="Sheet3" table:style-name="ta1">
+   <table:table-column table:style-name="co1" table:default-cell-style-name="Default"/>
+   <table:table-row table:style-name="ro1">
+    <table:table-cell/>
+   </table:table-row>
+  </table:table>
+ </office:body>
+</office:document-content>

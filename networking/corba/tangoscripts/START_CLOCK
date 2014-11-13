@@ -1,0 +1,7 @@
+#!/bin/bash
+export OMNIPATH=/home/raph/omniORB-4.0.0
+export INST_DIR=/mnt/b2/downloads/EPS2003
+export TANGO_HOST=localhost:30000
+#
+export LD_LIBRARY_PATH=${OMNIPATH}/build/lib/
+${INST_DIR}/tango_esrf/DeviceServer/lgm/Clock/Clock 1 -v4

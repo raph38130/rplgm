@@ -1,0 +1,373 @@
+
+Hexadecimal
+
+Area                               Addr   Size   Decimal Bytes (Attributes)
+--------------------------------   ----   ----   ------- ----- ------------
+.  .ABS.                           0000   0000 =      0. bytes (ABS,OVR)
+
+      Value  Global
+   --------  --------------------------------
+     0000    l_HOME
+     0000    l_ISEG
+     0000    l_OSEG
+     0000    l_REG_BANK_1
+     0000    l_REG_BANK_2
+     0000    l__CODE
+     0000    s_BSEG
+     0000    s_REG_BANK_0
+     0000    s__CODE
+     0001    l_SSEG
+     0002    l_BSEG_BYTES
+     0004    l_GSFINAL
+     0005    l_XINIT
+     0005    l_XISEG
+     0008    l_DSEG
+     0008    l_REG_BANK_0
+     0008    l_REG_BANK_3
+     0008    s_REG_BANK_1
+     000D    l_BSEG
+     0010    s_REG_BANK_2
+     0018    l_ROMSEG
+     0018    s_REG_BANK_3
+     0020    s_BSEG_BYTES
+     0022    s_DSEG
+     002A    s_OSEG
+     002A    s_SSEG
+     0039    l_GSINIT
+     0068    _DSS_wos_crit_count
+     0068    s_ROMSEG
+     006B    _DSS_timerReload
+     006D    _DSS_curr_pc
+     0072    _DSS_sched
+     0074    _DSS_ms_count
+     007B    _DSS_hb_chandle
+     0080    s_ISEG
+     059B    l_XSEG
+     3941    l_CSEG
+     140000    s_XSEG
+     14059B    s_XISEG
+     490000    s_CSEG
+     493941    s_GSINIT
+     49397A    s_GSFINAL
+     49397E    s_HOME
+     49397E    s_XINIT
+
+Hexadecimal
+
+Area                               Addr   Size   Decimal Bytes (Attributes)
+--------------------------------   ----   ----   ------- ----- ------------
+_CODE                              0000   0000 =      0. bytes (REL,CON)
+
+Hexadecimal
+
+Area                               Addr   Size   Decimal Bytes (Attributes)
+--------------------------------   ----   ----   ------- ----- ------------
+REG_BANK_0                         0000   0008 =      8. bytes (REL,OVR)
+
+Hexadecimal
+
+Area                               Addr   Size   Decimal Bytes (Attributes)
+--------------------------------   ----   ----   ------- ----- ------------
+REG_BANK_1                         0008   0000 =      0. bytes (REL,OVR)
+
+Hexadecimal
+
+Area                               Addr   Size   Decimal Bytes (Attributes)
+--------------------------------   ----   ----   ------- ----- ------------
+REG_BANK_2                         0010   0000 =      0. bytes (REL,OVR)
+
+Hexadecimal
+
+Area                               Addr   Size   Decimal Bytes (Attributes)
+--------------------------------   ----   ----   ------- ----- ------------
+REG_BANK_3                         0018   0008 =      8. bytes (REL,OVR)
+
+Hexadecimal
+
+Area                               Addr   Size   Decimal Bits  (Attributes)
+--------------------------------   ----   ----   ------- ----- ------------
+BSEG                               0000   000D =     13. bits  (REL,CON,BIT)
+
+      Value  Global
+   --------  --------------------------------
+  0B:000B    __divuint_c_1_1
+  0B:000C    __divulong_c_1_1
+
+Hexadecimal
+
+Area                               Addr   Size   Decimal Bytes (Attributes)
+--------------------------------   ----   ----   ------- ----- ------------
+BSEG_BYTES                         0020   0002 =      2. bytes (REL,CON)
+
+Hexadecimal
+
+Area                               Addr   Size   Decimal Bytes (Attributes)
+--------------------------------   ----   ----   ------- ----- ------------
+DSEG                               0022   0008 =      8. bytes (REL,CON)
+
+      Value  Global
+   --------  --------------------------------
+     0028    _bpx
+
+Hexadecimal
+
+Area                               Addr   Size   Decimal Bytes (Attributes)
+--------------------------------   ----   ----   ------- ----- ------------
+OSEG                               002A   0000 =      0. bytes (REL,OVR)
+
+Hexadecimal
+
+Area                               Addr   Size   Decimal Bytes (Attributes)
+--------------------------------   ----   ----   ------- ----- ------------
+SSEG                               002A   0001 =      1. bytes (REL,CON)
+
+Hexadecimal
+
+Area                               Addr   Size   Decimal Bytes (Attributes)
+--------------------------------   ----   ----   ------- ----- ------------
+ISEG                               0080   0000 =      0. bytes (REL,CON)
+
+Hexadecimal
+
+Area                               Addr   Size   Decimal Bytes (Attributes)
+--------------------------------   ----   ----   ------- ----- ------------
+XSEG                               140000   059B =   1435. bytes (REL,CON,XDATA)
+
+      Value  Global
+   --------  --------------------------------
+  0D:140000    _main_buffer_1_1
+  0D:140419    _Serial0Init_PARM_2
+  0D:14041A    _romInit_PARM_2
+  0D:14041B    _installInterrupt_PARM_2
+  0D:14041C    _installInterrupt_isr_1_1
+  0D:140420    _i2c_writeblock_PARM_2
+  0D:140424    _i2c_writeblock_PARM_3
+  0D:140426    _i2c_readblock_PARM_2
+  0D:14042A    _i2c_readblock_PARM_3
+  0D:14042C    _i2c_readblock_sloc0_1_0
+  0D:140430    _i2c_writereadblock_PARM_2
+  0D:140434    _i2c_writereadblock_PARM_3
+  0D:140436    _i2c_writereadblock_PARM_4
+  0D:14043A    _i2c_writereadblock_PARM_5
+  0D:14043C    _i2c_writereadblock_sloc0_1_0
+  0D:140440    __gptrput_PARM_2
+  0D:140441    _init_rom_PARM_2
+  0D:14044B    _output_float_PARM_2
+  0D:14044C    _output_float_PARM_3
+  0D:14044D    _output_float_PARM_4
+  0D:14044E    _output_float_PARM_5
+  0D:14044F    _output_float_PARM_6
+  0D:140450    _output_float_PARM_7
+  0D:140451    _output_float_f_1_1
+  0D:140455    _output_float_negative_1_1
+  0D:140456    _output_float_integerPart_1_1
+  0D:14045A    _output_float_decimalPart_1_1
+  0D:14045E    _output_float_fpBuffer_1_1
+  0D:1404DE    _output_float_sloc1_1_0
+  0D:1404E2    _output_float_sloc2_1_0
+  0D:1404E6    _vsprintf_PARM_2
+  0D:1404EA    _vsprintf_PARM_3
+  0D:1404EE    _vprintf_PARM_2
+  0D:1404F2    __modsint_PARM_2
+  0D:1404F4    __moduint_PARM_2
+  0D:1404F6    __divsint_PARM_2
+  0D:1404F8    ___fssub_PARM_2
+  0D:1404FC    ___fssub_fl1_1_1
+  0D:140500    ___fssub_fl2_1_1
+  0D:140504    __divuint_PARM_2
+  0D:140506    __modulong_PARM_2
+  0D:14050A    __modulong_a_1_1
+  0D:14050E    ___fsmul_PARM_2
+  0D:140512    ___fsmul_fl1_1_1
+  0D:140516    ___fsmul_fl2_1_1
+  0D:14051A    ___fsmul_result_1_1
+  0D:14051E    ___fsmul_exp_1_1
+  0D:140520    ___fsmul_sign_1_1
+  0D:140521    __divulong_PARM_2
+  0D:140525    __divulong_reste_1_1
+  0D:140529    ___fs2ulong_fl1_1_1
+  0D:14052D    ___fs2ulong_exp_1_1
+  0D:14052F    ___fs2ulong_l_1_1
+  0D:140533    ___ulong2fs_a_1_1
+  0D:140537    ___ulong2fs_fl_1_1
+  0D:14053B    ___fsgt_PARM_2
+  0D:14053F    ___fsgt_fl1_1_1
+  0D:140543    ___fsgt_fl2_1_1
+  0D:140547    ___fslt_PARM_2
+  0D:14054B    ___fslt_fl1_1_1
+  0D:14054F    ___fslt_fl2_1_1
+  0D:140553    __mulint_PARM_2
+  0D:140555    ___fsdiv_PARM_2
+  0D:140559    ___fsdiv_fl1_1_1
+  0D:14055D    ___fsdiv_fl2_1_1
+  0D:140561    ___fsdiv_result_1_1
+  0D:140565    ___fsdiv_mask_1_1
+  0D:140569    ___fsdiv_mant1_1_1
+  0D:14056D    ___fsdiv_mant2_1_1
+  0D:140571    ___fsdiv_exp_1_1
+  0D:140573    __mullong_PARM_2
+  0D:140577    __mullong_a_1_1
+  0D:14057B    __mullong_t_1_1
+  0D:14057F    ___fsadd_PARM_2
+  0D:140583    ___fsadd_mant1_1_1
+  0D:140587    ___fsadd_mant2_1_1
+  0D:14058B    ___fsadd_fl1_1_1
+  0D:14058F    ___fsadd_fl2_1_1
+  0D:140593    ___fsadd_exp1_1_1
+  0D:140595    ___fsadd_exp2_1_1
+  0D:140597    ___fsadd_sign_1_1
+
+Hexadecimal
+
+Area                               Addr   Size   Decimal Bytes (Attributes)
+--------------------------------   ----   ----   ------- ----- ------------
+XISEG                              14059B   0005 =      5. bytes (REL,CON,XDATA)
+
+Hexadecimal
+
+Area                               Addr   Size   Decimal Bytes (Attributes)
+--------------------------------   ----   ----   ------- ----- ------------
+ROMSEG                             0068   0018 =     24. bytes (ABS,OVR)
+
+Hexadecimal
+
+Area                               Addr   Size   Decimal Bytes (Attributes)
+--------------------------------   ----   ----   ------- ----- ------------
+CSEG                               490000   3941 =  14657. bytes (REL,CON,CODE)
+
+      Value  Global
+   --------  --------------------------------
+  0C:490011    _main
+  0C:490134    __sdcc_external_startup
+  0C:490164    _Serial0Init
+  0C:49019A    _Serial0SwitchToBuffered
+  0C:4901B9    _Serial0IrqHandler
+  0C:490280    _Serial0CharArrived
+  0C:4902D5    _putchar
+  0C:4902F5    _getchar
+  0C:490366    _Serial0SendBreak
+  0C:490378    _Serial0Flush
+  0C:490399    _ClockInit
+  0C:49039A    _ClockTicks
+  0C:49039F    _ClockMilliSecondsDelay
+  0C:49042F    _romInit
+  0C:490554    _installInterrupt
+  0C:4905F9    _i2c_version
+  0C:4905FE    _i2c_waitforscl
+  0C:49062F    _i2c_start
+  0C:490644    _i2c_bit
+  0C:490671    _i2c_readbit
+  0C:4906A2    _i2c_stop
+  0C:4906C1    _i2c_readbyte
+  0C:49070C    _i2c_writebyte
+  0C:49074E    _i2c_select
+  0C:49075F    _i2c_writeblock
+  0C:4907F6    _i2c_readblock
+  0C:4908EE    _i2c_writereadblock
+  0C:490A84    __gptrput
+  0C:490AB5    __gptrputWord
+  0C:490AF6    __romcall
+  0C:490B37    __romredirect
+  0C:490B68    _init_rom
+  0C:490B85    _task_gettimemillis_long
+  0C:490B98    _task_getthreadID
+  0C:490BA5    _task_gettickreload
+  0C:490BAC    _task_settickreload
+  0C:490BB3    _printf
+  0C:490C21    _sprintf
+  0C:491553    _vsprintf
+  0C:491DB4    _vprintf
+  0C:491E02    __gptrget
+  0C:491E2E    __gptrgetWord
+  0C:491E6C    __modsint
+  0C:491EE1    __moduint
+  0C:491FA8    __divsint
+  0C:49201D    ___fssub
+  0C:492119    __divuint
+  0C:49218D    __modulong
+  0C:492370    ___fsmul
+  0C:492753    __divulong
+  0C:492897    _isdigit
+  0C:4928AC    ___fs2ulong
+  0C:4929BD    ___ulong2fs
+  0C:492B36    ___fsgt
+  0C:492C12    ___fslt
+  0C:492CEE    __mulint
+  0C:492D0F    ___fsdiv
+  0C:493187    __mullong
+  0C:493328    ___fsadd
+  0C:4938EE    __decdptr
+  0C:4938F6    _islower
+  0C:49390B    _strlen
+
+Hexadecimal
+
+Area                               Addr   Size   Decimal Bytes (Attributes)
+--------------------------------   ----   ----   ------- ----- ------------
+GSINIT                             493941   0039 =     57. bytes (REL,CON,CODE)
+
+Hexadecimal
+
+Area                               Addr   Size   Decimal Bytes (Attributes)
+--------------------------------   ----   ----   ------- ----- ------------
+GSFINAL                            49397A   0004 =      4. bytes (REL,CON,CODE)
+
+Hexadecimal
+
+Area                               Addr   Size   Decimal Bytes (Attributes)
+--------------------------------   ----   ----   ------- ----- ------------
+HOME                               49397E   0000 =      0. bytes (REL,CON,CODE)
+
+Hexadecimal
+
+Area                               Addr   Size   Decimal Bytes (Attributes)
+--------------------------------   ----   ----   ------- ----- ------------
+XINIT                              49397E   0005 =      5. bytes (REL,CON,CODE)
+ASxxxx Linker V01.70 + NoICE + SDCC Feb 1999,  page 1.
+
+Files Linked	  [ module(s) ]
+
+i2ctest.rel     
+
+Libraries Linked		       [   object  file   ]
+
+../tools/sdcc/bin/../share/sdcc/lib/ds400/libds400.lib    [     tinibios.rel ]
+./tini_i2c_lib/i2clib.lib           [         tini_i2c ]
+../tools/sdcc/bin/../share/sdcc/lib/ds400/libsdcc.lib    [         _gptrput ]
+../tools/sdcc/bin/../share/sdcc/lib/ds400/libds400.lib    [     ds400rom.rel ]
+../tools/sdcc/bin/../share/sdcc/lib/ds400/libsdcc.lib    [     printf_large ]
+../tools/sdcc/bin/../share/sdcc/lib/ds400/libsdcc.lib    [          vprintf ]
+../tools/sdcc/bin/../share/sdcc/lib/ds400/libsdcc.lib    [         _gptrget ]
+../tools/sdcc/bin/../share/sdcc/lib/ds400/libint.lib    [         _modsint ]
+../tools/sdcc/bin/../share/sdcc/lib/ds400/libint.lib    [         _moduint ]
+../tools/sdcc/bin/../share/sdcc/lib/ds400/libint.lib    [         _divsint ]
+../tools/sdcc/bin/../share/sdcc/lib/ds400/libfloat.lib    [           _fssub ]
+../tools/sdcc/bin/../share/sdcc/lib/ds400/libint.lib    [         _divuint ]
+../tools/sdcc/bin/../share/sdcc/lib/ds400/liblong.lib    [    _modulong.rel ]
+../tools/sdcc/bin/../share/sdcc/lib/ds400/libfloat.lib    [           _fsmul ]
+../tools/sdcc/bin/../share/sdcc/lib/ds400/liblong.lib    [    _divulong.rel ]
+../tools/sdcc/bin/../share/sdcc/lib/ds400/libsdcc.lib    [         _isdigit ]
+../tools/sdcc/bin/../share/sdcc/lib/ds400/libfloat.lib    [        _fs2ulong ]
+../tools/sdcc/bin/../share/sdcc/lib/ds400/libfloat.lib    [        _ulong2fs ]
+../tools/sdcc/bin/../share/sdcc/lib/ds400/libfloat.lib    [            _fsgt ]
+../tools/sdcc/bin/../share/sdcc/lib/ds400/libfloat.lib    [            _fslt ]
+../tools/sdcc/bin/../share/sdcc/lib/ds400/libint.lib    [          _mulint ]
+../tools/sdcc/bin/../share/sdcc/lib/ds400/libfloat.lib    [           _fsdiv ]
+../tools/sdcc/bin/../share/sdcc/lib/ds400/liblong.lib    [     _mullong.rel ]
+../tools/sdcc/bin/../share/sdcc/lib/ds400/libfloat.lib    [           _fsadd ]
+../tools/sdcc/bin/../share/sdcc/lib/ds400/libsdcc.lib    [         _decdptr ]
+../tools/sdcc/bin/../share/sdcc/lib/ds400/libsdcc.lib    [         _islower ]
+../tools/sdcc/bin/../share/sdcc/lib/ds400/libsdcc.lib    [              bpx ]
+../tools/sdcc/bin/../share/sdcc/lib/ds400/libsdcc.lib    [          _strlen ]
+
+ASxxxx Linker V01.70 + NoICE + SDCC Feb 1999,  page 2.
+
+User Base Address Definitions
+
+CSEG = 0x490000
+XSEG = 0x140000
+ISEG = 0x0080
+BSEG = 0x0000
+ROMSEG = 0x0068
+
+

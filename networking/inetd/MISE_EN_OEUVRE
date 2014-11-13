@@ -1,0 +1,14 @@
+#RP le 17/10/98
+#
+#règles pour utiliser inetd
+#
+
+il faut les droits root
+
+/etc/services
+
+/etc/inetd.conf
+
+modifier le daemon serverd en remplaçant la création de socket par le descripteur 0.
+
+réinitialiser inetd

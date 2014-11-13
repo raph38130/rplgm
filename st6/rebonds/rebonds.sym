@@ -1,0 +1,11 @@
+eti       :   EQU 00006H C
+psi       :   EQU 00003H C
+tmz       :   EQU 00007H C
+int1      :   EQU 00ff6H P
+handler   :   EQU 00427H P
+loop      :   EQU 0040fH P
+dout      :   EQU 00004H C
+tout      :   EQU 00005H C
+debut     :   EQU 00400H P
+reset     :   EQU 00ffeH P
+suite     :   EQU 0041aH P

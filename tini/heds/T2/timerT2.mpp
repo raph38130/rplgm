@@ -1,0 +1,41 @@
+$BEGIN_MODULE(timerT2)
+; DEFAULTING TO A390 MODE
+;* 
+;* ven jan 21 13:01:12 UTC 2005 RP
+;* - overflow flag needs to be cleared
+;* 
+;* 
+$include(tini_400.inc)
+$include(ds80c400.inc)
+$include(tinimacro.inc)
+$include(apiequ.inc)
+
+Native_Init:
+  clr a
+  ret
+
+Native_readT2:
+; TH2 TL2  
+  mov a,0CDh
+  mov 01h,a                            
+  mov a,0CCh            
+  mov 00h,a                
+  clr a
+  mov 03h,a           
+  mov 02h,a          
+  ret 
+
+Native_startCountT2:
+   mov a,#01h	;DCEN=1
+   mov 0C9h,a	
+   mov a,#06h	;C/T2=1 TR2=1
+   mov 0C8h,a	
+   mov a,#080h
+   mov 0CDh,a
+   clr a
+   mov 0CCh,a
+   ret
+                             
+ 
+$END_MODULE
+END

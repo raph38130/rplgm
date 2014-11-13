@@ -1,0 +1,417 @@
+Archive member included       because of file (symbol)
+
+/diskamovible/c68k/lib//lib68k.a(out.o)
+                              print.o (outstr)
+/diskamovible/c68k/lib//libnewlibc.a(bzero.o)
+                              print.o (bzero)
+/diskamovible/c68k/lib//libnewlibc.a(sprintf.o)
+                              print.o (sprintf)
+/diskamovible/c68k/lib//libnewlibc.a(strlen.o)
+                              print.o (strlen)
+/diskamovible/c68k/lib//libnewlibc.a(sscanf.o)
+                              print.o (sscanf)
+/diskamovible/c68k/lib//libnewlibc.a(errno.o)
+                              /diskamovible/c68k/lib/ensimag/mvme162lx.o (__errno)
+/diskamovible/c68k/lib//libnewlibc.a(vfprintf.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(sprintf.o) (vfprintf)
+/diskamovible/c68k/lib//libnewlibc.a(impure.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(sprintf.o) (_impure_ptr)
+/diskamovible/c68k/lib//libnewlibc.a(vfscanf.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(sscanf.o) (__svfscanf)
+/diskamovible/c68k/lib//libnewlibc.a(fvwrite.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(vfprintf.o) (__sfvwrite)
+/diskamovible/c68k/lib//libnewlibc.a(fflush.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(vfprintf.o) (fflush)
+/diskamovible/c68k/lib//libnewlibc.a(locale.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(vfprintf.o) (localeconv)
+/diskamovible/c68k/lib//libnewlibc.a(findfp.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(vfprintf.o) (__sinit)
+/diskamovible/c68k/lib//libnewlibc.a(wsetup.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(vfprintf.o) (__swsetup)
+/diskamovible/c68k/lib//libnewlibc.a(mbtowc.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(vfprintf.o) (mbtowc)
+/diskamovible/c68k/lib//libnewlibc.a(memchr.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(vfprintf.o) (memchr)
+/diskamovible/c68k/lib//libnewlibc.a(dtoa.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(vfprintf.o) (_dtoa_r)
+/diskamovible/c68k/lib//libnewlibc.a(ctype_.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(vfscanf.o) (_ctype_)
+/diskamovible/c68k/lib//libnewlibc.a(refill.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(vfscanf.o) (__srefill)
+/diskamovible/c68k/lib//libnewlibc.a(strtol.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(vfscanf.o) (strtol)
+/diskamovible/c68k/lib//libnewlibc.a(strtoul.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(vfscanf.o) (strtoul)
+/diskamovible/c68k/lib//libnewlibc.a(fread.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(vfscanf.o) (fread)
+/diskamovible/c68k/lib//libnewlibc.a(ungetc.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(vfscanf.o) (ungetc)
+/diskamovible/c68k/lib//libnewlibc.a(atof.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(vfscanf.o) (atof)
+/diskamovible/c68k/lib//libnewlibc.a(memmove.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(fvwrite.o) (memmove)
+/diskamovible/c68k/lib//libnewlibc.a(fwalk.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(fflush.o) (_fwalk)
+/diskamovible/c68k/lib//libnewlibc.a(strcmp.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(locale.o) (strcmp)
+/diskamovible/c68k/lib//libnewlibc.a(stdio.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(findfp.o) (__sread)
+/diskamovible/c68k/lib//libnewlibc.a(mallocr.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(findfp.o) (_malloc_r)
+/diskamovible/c68k/lib//libnewlibc.a(memset.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(findfp.o) (memset)
+/diskamovible/c68k/lib//libnewlibc.a(makebuf.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(wsetup.o) (__smakebuf)
+/diskamovible/c68k/lib//libnewlibc.a(mprec.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(dtoa.o) (_Balloc)
+/diskamovible/c68k/lib//libnewlibc.a(memcpy.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(dtoa.o) (memcpy)
+/diskamovible/c68k/lib//libnewlibc.a(strtod.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(atof.o) (strtod)
+/diskamovible/c68k/lib//libnewlibc.a(readr.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(stdio.o) (_read_r)
+/diskamovible/c68k/lib//libnewlibc.a(lseekr.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(stdio.o) (_lseek_r)
+/diskamovible/c68k/lib//libnewlibc.a(writer.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(stdio.o) (_write_r)
+/diskamovible/c68k/lib//libnewlibc.a(closer.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(stdio.o) (_close_r)
+/diskamovible/c68k/lib//libnewlibc.a(sbrkr.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(mallocr.o) (_sbrk_r)
+/diskamovible/c68k/lib//libnewlibc.a(fstatr.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(makebuf.o) (_fstat_r)
+/diskamovible/c68k/lib//libnewlibc.a(callocr.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(mprec.o) (_calloc_r)
+/diskamovible/c68k/lib//libm.a(s_sin.o)
+                              print.o (sin)
+/diskamovible/c68k/lib//libm.a(s_isinf.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(vfprintf.o) (isinf)
+/diskamovible/c68k/lib//libm.a(s_isnan.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(vfprintf.o) (isnan)
+/diskamovible/c68k/lib//libm.a(s_infconst.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(strtod.o) (__infinity)
+/diskamovible/c68k/lib//libm.a(k_sin.o)
+                              /diskamovible/c68k/lib//libm.a(s_sin.o) (__kernel_sin)
+/diskamovible/c68k/lib//libm.a(e_rem_pio2.o)
+                              /diskamovible/c68k/lib//libm.a(s_sin.o) (__ieee754_rem_pio2)
+/diskamovible/c68k/lib//libm.a(k_cos.o)
+                              /diskamovible/c68k/lib//libm.a(s_sin.o) (__kernel_cos)
+/diskamovible/c68k/lib//libm.a(s_fabs.o)
+                              /diskamovible/c68k/lib//libm.a(e_rem_pio2.o) (fabs)
+/diskamovible/c68k/lib//libm.a(k_rem_pio2.o)
+                              /diskamovible/c68k/lib//libm.a(e_rem_pio2.o) (__kernel_rem_pio2)
+/diskamovible/c68k/lib//libm.a(s_scalbn.o)
+                              /diskamovible/c68k/lib//libm.a(k_rem_pio2.o) (scalbn)
+/diskamovible/c68k/lib//libm.a(s_floor.o)
+                              /diskamovible/c68k/lib//libm.a(k_rem_pio2.o) (floor)
+/diskamovible/c68k/lib//libm.a(s_copysign.o)
+                              /diskamovible/c68k/lib//libm.a(s_scalbn.o) (copysign)
+/diskamovible/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(fpgnulib.o)
+                              print.o (__floatsidf)
+/diskamovible/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_double.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(dtoa.o) (__adddf3)
+/diskamovible/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(xfgnulib.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(vfscanf.o) (__extenddfxf2)
+/diskamovible/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_ltdf2.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(vfprintf.o) (__ltdf2)
+/diskamovible/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_eqdf2.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(vfprintf.o) (__eqdf2)
+/diskamovible/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_nedf2.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(vfprintf.o) (__nedf2)
+/diskamovible/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_gtdf2.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(dtoa.o) (__gtdf2)
+/diskamovible/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_ledf2.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(dtoa.o) (__ledf2)
+/diskamovible/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_gedf2.o)
+                              /diskamovible/c68k/lib//libnewlibc.a(strtod.o) (__gedf2)
+/diskamovible/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_floatex.o)
+                              /diskamovible/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_double.o) (_fpCCR)
+
+Allocating common symbols
+Common symbol       size              file
+
+errno               0x4               /diskamovible/c68k/lib//libnewlibc.a(sbrkr.o)
+vbr_table           0x400             /diskamovible/c68k/lib/ensimag/mvme162lx.o
+
+Memory Configuration
+
+Name             Origin             Length            
+ramsuper         0x00010000         0x00010000
+
+Linker script and memory map
+
+
+.text           0x00010000     0x92c8
+ *(.text)
+ .text          0x00010000       0x18 crt0.o
+                0x00010016                __main
+ .text          0x00010018      0x158 print.o
+                0x0001003c                main
+ .text          0x00010170      0x23c /diskamovible/c68k/lib/ensimag/mvme162lx.o
+                0x000101fc                print
+                0x0001036c                putDebugChar
+                0x00010198                getpid
+                0x000101a4                isatty
+                0x0001039c                havebyte
+                0x000101cc                lseek
+                0x00010308                write
+                0x0001017c                fstat
+                0x000101b0                kill
+                0x00010278                read
+                0x000102f0                unlink
+                0x0001036c                outbyte
+                0x000102bc                sbrk
+                0x00010228                putnum
+                0x00010358                getDebugChar
+                0x00010358                inbyte
+                0x000102d8                stat
+                0x00010350                _exit
+                0x000101e4                open
+                0x00010170                close
+ .text          0x000103ac       0x34 /diskamovible/c68k/lib//lib68k.a(out.o)
+                0x000103ac                outstr
+                0x000103c0                instr
+ .text          0x000103e0       0x1c /diskamovible/c68k/lib//libnewlibc.a(bzero.o)
+                0x000103e0                bzero
+ .text          0x000103fc       0x92 /diskamovible/c68k/lib//libnewlibc.a(sprintf.o)
+                0x000103fc                _sprintf_r
+                0x00010444                sprintf
+ *fill*         0x0001048e        0x2
+ .text          0x00010490       0x1c /diskamovible/c68k/lib//libnewlibc.a(strlen.o)
+                0x00010490                strlen
+ .text          0x000104ac       0x66 /diskamovible/c68k/lib//libnewlibc.a(sscanf.o)
+                0x000104b6                sscanf
+ *fill*         0x00010512        0x2
+ .text          0x00010514        0xe /diskamovible/c68k/lib//libnewlibc.a(errno.o)
+                0x00010514                __errno
+ *fill*         0x00010522        0x2
+ .text          0x00010524     0x1254 /diskamovible/c68k/lib//libnewlibc.a(vfprintf.o)
+                0x0001065c                _vfprintf_r
+                0x000105ec                vfprintf
+ .text          0x00011778      0xc94 /diskamovible/c68k/lib//libnewlibc.a(vfscanf.o)
+                0x0001179a                __svfscanf
+                0x00012372                __sccl
+ .text          0x0001240c      0x242 /diskamovible/c68k/lib//libnewlibc.a(fvwrite.o)
+                0x0001240c                __sfvwrite
+ *fill*         0x0001264e        0x2
+ .text          0x00012650       0xa4 /diskamovible/c68k/lib//libnewlibc.a(fflush.o)
+                0x00012650                fflush
+ .text          0x000126f4       0xc0 /diskamovible/c68k/lib//libnewlibc.a(locale.o)
+                0x0001272a                _setlocale_r
+                0x0001277a                _localeconv_r
+                0x00012788                setlocale
+                0x000127a2                localeconv
+ .text          0x000127b4      0x1e8 /diskamovible/c68k/lib//libnewlibc.a(findfp.o)
+                0x00012932                __sinit
+                0x00012808                __sfmoreglue
+                0x00012920                _cleanup
+                0x00012908                _cleanup_r
+                0x00012864                __sfp
+ .text          0x0001299c       0xc2 /diskamovible/c68k/lib//libnewlibc.a(wsetup.o)
+                0x0001299c                __swsetup
+ *fill*         0x00012a5e        0x2
+ .text          0x00012a60       0x34 /diskamovible/c68k/lib//libnewlibc.a(mbtowc.o)
+                0x00012a60                mbtowc
+ .text          0x00012a94       0x3a /diskamovible/c68k/lib//libnewlibc.a(memchr.o)
+                0x00012a94                memchr
+ *fill*         0x00012ace        0x2
+ .text          0x00012ad0     0x11ca /diskamovible/c68k/lib//libnewlibc.a(dtoa.o)
+                0x00012c80                _dtoa_r
+ *fill*         0x00013c9a        0x2
+ .text          0x00013c9c      0x102 /diskamovible/c68k/lib//libnewlibc.a(ctype_.o)
+                0x00013c9c                _ctype_
+ *fill*         0x00013d9e        0x2
+ .text          0x00013da0      0x12e /diskamovible/c68k/lib//libnewlibc.a(refill.o)
+                0x00013db2                __srefill
+ *fill*         0x00013ece        0x2
+ .text          0x00013ed0      0x142 /diskamovible/c68k/lib//libnewlibc.a(strtol.o)
+                0x00013ff4                strtol
+                0x00013ed0                _strtol_r
+ *fill*         0x00014012        0x2
+ .text          0x00014014      0x12c /diskamovible/c68k/lib//libnewlibc.a(strtoul.o)
+                0x00014122                strtoul
+                0x00014014                _strtoul_r
+ .text          0x00014140       0x84 /diskamovible/c68k/lib//libnewlibc.a(fread.o)
+                0x00014140                fread
+ .text          0x000141c4      0x1a4 /diskamovible/c68k/lib//libnewlibc.a(ungetc.o)
+                0x00014260                ungetc
+                0x000141c4                __submore
+ .text          0x00014368       0x14 /diskamovible/c68k/lib//libnewlibc.a(atof.o)
+                0x00014368                atof
+ .text          0x0001437c       0x4c /diskamovible/c68k/lib//libnewlibc.a(memmove.o)
+                0x0001437c                memmove
+ .text          0x000143c8       0x54 /diskamovible/c68k/lib//libnewlibc.a(fwalk.o)
+                0x000143c8                _fwalk
+ .text          0x0001441c       0x32 /diskamovible/c68k/lib//libnewlibc.a(strcmp.o)
+                0x0001441c                strcmp
+ *fill*         0x0001444e        0x2
+ .text          0x00014450       0xea /diskamovible/c68k/lib//libnewlibc.a(stdio.o)
+                0x000144dc                __sseek
+                0x00014450                __sread
+                0x0001451e                __sclose
+                0x0001448a                __swrite
+ *fill*         0x0001453a        0x2
+ .text          0x0001453c      0x1a6 /diskamovible/c68k/lib//libnewlibc.a(mallocr.o)
+                0x00014676                _realloc_r
+                0x0001463c                _free_r
+                0x000145da                _malloc_r
+ *fill*         0x000146e2        0x2
+ .text          0x000146e4       0x58 /diskamovible/c68k/lib//libnewlibc.a(memset.o)
+                0x000146e4                memset
+ .text          0x0001473c       0xf4 /diskamovible/c68k/lib//libnewlibc.a(makebuf.o)
+                0x0001473c                __smakebuf
+ .text          0x00014830      0xb3e /diskamovible/c68k/lib//libnewlibc.a(mprec.o)
+                0x0001531c                _mprec_log10
+                0x000152f4                __mprec_tinytens
+                0x00014a4c                _hi0bits
+                0x00014830                _Balloc
+                0x00015090                _d2b
+                0x00015182                _ratio
+                0x00014990                _s2b
+                0x00014b16                _i2b
+                0x00015204                __mprec_tens
+                0x00014aa6                _lo0bits
+                0x000152cc                __mprec_bigtens
+                0x00014df0                __mcmp
+                0x00014ca8                _pow5mult
+                0x00014b40                _mult
+                0x00014f42                _ulp
+                0x00014fbc                _b2d
+                0x000148e6                _multadd
+                0x00014e42                __mdiff
+                0x00014d48                _lshift
+                0x000148b4                _Bfree
+ *fill*         0x0001536e        0x2
+ .text          0x00015370       0x2a /diskamovible/c68k/lib//libnewlibc.a(memcpy.o)
+                0x00015370                memcpy
+ *fill*         0x0001539a        0x2
+ .text          0x0001539c      0xde8 /diskamovible/c68k/lib//libnewlibc.a(strtod.o)
+                0x0001539c                _strtod_r
+                0x00016166                strtodf
+                0x0001614c                strtod
+ .text          0x00016184       0x40 /diskamovible/c68k/lib//libnewlibc.a(readr.o)
+                0x00016184                _read_r
+ .text          0x000161c4       0x40 /diskamovible/c68k/lib//libnewlibc.a(lseekr.o)
+                0x000161c4                _lseek_r
+ .text          0x00016204       0x40 /diskamovible/c68k/lib//libnewlibc.a(writer.o)
+                0x00016204                _write_r
+ .text          0x00016244       0x38 /diskamovible/c68k/lib//libnewlibc.a(closer.o)
+                0x00016244                _close_r
+ .text          0x0001627c       0x38 /diskamovible/c68k/lib//libnewlibc.a(sbrkr.o)
+                0x0001627c                _sbrk_r
+ .text          0x000162b4       0x3c /diskamovible/c68k/lib//libnewlibc.a(fstatr.o)
+                0x000162b4                _fstat_r
+ .text          0x000162f0       0x42 /diskamovible/c68k/lib//libnewlibc.a(callocr.o)
+                0x000162f0                _calloc_r
+ *fill*         0x00016332        0x2
+ .text          0x00016334       0xf0 /diskamovible/c68k/lib//libm.a(s_sin.o)
+                0x00016334                sin
+ .text          0x00016424       0x4a /diskamovible/c68k/lib//libm.a(s_isinf.o)
+                0x00016424                isinf
+ *fill*         0x0001646e        0x2
+ .text          0x00016470       0x40 /diskamovible/c68k/lib//libm.a(s_isnan.o)
+                0x00016470                isnan
+ .text          0x000164b0        0x8 /diskamovible/c68k/lib//libm.a(s_infconst.o)
+                0x000164b0                __infinity
+ .text          0x000164b8      0x24e /diskamovible/c68k/lib//libm.a(k_sin.o)
+                0x000164f0                __kernel_sin
+ *fill*         0x00016706        0x2
+ .text          0x00016708      0x7ce /diskamovible/c68k/lib//libm.a(e_rem_pio2.o)
+                0x000168e0                __ieee754_rem_pio2
+ *fill*         0x00016ed6        0x2
+ .text          0x00016ed8      0x2c6 /diskamovible/c68k/lib//libm.a(k_cos.o)
+                0x00016f10                __kernel_cos
+ *fill*         0x0001719e        0x2
+ .text          0x000171a0       0x26 /diskamovible/c68k/lib//libm.a(s_fabs.o)
+                0x000171a0                fabs
+ *fill*         0x000171c6        0x2
+ .text          0x000171c8      0xaac /diskamovible/c68k/lib//libm.a(k_rem_pio2.o)
+                0x00017238                __kernel_rem_pio2
+ .text          0x00017c74      0x18c /diskamovible/c68k/lib//libm.a(s_scalbn.o)
+                0x00017c94                scalbn
+ .text          0x00017e00      0x184 /diskamovible/c68k/lib//libm.a(s_floor.o)
+                0x00017e08                floor
+ .text          0x00017f84       0x30 /diskamovible/c68k/lib//libm.a(s_copysign.o)
+                0x00017f84                copysign
+ .text          0x00017fb4      0x1ee /diskamovible/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(fpgnulib.o)
+                0x00018188                __fixsfsi
+                0x00017fb4                __floatsidf
+                0x0001804c                __extendsfdf2
+                0x00018110                __fixdfsi
+                0x00018032                __floatsisf
+                0x0001809e                __truncdfsf2
+ *fill*         0x000181a2        0x2
+ .text          0x000181a4      0x9c8 /diskamovible/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_double.o)
+                0x00018a42                __cmpdf2
+                0x00018222                __adddf3
+                0x000189e2                __negdf2
+                0x00018760                __divdf3
+                0x000185ac                __muldf3
+                0x0001821c                __subdf3
+ .text          0x00018b6c      0x630 /diskamovible/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(xfgnulib.o)
+                0x00019016                __nexf2
+                0x00019064                __ltxf2
+                0x00018f28                __negxf2
+                0x00018fc8                __eqxf2
+                0x000190b2                __lexf2
+                0x0001914e                __gexf2
+                0x00018b78                __extenddfxf2
+                0x00018d2a                __fixxfsi
+                0x00018bfa                __truncxfdf2
+                0x00018e3c                __mulxf3
+                0x00018ce8                __floatsixf
+                0x00018dc6                __subxf3
+                0x00018f7a                __cmpxf2
+                0x00018cc6                __truncxfsf2
+                0x00018eb2                __divxf3
+                0x00018c84                __extendsfxf2
+                0x00018d50                __addxf3
+                0x00019100                __gtxf2
+ .text          0x0001919c       0x1e /diskamovible/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_ltdf2.o)
+                0x0001919c                __ltdf2
+ *fill*         0x000191ba        0x2
+ .text          0x000191bc       0x1e /diskamovible/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_eqdf2.o)
+                0x000191bc                __eqdf2
+ *fill*         0x000191da        0x2
+ .text          0x000191dc       0x1e /diskamovible/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_nedf2.o)
+                0x000191dc                __nedf2
+ *fill*         0x000191fa        0x2
+ .text          0x000191fc       0x1e /diskamovible/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_gtdf2.o)
+                0x000191fc                __gtdf2
+ *fill*         0x0001921a        0x2
+ .text          0x0001921c       0x1e /diskamovible/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_ledf2.o)
+                0x0001921c                __ledf2
+ *fill*         0x0001923a        0x2
+ .text          0x0001923c       0x1e /diskamovible/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_gedf2.o)
+                0x0001923c                __gedf2
+ *fill*         0x0001925a        0x2
+ .text          0x0001925c       0x6c /diskamovible/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_floatex.o)
+                0x0001926a                $_exception_handler
+                0x0001925c                __clear_sticky_bit
+
+.data           0x000192c8      0x330
+ *(.data)
+ .data          0x000192c8        0x4 /diskamovible/c68k/lib/ensimag/mvme162lx.o
+ .data          0x000192cc       0x20 /diskamovible/c68k/lib//libnewlibc.a(vfprintf.o)
+ .data          0x000192ec      0x2ee /diskamovible/c68k/lib//libnewlibc.a(impure.o)
+                0x000195d6                _impure_ptr
+ *fill*         0x000195da        0x2
+ .data          0x000195dc       0x1c /diskamovible/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_floatex.o)
+                0x000195dc                _fpCCR
+
+.bss            0x00019600      0x404
+ *(.bss)
+ *(COMMON)
+ COMMON         0x00019600      0x400 /diskamovible/c68k/lib/ensimag/mvme162lx.o
+                0x00019600                vbr_table
+ COMMON         0x00019a00        0x4 /diskamovible/c68k/lib//libnewlibc.a(sbrkr.o)
+                0x00019a00                errno
+                0x00019a04                _end=.
+LOAD crt0.o
+LOAD print.o
+LOAD /diskamovible/c68k/lib/ensimag/mvme162lx.o
+LOAD /diskamovible/c68k/lib//lib68k.a
+LOAD /diskamovible/c68k/lib//libnewlibc.a
+LOAD /diskamovible/c68k/lib//libm.a
+LOAD /diskamovible/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a
+OUTPUT(/tftpboot/vmeboot binary)

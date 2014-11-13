@@ -1,0 +1,17 @@
+<!DOCTYPE project [
+  <!ENTITY commonTargets SYSTEM "/home/raph/jwsdp-1.1/docs/tutorial/examples/jaxrpc/common/targets.xml">
+]>
+
+<project name="Tango2 interface" default="build" basedir=".">
+
+  <property file="${user.home}/build.properties"/>
+  <property file="/home/raph/jwsdp-1.1/docs/tutorial/examples/jaxrpc/common/build.properties"/>
+  <property file="build.properties"/>
+
+  &commonTargets; <!-- The ant targets are in ../common/targets.xml -->
+
+  <target name="build" depends="build-service"
+     description="Executes the targets needed to build the service.">
+  </target>
+
+</project>

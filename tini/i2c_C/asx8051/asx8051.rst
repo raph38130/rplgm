@@ -1,0 +1,73 @@
+ASxxxx Assembler V01.70 + NoICE + SDCC mods + Flat24 Feb-1999  (Intel 8051), page 1.
+
+
+
+                              1 
+                              2 ;****************************************************************************
+                              3 
+                              4 ; Mon Feb 23 01:13:28 CET 2004 RP
+                              5 ;	- test asm with asx8051
+                              6 ;
+                              7 ; rm *hex *lst *rel *sym *map *ihx *hex *lnk *mem *rst
+                              8 ;
+                              9 ;../../tools/sdcc/bin/asx8051 -los asx8051.s
+                             10 ;../../tools/sdcc/bin/sdcc -mds400 --model-flat24 --stack-10bit -Wl-r --xram-loc 0x140000 --code-loc 0x490000 asx8051.rel
+                             11 ;../../tools/sdcc/bin/packihx asx8051.ihx > asx8051.hex
+                             12 ;
+                             13 ;
+                             14 ;
+                             15 ;****************************************************************************
+                             16 
+                             17 
+                             18 
+                             19 .flat24 on              ; 24 bit flat addressing
+                             20 
+                             21 ;****************************************************************************
+                             22 ;                               Main Program
+                             23 ;****************************************************************************
+                             24 	.area CSEG    (CODE)
+   0000 80 0D                25             sjmp Init
+   0002 54 49 4E 49 34 30    26             .ascii "TINI400"
+        30
+   0009 00                   27             .db 0
+   000A 31 2E 31 32          28             .ascii "1.12" ; this is optional with the -f switch
+   000E 00                   29             .db 0
+                             30 
+                             31 
+   000F                      32 Init: ; your init routine starts here
+                             33 
+   000F                      34 TestLoop:  
+                             35 
+   000F D2 91                36            SETB    P1.1
+   0011 12 49 00 1F          37 	   LCALL   BitDly
+   0015 C2 91                38 	   CLR	   P1.1
+   0017 12 49 00 1F          39 	   LCALL   BitDly
+   001B 02 49 00 0F          40            LJMP    TestLoop       ;Repeat operation for scope watchers.
+                             41 
+   001F 00                   42 BitDly:    NOP                    ;NOPs to delay 5 microseconds (minus 4 machine cycles for CALL and RET).
+   0020 00                   43 	   NOP			  
+   0021 00                   44 	   NOP			  
+   0022 00                   45 	   NOP			  
+   0023 00                   46 	   NOP			  
+   0024 00                   47 	   NOP			  
+   0025 00                   48 	   NOP			  
+   0026 00                   49 	   NOP			  
+   0027 22                   50            RET
+                             51 
+                             52 	.area SSEG	(DATA)
+                             53 	
+                             54 	.area XSEG	(XDATA)
+                             55 	
+ASxxxx Assembler V01.70 + NoICE + SDCC mods + Flat24 Feb-1999  (Intel 8051), page 2.
+
+
+
+                             56 	.area ISEG
+                             57 	
+                             58 	.area ROMSEG
+                             59 	
+                             60 	.area DSEG
+                             61 	
+                             62 	
+                             63 
+                             64 

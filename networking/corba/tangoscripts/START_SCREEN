@@ -1,0 +1,5 @@
+#!/bin/bash
+export INST_DIR=/mnt/b2/downloads/EPS2003
+#
+export CLASSPATH=${INST_DIR}/projet2003/TangORB.jar:${INST_DIR}/tango_esrf/DeviceServer/lgm2
+java   -DTANGO_HOST=localhost:30000 Screen.Screen 1 -v4

@@ -1,0 +1,410 @@
+Archive member included       because of file (symbol)
+
+/disk/c68k/lib//libnewlibc.a(printf.o)
+                              can_162.o (printf)
+/disk/c68k/lib//libnewlibc.a(sscanf.o)
+                              can_162.o (sscanf)
+/disk/c68k/lib//libnewlibc.a(errno.o)
+                              /disk/c68k/lib/ensimag/mvme162lx.o (__errno)
+/disk/c68k/lib//libnewlibc.a(vfprintf.o)
+                              /disk/c68k/lib//libnewlibc.a(printf.o) (vfprintf)
+/disk/c68k/lib//libnewlibc.a(impure.o)
+                              /disk/c68k/lib//libnewlibc.a(printf.o) (_impure_ptr)
+/disk/c68k/lib//libnewlibc.a(strlen.o)
+                              /disk/c68k/lib//libnewlibc.a(sscanf.o) (strlen)
+/disk/c68k/lib//libnewlibc.a(vfscanf.o)
+                              /disk/c68k/lib//libnewlibc.a(sscanf.o) (__svfscanf)
+/disk/c68k/lib//libnewlibc.a(fvwrite.o)
+                              /disk/c68k/lib//libnewlibc.a(vfprintf.o) (__sfvwrite)
+/disk/c68k/lib//libnewlibc.a(fflush.o)
+                              /disk/c68k/lib//libnewlibc.a(vfprintf.o) (fflush)
+/disk/c68k/lib//libnewlibc.a(locale.o)
+                              /disk/c68k/lib//libnewlibc.a(vfprintf.o) (localeconv)
+/disk/c68k/lib//libnewlibc.a(findfp.o)
+                              /disk/c68k/lib//libnewlibc.a(vfprintf.o) (__sinit)
+/disk/c68k/lib//libnewlibc.a(wsetup.o)
+                              /disk/c68k/lib//libnewlibc.a(vfprintf.o) (__swsetup)
+/disk/c68k/lib//libnewlibc.a(mbtowc.o)
+                              /disk/c68k/lib//libnewlibc.a(vfprintf.o) (mbtowc)
+/disk/c68k/lib//libnewlibc.a(memchr.o)
+                              /disk/c68k/lib//libnewlibc.a(vfprintf.o) (memchr)
+/disk/c68k/lib//libnewlibc.a(dtoa.o)
+                              /disk/c68k/lib//libnewlibc.a(vfprintf.o) (_dtoa_r)
+/disk/c68k/lib//libnewlibc.a(ctype_.o)
+                              /disk/c68k/lib//libnewlibc.a(vfscanf.o) (_ctype_)
+/disk/c68k/lib//libnewlibc.a(refill.o)
+                              /disk/c68k/lib//libnewlibc.a(vfscanf.o) (__srefill)
+/disk/c68k/lib//libnewlibc.a(strtol.o)
+                              /disk/c68k/lib//libnewlibc.a(vfscanf.o) (strtol)
+/disk/c68k/lib//libnewlibc.a(strtoul.o)
+                              /disk/c68k/lib//libnewlibc.a(vfscanf.o) (strtoul)
+/disk/c68k/lib//libnewlibc.a(fread.o)
+                              /disk/c68k/lib//libnewlibc.a(vfscanf.o) (fread)
+/disk/c68k/lib//libnewlibc.a(ungetc.o)
+                              /disk/c68k/lib//libnewlibc.a(vfscanf.o) (ungetc)
+/disk/c68k/lib//libnewlibc.a(atof.o)
+                              /disk/c68k/lib//libnewlibc.a(vfscanf.o) (atof)
+/disk/c68k/lib//libnewlibc.a(memmove.o)
+                              /disk/c68k/lib//libnewlibc.a(fvwrite.o) (memmove)
+/disk/c68k/lib//libnewlibc.a(fwalk.o)
+                              /disk/c68k/lib//libnewlibc.a(fflush.o) (_fwalk)
+/disk/c68k/lib//libnewlibc.a(strcmp.o)
+                              /disk/c68k/lib//libnewlibc.a(locale.o) (strcmp)
+/disk/c68k/lib//libnewlibc.a(stdio.o)
+                              /disk/c68k/lib//libnewlibc.a(findfp.o) (__sread)
+/disk/c68k/lib//libnewlibc.a(mallocr.o)
+                              /disk/c68k/lib//libnewlibc.a(findfp.o) (_malloc_r)
+/disk/c68k/lib//libnewlibc.a(memset.o)
+                              /disk/c68k/lib//libnewlibc.a(findfp.o) (memset)
+/disk/c68k/lib//libnewlibc.a(makebuf.o)
+                              /disk/c68k/lib//libnewlibc.a(wsetup.o) (__smakebuf)
+/disk/c68k/lib//libnewlibc.a(mprec.o)
+                              /disk/c68k/lib//libnewlibc.a(dtoa.o) (_Balloc)
+/disk/c68k/lib//libnewlibc.a(memcpy.o)
+                              /disk/c68k/lib//libnewlibc.a(dtoa.o) (memcpy)
+/disk/c68k/lib//libnewlibc.a(strtod.o)
+                              /disk/c68k/lib//libnewlibc.a(atof.o) (strtod)
+/disk/c68k/lib//libnewlibc.a(readr.o)
+                              /disk/c68k/lib//libnewlibc.a(stdio.o) (_read_r)
+/disk/c68k/lib//libnewlibc.a(lseekr.o)
+                              /disk/c68k/lib//libnewlibc.a(stdio.o) (_lseek_r)
+/disk/c68k/lib//libnewlibc.a(writer.o)
+                              /disk/c68k/lib//libnewlibc.a(stdio.o) (_write_r)
+/disk/c68k/lib//libnewlibc.a(closer.o)
+                              /disk/c68k/lib//libnewlibc.a(stdio.o) (_close_r)
+/disk/c68k/lib//libnewlibc.a(sbrkr.o)
+                              /disk/c68k/lib//libnewlibc.a(mallocr.o) (_sbrk_r)
+/disk/c68k/lib//libnewlibc.a(fstatr.o)
+                              /disk/c68k/lib//libnewlibc.a(makebuf.o) (_fstat_r)
+/disk/c68k/lib//libnewlibc.a(callocr.o)
+                              /disk/c68k/lib//libnewlibc.a(mprec.o) (_calloc_r)
+/disk/c68k/lib//libm.a(s_isinf.o)
+                              /disk/c68k/lib//libnewlibc.a(vfprintf.o) (isinf)
+/disk/c68k/lib//libm.a(s_isnan.o)
+                              /disk/c68k/lib//libnewlibc.a(vfprintf.o) (isnan)
+/disk/c68k/lib//libm.a(s_infconst.o)
+                              /disk/c68k/lib//libnewlibc.a(strtod.o) (__infinity)
+/disk/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(xfgnulib.o)
+                              /disk/c68k/lib//libnewlibc.a(vfscanf.o) (__extenddfxf2)
+/disk/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_ltdf2.o)
+                              /disk/c68k/lib//libnewlibc.a(vfprintf.o) (__ltdf2)
+/disk/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_eqdf2.o)
+                              /disk/c68k/lib//libnewlibc.a(vfprintf.o) (__eqdf2)
+/disk/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_nedf2.o)
+                              /disk/c68k/lib//libnewlibc.a(vfprintf.o) (__nedf2)
+/disk/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(fpgnulib.o)
+                              /disk/c68k/lib//libnewlibc.a(dtoa.o) (__floatsidf)
+/disk/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_double.o)
+                              /disk/c68k/lib//libnewlibc.a(dtoa.o) (__adddf3)
+/disk/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_gtdf2.o)
+                              /disk/c68k/lib//libnewlibc.a(dtoa.o) (__gtdf2)
+/disk/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_ledf2.o)
+                              /disk/c68k/lib//libnewlibc.a(dtoa.o) (__ledf2)
+/disk/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_gedf2.o)
+                              /disk/c68k/lib//libnewlibc.a(strtod.o) (__gedf2)
+/disk/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_floatex.o)
+                              /disk/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_double.o) (_fpCCR)
+
+Allocating common symbols
+Common symbol       size              file
+
+plw                 0x4               can_162.o
+errno               0x4               /disk/c68k/lib//libnewlibc.a(sbrkr.o)
+vbr_table           0x400             /disk/c68k/lib/ensimag/mvme162lx.o
+pb                  0x4               can_162.o
+pw                  0x4               can_162.o
+buffer              0x50              can_162.o
+msgobject           0xf0              can_162.o
+
+Memory Configuration
+
+Name             Origin             Length            
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+Address of section .text set to 0x10000
+LOAD crt0.o
+LOAD can_162.o
+LOAD /disk/c68k/lib/ensimag/mvme162lx.o
+LOAD /disk/c68k/lib//lib68k.a
+LOAD /disk/c68k/lib//libnewlibc.a
+LOAD /disk/c68k/lib//libm.a
+LOAD /disk/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a
+                0x00000000                PROVIDE (__stack, 0x0)
+
+.text           0x00010000     0x7894
+ *(.text)
+ .text          0x00010000       0x12 crt0.o
+                0x00010010                __main
+ *fill*         0x00010012        0x2
+ .text          0x00010014      0x39e can_162.o
+                0x0001008e                init
+                0x00010282                main
+                0x000101e4                ReadMsgObjetct
+                0x00010014                instr
+ *fill*         0x000103b2        0x2
+ .text          0x000103b4      0x23c /disk/c68k/lib/ensimag/mvme162lx.o
+                0x00010440                print
+                0x000105b0                putDebugChar
+                0x000103dc                getpid
+                0x000103e8                isatty
+                0x000105e0                havebyte
+                0x00010410                lseek
+                0x0001054c                write
+                0x000103c0                fstat
+                0x000103f4                kill
+                0x000104bc                read
+                0x00010534                unlink
+                0x000105b0                outbyte
+                0x00010500                sbrk
+                0x0001046c                putnum
+                0x0001059c                getDebugChar
+                0x0001059c                inbyte
+                0x0001051c                stat
+                0x00010594                _exit
+                0x00010428                open
+                0x000103b4                close
+ .text          0x000105f0       0x48 /disk/c68k/lib//libnewlibc.a(printf.o)
+                0x00010610                printf
+                0x000105f0                _printf_r
+ .text          0x00010638       0x66 /disk/c68k/lib//libnewlibc.a(sscanf.o)
+                0x00010642                sscanf
+ *fill*         0x0001069e        0x2
+ .text          0x000106a0        0xe /disk/c68k/lib//libnewlibc.a(errno.o)
+                0x000106a0                __errno
+ *fill*         0x000106ae        0x2
+ .text          0x000106b0     0x1254 /disk/c68k/lib//libnewlibc.a(vfprintf.o)
+                0x000107e8                _vfprintf_r
+                0x00010778                vfprintf
+ .text          0x00011904       0x1c /disk/c68k/lib//libnewlibc.a(strlen.o)
+                0x00011904                strlen
+ .text          0x00011920      0xc94 /disk/c68k/lib//libnewlibc.a(vfscanf.o)
+                0x00011942                __svfscanf
+                0x0001251a                __sccl
+ .text          0x000125b4      0x242 /disk/c68k/lib//libnewlibc.a(fvwrite.o)
+                0x000125b4                __sfvwrite
+ *fill*         0x000127f6        0x2
+ .text          0x000127f8       0xa4 /disk/c68k/lib//libnewlibc.a(fflush.o)
+                0x000127f8                fflush
+ .text          0x0001289c       0xc0 /disk/c68k/lib//libnewlibc.a(locale.o)
+                0x000128d2                _setlocale_r
+                0x00012922                _localeconv_r
+                0x00012930                setlocale
+                0x0001294a                localeconv
+ .text          0x0001295c      0x1e8 /disk/c68k/lib//libnewlibc.a(findfp.o)
+                0x00012ada                __sinit
+                0x000129b0                __sfmoreglue
+                0x00012ac8                _cleanup
+                0x00012ab0                _cleanup_r
+                0x00012a0c                __sfp
+ .text          0x00012b44       0xc2 /disk/c68k/lib//libnewlibc.a(wsetup.o)
+                0x00012b44                __swsetup
+ *fill*         0x00012c06        0x2
+ .text          0x00012c08       0x34 /disk/c68k/lib//libnewlibc.a(mbtowc.o)
+                0x00012c08                mbtowc
+ .text          0x00012c3c       0x3a /disk/c68k/lib//libnewlibc.a(memchr.o)
+                0x00012c3c                memchr
+ *fill*         0x00012c76        0x2
+ .text          0x00012c78     0x11ca /disk/c68k/lib//libnewlibc.a(dtoa.o)
+                0x00012e28                _dtoa_r
+ *fill*         0x00013e42        0x2
+ .text          0x00013e44      0x102 /disk/c68k/lib//libnewlibc.a(ctype_.o)
+                0x00013e44                _ctype_
+ *fill*         0x00013f46        0x2
+ .text          0x00013f48      0x12e /disk/c68k/lib//libnewlibc.a(refill.o)
+                0x00013f5a                __srefill
+ *fill*         0x00014076        0x2
+ .text          0x00014078      0x142 /disk/c68k/lib//libnewlibc.a(strtol.o)
+                0x0001419c                strtol
+                0x00014078                _strtol_r
+ *fill*         0x000141ba        0x2
+ .text          0x000141bc      0x12c /disk/c68k/lib//libnewlibc.a(strtoul.o)
+                0x000142ca                strtoul
+                0x000141bc                _strtoul_r
+ .text          0x000142e8       0x84 /disk/c68k/lib//libnewlibc.a(fread.o)
+                0x000142e8                fread
+ .text          0x0001436c      0x1a4 /disk/c68k/lib//libnewlibc.a(ungetc.o)
+                0x00014408                ungetc
+                0x0001436c                __submore
+ .text          0x00014510       0x14 /disk/c68k/lib//libnewlibc.a(atof.o)
+                0x00014510                atof
+ .text          0x00014524       0x4c /disk/c68k/lib//libnewlibc.a(memmove.o)
+                0x00014524                memmove
+ .text          0x00014570       0x54 /disk/c68k/lib//libnewlibc.a(fwalk.o)
+                0x00014570                _fwalk
+ .text          0x000145c4       0x32 /disk/c68k/lib//libnewlibc.a(strcmp.o)
+                0x000145c4                strcmp
+ *fill*         0x000145f6        0x2
+ .text          0x000145f8       0xea /disk/c68k/lib//libnewlibc.a(stdio.o)
+                0x00014684                __sseek
+                0x000145f8                __sread
+                0x000146c6                __sclose
+                0x00014632                __swrite
+ *fill*         0x000146e2        0x2
+ .text          0x000146e4      0x1a6 /disk/c68k/lib//libnewlibc.a(mallocr.o)
+                0x0001481e                _realloc_r
+                0x000147e4                _free_r
+                0x00014782                _malloc_r
+ *fill*         0x0001488a        0x2
+ .text          0x0001488c       0x58 /disk/c68k/lib//libnewlibc.a(memset.o)
+                0x0001488c                memset
+ .text          0x000148e4       0xf4 /disk/c68k/lib//libnewlibc.a(makebuf.o)
+                0x000148e4                __smakebuf
+ .text          0x000149d8      0xb3e /disk/c68k/lib//libnewlibc.a(mprec.o)
+                0x000154c4                _mprec_log10
+                0x0001549c                __mprec_tinytens
+                0x00014bf4                _hi0bits
+                0x000149d8                _Balloc
+                0x00015238                _d2b
+                0x0001532a                _ratio
+                0x00014b38                _s2b
+                0x00014cbe                _i2b
+                0x000153ac                __mprec_tens
+                0x00014c4e                _lo0bits
+                0x00015474                __mprec_bigtens
+                0x00014f98                __mcmp
+                0x00014e50                _pow5mult
+                0x00014ce8                _mult
+                0x000150ea                _ulp
+                0x00015164                _b2d
+                0x00014a8e                _multadd
+                0x00014fea                __mdiff
+                0x00014ef0                _lshift
+                0x00014a5c                _Bfree
+ *fill*         0x00015516        0x2
+ .text          0x00015518       0x2a /disk/c68k/lib//libnewlibc.a(memcpy.o)
+                0x00015518                memcpy
+ *fill*         0x00015542        0x2
+ .text          0x00015544      0xde8 /disk/c68k/lib//libnewlibc.a(strtod.o)
+                0x00015544                _strtod_r
+                0x0001630e                strtodf
+                0x000162f4                strtod
+ .text          0x0001632c       0x40 /disk/c68k/lib//libnewlibc.a(readr.o)
+                0x0001632c                _read_r
+ .text          0x0001636c       0x40 /disk/c68k/lib//libnewlibc.a(lseekr.o)
+                0x0001636c                _lseek_r
+ .text          0x000163ac       0x40 /disk/c68k/lib//libnewlibc.a(writer.o)
+                0x000163ac                _write_r
+ .text          0x000163ec       0x38 /disk/c68k/lib//libnewlibc.a(closer.o)
+                0x000163ec                _close_r
+ .text          0x00016424       0x38 /disk/c68k/lib//libnewlibc.a(sbrkr.o)
+                0x00016424                _sbrk_r
+ .text          0x0001645c       0x3c /disk/c68k/lib//libnewlibc.a(fstatr.o)
+                0x0001645c                _fstat_r
+ .text          0x00016498       0x42 /disk/c68k/lib//libnewlibc.a(callocr.o)
+                0x00016498                _calloc_r
+ *fill*         0x000164da        0x2
+ .text          0x000164dc       0x4a /disk/c68k/lib//libm.a(s_isinf.o)
+                0x000164dc                isinf
+ *fill*         0x00016526        0x2
+ .text          0x00016528       0x40 /disk/c68k/lib//libm.a(s_isnan.o)
+                0x00016528                isnan
+ .text          0x00016568        0x8 /disk/c68k/lib//libm.a(s_infconst.o)
+                0x00016568                __infinity
+ .text          0x00016570      0x630 /disk/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(xfgnulib.o)
+                0x00016a1a                __nexf2
+                0x00016a68                __ltxf2
+                0x0001692c                __negxf2
+                0x000169cc                __eqxf2
+                0x00016ab6                __lexf2
+                0x00016b52                __gexf2
+                0x0001657c                __extenddfxf2
+                0x0001672e                __fixxfsi
+                0x000165fe                __truncxfdf2
+                0x00016840                __mulxf3
+                0x000166ec                __floatsixf
+                0x000167ca                __subxf3
+                0x0001697e                __cmpxf2
+                0x000166ca                __truncxfsf2
+                0x000168b6                __divxf3
+                0x00016688                __extendsfxf2
+                0x00016754                __addxf3
+                0x00016b04                __gtxf2
+ .text          0x00016ba0       0x1e /disk/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_ltdf2.o)
+                0x00016ba0                __ltdf2
+ *fill*         0x00016bbe        0x2
+ .text          0x00016bc0       0x1e /disk/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_eqdf2.o)
+                0x00016bc0                __eqdf2
+ *fill*         0x00016bde        0x2
+ .text          0x00016be0       0x1e /disk/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_nedf2.o)
+                0x00016be0                __nedf2
+ *fill*         0x00016bfe        0x2
+ .text          0x00016c00      0x1ee /disk/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(fpgnulib.o)
+                0x00016dd4                __fixsfsi
+                0x00016c00                __floatsidf
+                0x00016c98                __extendsfdf2
+                0x00016d5c                __fixdfsi
+                0x00016c7e                __floatsisf
+                0x00016cea                __truncdfsf2
+ *fill*         0x00016dee        0x2
+ .text          0x00016df0      0x9c8 /disk/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_double.o)
+                0x0001768e                __cmpdf2
+                0x00016e6e                __adddf3
+                0x0001762e                __negdf2
+                0x000173ac                __divdf3
+                0x000171f8                __muldf3
+                0x00016e68                __subdf3
+ .text          0x000177b8       0x1e /disk/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_gtdf2.o)
+                0x000177b8                __gtdf2
+ *fill*         0x000177d6        0x2
+ .text          0x000177d8       0x1e /disk/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_ledf2.o)
+                0x000177d8                __ledf2
+ *fill*         0x000177f6        0x2
+ .text          0x000177f8       0x1e /disk/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_gedf2.o)
+                0x000177f8                __gedf2
+ *fill*         0x00017816        0x2
+ .text          0x00017818       0x6c /disk/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_floatex.o)
+                0x00017826                $_exception_handler
+                0x00017818                __clear_sticky_bit
+                0x00017884                etext=.
+                0x00017884                __CTOR_LIST__=.
+                0x00017884        0x4 LONG 0x0 (((__CTOR_END__-__CTOR_LIST__)/0x4)-0x2)
+ *(.ctors)
+                0x00017888        0x4 LONG 0x0
+                0x0001788c                __CTOR_END__=.
+                0x0001788c                __DTOR_LIST__=.
+                0x0001788c        0x4 LONG 0x0 (((__DTOR_END__-__DTOR_LIST__)/0x4)-0x2)
+ *(.dtors)
+                0x00017890        0x4 LONG 0x0
+                0x00017894                __DTOR_END__=.
+
+.data           0x00017894      0x3b4
+ *(.data)
+ .data          0x00017894       0x82 can_162.o
+                0x000178da                msgregs
+                0x000178cc                regnum
+                0x00017894                regs
+ *fill*         0x00017916        0x2
+ .data          0x00017918        0x4 /disk/c68k/lib/ensimag/mvme162lx.o
+ .data          0x0001791c       0x20 /disk/c68k/lib//libnewlibc.a(vfprintf.o)
+ .data          0x0001793c      0x2ee /disk/c68k/lib//libnewlibc.a(impure.o)
+                0x00017c26                _impure_ptr
+ *fill*         0x00017c2a        0x2
+ .data          0x00017c2c       0x1c /disk/c68k/lib/gcc-lib/m68k-coff/2.7.2.l.3/msoft-float/libgcc.a(_floatex.o)
+                0x00017c2c                _fpCCR
+                0x00017c48                edata=.
+
+.bss            0x00017c50      0x554
+                0x00017c50                __bss_start=.
+ *(.bss)
+ *(COMMON)
+ COMMON         0x00017c50      0x150 can_162.o
+                0x00017c50                plw
+                0x00017c54                pb
+                0x00017c58                pw
+                0x00017c60                buffer
+                0x00017cb0                msgobject
+ COMMON         0x00017da0      0x400 /disk/c68k/lib/ensimag/mvme162lx.o
+                0x00017da0                vbr_table
+ COMMON         0x000181a0        0x4 /disk/c68k/lib//libnewlibc.a(sbrkr.o)
+                0x000181a0                errno
+                0x000181a8                end=ALIGN(0x8)
+                0x000181a8                _end=ALIGN(0x8)
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+OUTPUT(/tftpboot/vmeboot binary)

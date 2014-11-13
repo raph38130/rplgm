@@ -1,0 +1,12 @@
+export CLASSPATH=../../projet2003/TangORB.jar
+/home/raph/jwsdp-1.1/jakarta-ant-1.5.1/bin/ant compile-server
+/home/raph/jwsdp-1.1/jakarta-ant-1.5.1/bin/ant setup-web-inf
+/home/raph/jwsdp-1.1/jakarta-ant-1.5.1/bin/ant package
+/home/raph/jwsdp-1.1/jakarta-ant-1.5.1/bin/ant process-war
+/home/raph/jwsdp-1.1/jakarta-ant-1.5.1/bin/ant undeploy
+/home/raph/jwsdp-1.1/jakarta-ant-1.5.1/bin/ant deploy
+
+/home/raph/jwsdp-1.1/jakarta-ant-1.5.1/bin/ant generate-stubs
+/home/raph/jwsdp-1.1/jakarta-ant-1.5.1/bin/ant compile-client
+/home/raph/jwsdp-1.1/jakarta-ant-1.5.1/bin/ant jar-client
+/home/raph/jwsdp-1.1/jakarta-ant-1.5.1/bin/ant run

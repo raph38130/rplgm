@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--TANGO XML REQUEST-->
+<tango_req>
+	<device>device name</device>
+	<device_server a='xx'>device server name</device_server>
+	<cmd>	command name
+			<arg_in>argument n1 </arg_in>
+			<arg_in>argument n2 </arg_in>
+	</cmd>
+	<date>date of request</date>
+</tango_req>
+

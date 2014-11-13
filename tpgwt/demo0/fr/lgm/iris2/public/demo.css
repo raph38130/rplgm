@@ -1,0 +1,18 @@
+.gwt-Button { 
+		font-size: 250%;
+		color: red;
+		border-width: 7px;		
+ };
+ 
+ .gwt-Button-On { 
+		
+		color: green;
+			
+ };
+ 
+
+ 
+ .gwt-TextArea { 
+		font-size: 350%;
+		color: red;
+ };

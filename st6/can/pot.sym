@@ -1,0 +1,7 @@
+eti       :   EQU 00006H C
+psi       :   EQU 00003H C
+tmz       :   EQU 00007H C
+conv      :   EQU 00416H P
+loop      :   EQU 00418H P
+dout      :   EQU 00004H C
+tout      :   EQU 00005H C

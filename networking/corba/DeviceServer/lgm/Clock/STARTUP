@@ -1,0 +1,3 @@
+export LD_LIBRARY_PATH=/home/raph/omniORB-4.0.0/build/lib/
+export TANGO_HOST=localhost:30000
+./Clock 1  -v4

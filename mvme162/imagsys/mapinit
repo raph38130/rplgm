@@ -1,0 +1,80 @@
+Archive member included       because of file (symbol)
+
+LINK/lib68k.a(func.o)         samples/Menu.o (open)
+LINK/lib68k.a(conversion.o)   samples/Menu.o (ntos)
+LINK/lib68k.a(writeln.o)      samples/Menu.o (writeln)
+LINK/lib68k.a(strcpy.s.o)     LINK/lib68k.a(conversion.o) (strcpy)
+LINK/lib68k.a(strlen.s.o)     LINK/lib68k.a(writeln.o) (strlen)
+LINK/lib68k.a(strcat.o)       LINK/lib68k.a(writeln.o) (strcat)
+
+Allocating common symbols
+Common symbol       size              file
+
+tdesc_ptp           0x320             samples/Menu.o
+
+Memory Configuration
+
+Name             Origin             Length            
+ramuser          0x80000000         0x00001000
+
+Linker script and memory map
+
+
+.text           0x80000000      0xa30
+ *(.text)
+ .text          0x80000000        0xc LINK/crt0user.o
+ .text          0x8000000c      0x51a samples/Menu.o
+                0x8000004e                check_mem
+                0x800001fe                start
+ *fill*         0x80000526        0x2
+ .text          0x80000528      0x250 LINK/lib68k.a(func.o)
+                0x8000067a                _getpid
+                0x80000590                ioctl
+                0x80000694                chprio
+                0x800005c4                sdelete
+                0x800006fc                malloc
+                0x800006e2                sleep
+                0x800006ae                suspend
+                0x80000576                write
+                0x80000612                kill
+                0x80000764                end
+                0x800005f8                wait
+                0x80000730                getfreemem
+                0x800005de                signal
+                0x8000055c                read
+                0x80000660                getprio
+                0x80000646                create
+                0x8000062c                resume
+                0x800005aa                screate
+                0x80000528                open
+                0x8000074a                load
+                0x800006c8                status
+                0x80000542                close
+                0x80000716                free
+ .text          0x80000778       0xe4 LINK/lib68k.a(conversion.o)
+                0x800007d4                n_htos
+                0x80000778                ntos
+                0x8000082e                ston
+ .text          0x8000085c       0x5a LINK/lib68k.a(writeln.o)
+                0x80000860                writeln
+ *fill*         0x800008b6        0x2
+ .text          0x800008b8       0x48 LINK/lib68k.a(strcpy.s.o)
+                0x800008b8                strcpy
+ .text          0x80000900       0xea LINK/lib68k.a(strlen.s.o)
+                0x80000900                strlen
+ *fill*         0x800009ea        0x2
+ .text          0x800009ec       0x44 LINK/lib68k.a(strcat.o)
+                0x800009ec                strcat
+
+.data           0x80000a30        0x0
+ *(.data)
+
+.bss            0x80000a30      0x320
+ *(.bss)
+ *(COMMON)
+ COMMON         0x80000a30      0x320 samples/Menu.o
+                0x80000a30                tdesc_ptp
+LOAD LINK/crt0user.o
+LOAD samples/Menu.o
+LOAD LINK/lib68k.a
+OUTPUT(/tftpboot/init binary)

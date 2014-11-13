@@ -1,0 +1,2 @@
+export CLASSPATH=.:../../../projet2003/TangORB.jar 
+java JClient

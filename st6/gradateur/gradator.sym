@@ -1,0 +1,11 @@
+eteind    :   EQU 0013dH P
+endart    :   EQU 00140H P
+allume    :   EQU 00138H P
+main      :   EQU 00125H P
+loop      :   EQU 00127H P
+plus      :   EQU 0014cH P
+endpb     :   EQU 00154H P
+pbhandle  :   EQU 00144H P
+debut     :   EQU 00100H P
+arthandl  :   EQU 00130H P
+moins     :   EQU 00151H P

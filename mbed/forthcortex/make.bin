@@ -1,0 +1,29 @@
+echo "preasm.tcl : converting riscy-lpc17xx.asm to riscy.s..."
+./preasm.tcl riscy-lpc17xx.asm riscy.s
+
+echo "arm-none-eabi-gcc/as/ld : compiling riscy.s with CMSIS startup files for mbed, generating riscy.elf..."
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb startup_LPC17xx.s c2forth.c system_LPC17xx.c core_cm3.c uart.c riscy.s -o riscy.elf -I . -T LPC17xx.ld -Wa,-ahls -Wl,-Map=map > riscy.lst
+
+echo "arm-none-eabi-objcopy/dump : generating riscy.bin riscy.lnkt..."
+arm-none-eabi-objcopy -O binary -j .text riscy.elf riscy.bin 
+arm-none-eabi-objdump -t riscy.elf > riscy.lnkt
+
+echo "riscy.tcl flashing : generating kernel.bin and kernel.dictionary with words in kernel.fth"
+./riscy.tcl -flash 1 -chip lpc17xx
+
+echo "copying riscy.bin to mbed flash memory (press reset on board then hit enter)"
+cp kernel.bin /media/MBED/
+
+read
+
+echo "riscy.tcl interactive mode (try demo or 100 blink)"
+./riscy.tcl -image kernel.dictionary -port /dev/ttyACM0
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,52 @@
+	.file	"move.c"
+	.version	"01.01"
+gcc2_compiled.:
+.text
+	.align 	2
+.globl memmove
+	.type	 memmove,@function
+memmove:
+	link.w %a6,#0
+	nop
+	.align 	2
+.L3:
+	move.l 8(%a6),%d0
+	cmp.l 12(%a6),%d0
+	jbcs .L5
+	jbra .L4
+	.align 	2
+.L5:
+	move.l 16(%a6),%d0
+	move.l %d0,%a0
+	move.l 8(%a6),%d0
+	move.l %d0,%a1
+	move.b (%a1),(%a0)
+	addq.l #1,8(%a6)
+	addq.l #1,16(%a6)
+	jbra .L3
+	.align 	2
+.L4:
+.L2:
+	unlk %a6
+	rts
+.Lfe1:
+	.size	 memmove,.Lfe1-memmove
+	.align 	2
+.globl main
+	.type	 main,@function
+main:
+	link.w %a6,#0
+	move.l #131072,-(%sp)
+	move.l #86096,-(%sp)
+	move.l #86016,-(%sp)
+	jbsr memmove
+	lea (12,%sp),%sp
+	clr.l %d0
+	jbra .L6
+	.align 	2
+.L6:
+	unlk %a6
+	rts
+.Lfe2:
+	.size	 main,.Lfe2-main
+	.ident	"GCC: (GNU) 2.95.4  (Debian prerelease)"

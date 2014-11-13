@@ -1,0 +1,259 @@
+
+Allocating common symbols
+Common symbol       size              file
+
+plw                 0x4               essai.o
+pb                  0x4               essai.o
+test                0x4               essai.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+Address of section .text set to 0x10000
+LOAD crt0.o
+LOAD essai.o
+                0x80000000                .=(0x80000000+SIZEOF_HEADERS)
+
+.interp
+ *(.interp)
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.init
+ *(.init)
+
+.plt
+ *(.plt)
+
+.text           0x00010000      0x1ca
+ *(.text)
+ .text          0x00010000       0x12 crt0.o
+                0x00010010                __main
+                0x00010000                _start
+ *fill*         0x00010012        0x2 20085
+ .text          0x00010014      0x1b6 essai.o
+                0x00010014                f
+                0x00010042                g
+                0x00010070                main
+ *(.stub)
+ *(.gnu.warning)
+ *(.gnu.linkonce.t*)
+                0x000101ca                _etext=.
+                0x000101ca                PROVIDE (etext, .)
+
+.fini
+ *(.fini)
+
+.rodata         0x000101ca        0xb
+ *(.rodata)
+ .rodata        0x000101ca        0xb essai.o
+ *(.gnu.linkonce.r*)
+
+.rodata1
+ *(.rodata1)
+                0x000121d5                .=(ALIGN(0x2000)+(.&0x1fff))
+
+.data           0x000121d8        0x0
+ *(.data)
+ *(.gnu.linkonce.d*)
+
+.data1
+ *(.data1)
+
+.ctors
+ *(.ctors)
+
+.dtors
+ *(.dtors)
+
+.got
+ *(.got.plt)
+ *(.got)
+
+.dynamic
+ *(.dynamic)
+
+.sdata
+ *(.sdata)
+                0x000121d8                _edata=.
+                0x000121d8                PROVIDE (edata, .)
+                0x000121d8                __bss_start=.
+
+.sbss
+ *(.sbss)
+ *(.scommon)
+
+.bss            0x000121d8        0xc
+ *(.dynbss)
+ *(.bss)
+ *(COMMON)
+ COMMON         0x000121d8        0xc essai.o
+                0x000121d8                plw
+                0x000121dc                pb
+                0x000121e0                test
+                0x000121e4                .=ALIGN(0x4)
+                0x000121e4                _end=.
+                0x000121e4                PROVIDE (end, .)
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment        0x00000000       0x12
+ *(.comment)
+ .comment       0x00000000       0x12 essai.o
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges
+ *(.debug_aranges)
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info
+ *(.debug_info)
+
+.debug_abbrev
+ *(.debug_abbrev)
+
+.debug_line
+ *(.debug_line)
+
+.debug_frame
+ *(.debug_frame)
+
+.debug_str
+ *(.debug_str)
+
+.debug_loc
+ *(.debug_loc)
+
+.debug_macinfo
+ *(.debug_macinfo)
+
+.debug_weaknames
+ *(.debug_weaknames)
+
+.debug_funcnames
+ *(.debug_funcnames)
+
+.debug_typenames
+ *(.debug_typenames)
+
+.debug_varnames
+ *(.debug_varnames)
+OUTPUT(bootfile srec)
+
+.note           0x00000012       0x14
+ .note          0x00000012       0x14 essai.o
